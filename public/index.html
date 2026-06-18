@@ -3410,9 +3410,13 @@ function applyFilters() {
         'anonymous': { 'zh-CN': '匿名用户', 'zh-TW': '匿名用戶', 'en': 'Anonymous', 'es': 'Anónimo', 'ko': '익명', 'ja': '匿名', 'nl': 'Anoniem' }
     };
 
-    // 获取当前语言
+    // 获取当前语言 - 从 active 的语言选项读取
     function getCurrentLang() {
-        return localStorage.getItem('selectedLang') || 'zh-CN';
+        const activeOption = document.querySelector('.language-option.active');
+        if (activeOption && activeOption.dataset.lang) {
+            return activeOption.dataset.lang;
+        }
+        return 'zh-CN';
     }
 
     // 获取翻译文本
@@ -3446,7 +3450,6 @@ function applyFilters() {
     // 重写switchLanguage函数
     const originalSwitchLanguage = window.switchLanguage;
     window.switchLanguage = function(lang) {
-        localStorage.setItem('selectedLang', lang);
         if (originalSwitchLanguage) {
             originalSwitchLanguage(lang);
         }
