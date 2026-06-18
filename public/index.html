@@ -3407,7 +3407,11 @@ function applyFilters() {
         'reply-success': { 'zh-CN': '回复成功！', 'zh-TW': '回覆成功！', 'en': 'Reply posted!', 'es': '¡Respuesta publicada!', 'ko': '답글이 게시되었습니다!', 'ja': '返信が投稿されました！', 'nl': 'Reactie geplaatst!' },
         'reply-placeholder': { 'zh-CN': '写下您的回复...', 'zh-TW': '寫下您的回覆...', 'en': 'Write your reply...', 'es': 'Escriba su respuesta...', 'ko': '답글을 작성하세요...', 'ja': '返信を書いてください...', 'nl': 'Schrijf uw reactie...' },
         'submit-reply': { 'zh-CN': '发送回复', 'zh-TW': '發送回覆', 'en': 'Send Reply', 'es': 'Enviar', 'ko': '답글 보내기', 'ja': '返信を送信', 'nl': 'Verstuur' },
-        'anonymous': { 'zh-CN': '匿名用户', 'zh-TW': '匿名用戶', 'en': 'Anonymous', 'es': 'Anónimo', 'ko': '익명', 'ja': '匿名', 'nl': 'Anoniem' }
+        'anonymous': { 'zh-CN': '匿名用户', 'zh-TW': '匿名用戶', 'en': 'Anonymous', 'es': 'Anónimo', 'ko': '익명', 'ja': '匿名', 'nl': 'Anoniem' },
+        'just-now': { 'zh-CN': '刚刚', 'zh-TW': '剛剛', 'en': 'Just now', 'es': 'Recién', 'ko': '방금', 'ja': 'たった今', 'nl': 'Zojuist' },
+        'minutes-ago': { 'zh-CN': '分钟前', 'zh-TW': '分鐘前', 'en': ' min ago', 'es': ' min atrás', 'ko': '분 전', 'ja': '分前', 'nl': ' min geleden' },
+        'hours-ago': { 'zh-CN': '小时前', 'zh-TW': '小時前', 'en': ' hours ago', 'es': ' horas atrás', 'ko': '시간 전', 'ja': '時間前', 'nl': ' uur geleden' },
+        'days-ago': { 'zh-CN': '天前', 'zh-TW': '天前', 'en': ' days ago', 'es': ' días atrás', 'ko': '일 전', 'ja': '日前', 'nl': ' dagen geleden' }
     };
 
     // 获取当前语言 - 从 active 的语言选项读取
@@ -3454,14 +3458,28 @@ function applyFilters() {
         });
     }
 
-    // 重写switchLanguage函数
-    const originalSwitchLanguage = window.switchLanguage;
-    window.switchLanguage = function(lang) {
-        if (originalSwitchLanguage) {
-            originalSwitchLanguage(lang);
-        }
-        updateAllText();
-    };
+    // 监听语言切换 - 使用 MutationObserver 监听 active 类变化
+    setTimeout(function() {
+        const langOptions = document.querySelectorAll('.language-option');
+        langOptions.forEach(function(option) {
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    // 当有选项变成 active 时触发
+                    if (mutation.target.classList.contains('active')) {
+                        // 延迟执行，确保语言切换完成
+                        setTimeout(function() {
+                            updateAllText();
+                            loadComments();
+                        }, 100);
+                    }
+                });
+            });
+            observer.observe(option, { attributes: true, attributeFilter: ['class'] });
+        });
+    }, 500);
+    
+    // 初始化文字
+    setTimeout(updateAllText, 200);
 
     // 拖动功能
     let isDragging = false;
@@ -3535,12 +3553,9 @@ function applyFilters() {
     submitBtn.addEventListener('click', submitComment);
 
     async function loadComments() {
-        const loadingEl = document.getElementById('loading-comments');
         const listEl = document.getElementById('comments-list');
-        // 重置加载状态
-        loadingEl.style.display = 'block';
-        loadingEl.textContent = getText('loading');
-        listEl.innerHTML = '<div class="loading" id="loading-comments">' + getText('loading') + '</div>';
+        // 显示加载状态
+        listEl.innerHTML = '<div class="loading">' + getText('loading') + '</div>';
         try {
             const { data: comments, error } = await db.from('comments').select('*').is('parent_id', null).order('created_at', { ascending: false });
             if (error) throw error;
@@ -3674,15 +3689,12 @@ function applyFilters() {
         const minutes = Math.floor(diff / 60000);
         const hours = Math.floor(diff / 3600000);
         const days = Math.floor(diff / 86400000);
-        if (minutes < 1) return '刚刚';
-        if (minutes < 60) return `${minutes}分钟前`;
-        if (hours < 24) return `${hours}小时前`;
-        if (days < 30) return `${days}天前`;
+        if (minutes < 1) return getText('just-now');
+        if (minutes < 60) return `${minutes}${getText('minutes-ago')}`;
+        if (hours < 24) return `${hours}${getText('hours-ago')}`;
+        if (days < 30) return `${days}${getText('days-ago')}`;
         return date.toLocaleDateString('zh-CN');
     }
-
-    // 初始化
-    updateAllText();
 })();
 </script>
 
