@@ -60,6 +60,11 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:
 .language-option:hover { background: var(--accent2); }
 .language-option.active { background: var(--accent); color: white; }
 .filter-section { padding: 1.5rem 2rem; background: var(--bg2); border-bottom: 1px solid var(--rule); }
+.filter-section .filter-header { cursor: pointer; }
+.filter-section .arrow { transition: transform 0.3s; }
+.filter-section.collapsed .arrow { transform: rotate(-90deg); }
+.filter-content { overflow: hidden; transition: max-height 0.3s ease-out; }
+.filter-section.collapsed .filter-content { max-height: 0; }
 .filter-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; }
 .filter-title { font-size: 1.1rem; color: var(--accent3); font-weight: 600; }
 .reset-btn { padding: 0.5rem 1.2rem; background: var(--bg2); border: 2px solid var(--accent); color: var(--accent3); cursor: pointer; border-radius: 20px; font-size: 0.85rem; font-weight: 600; transition: all 0.3s; }
@@ -234,17 +239,17 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:
 晚餐从20.30开始
 ***私人场所需要预定。</span><span data-lang="zh-TW">午餐從13.30開始
 晚餐從20.30開始
-***私人場所需要預定。</span><span data-lang="en">Lunch from 13.30 starts
+***私人场所需要預定。</span><span data-lang="en">Lunch from 13.30 starts
 Dinner from 20.30 starts
-***Private venue, reservation required.</span><span data-lang="es">Almuerzo desde 13.30 empieza
-Cena desde 20.30 empieza
-***Lugar privado, reserva requerida.</span><span data-lang="ko">런치부터 13.30 시작
-디너부터 20.30 시작
-***사설 장소, 예약 필요.</span><span data-lang="ja">ランチから13.30開始
+***Private venue, reservation required.</span><span data-lang="es">Almuerzodesde13.30empieza
+Cenadesde20.30empieza
+***私人场所需要Reserva requerida。</span><span data-lang="ko">런치부터13.30시작
+디너부터20.30시작
+***私人场所需要예약 필요。</span><span data-lang="ja">ランチから13.30開始
 ディナーから20.30開始
-***プライベートな場所、予約必要。</span><span data-lang="nl">Lunch van 13.30 begint
-Diner van 20.30 begint
-***Privé locatie, reservering vereist.</span></span></div>
+***私人场所需要予約必要。</span><span data-lang="nl">Lunchvan13.30begint
+Dinervan20.30begint
+***私人场所需要Reservering vereist。</span></span></div>
             <div class="meta-item"><span>📞</span><span>+39 (0) 3392048499</span></div>
             <div class="meta-item"><span>💳</span><span>Visa · Mastercard</span></div>
         </div>
@@ -270,11 +275,12 @@ Diner van 20.30 begint
 </div>
 
 
-<div class="filter-section">
-    <div class="filter-header">
-        <span class="filter-title"><span data-lang="zh-CN">筛选菜品</span><span data-lang="zh-TW">篩選菜品</span><span data-lang="en">Filter Dishes</span><span data-lang="es">Filtrar Platos</span><span data-lang="ko">메뉴 필터</span><span data-lang="ja">料理フィルター</span><span data-lang="nl">Filteren</span></span>
+<div class="filter-section collapsible">
+    <div class="filter-header" onclick="toggleFilterSection(this)">
+        <span class="filter-title"><span class="arrow">▼</span> <span data-lang="zh-CN">筛选菜品</span><span data-lang="zh-TW">篩選菜品</span><span data-lang="en">Filter Dishes</span><span data-lang="es">Filtrar Platos</span><span data-lang="ko">메뉴 필터</span><span data-lang="ja">料理フィルター</span><span data-lang="nl">Filteren</span></span>
         <button class="reset-btn" id="resetBtn"><span data-lang="zh-CN">重置筛选</span><span data-lang="zh-TW">重置篩選</span><span data-lang="en">Reset</span><span data-lang="es">Restablecer</span><span data-lang="ko">초기화</span><span data-lang="ja">リセット</span><span data-lang="nl">Reset</span></button>
     </div>
+    <div class="filter-content">
     <div class="filter-group">
         <span class="filter-label"><span data-lang="zh-CN">口味：</span><span data-lang="zh-TW">口味：</span><span data-lang="en">Taste:</span><span data-lang="es">Sabor:</span><span data-lang="ko">맛:</span><span data-lang="ja">味:</span><span data-lang="nl">Smaak:</span></span>
         <button class="filter-tag" data-filter="taste" data-value="咸鲜"><span data-lang="zh-CN">咸鲜</span><span data-lang="zh-TW">鹹鮮</span><span data-lang="en">Savory</span><span data-lang="es">Salado</span><span data-lang="ko">짠맛</span><span data-lang="ja">塩味</span><span data-lang="nl">Hartig</span></button>
@@ -300,6 +306,17 @@ Diner van 20.30 begint
         <span class="filter-label"><span data-lang="zh-CN">其他：</span><span data-lang="zh-TW">其他：</span><span data-lang="en">Other:</span><span data-lang="es">Otros:</span><span data-lang="ko">기타:</span><span data-lang="ja">その他:</span><span data-lang="nl">Overig:</span></span>
         <button class="filter-tag" data-filter="special" data-value="must_try"><span data-lang="zh-CN">⭐ 必吃推荐</span><span data-lang="zh-TW">⭐ 必吃推薦</span><span data-lang="en">⭐ Must-Try</span><span data-lang="es">⭐ Recomendado</span><span data-lang="ko">⭐ 필수 메뉴</span><span data-lang="ja">⭐ 必食</span><span data-lang="nl">⭐ Aanrader</span></button>
         <button class="filter-tag" data-filter="special" data-value="kid_friendly"><span data-lang="zh-CN">👶 适合儿童</span><span data-lang="zh-TW">👶 適合兒童</span><span data-lang="en">⭐ Kid-Friendly</span><span data-lang="es">⭐ Para niños</span><span data-lang="ko">⭐ 어린이용</span><span data-lang="ja">⭐ 子供向け</span><span data-lang="nl">⭐ Kindvriendelijk</span></button>
+    </div>
+    <div class="filter-group">
+        <span class="filter-label"><span data-lang="zh-CN">菜品类型：</span><span data-lang="zh-TW">菜品類型：</span><span data-lang="en">Type:</span><span data-lang="es">Tipo:</span><span data-lang="ko">종류:</span><span data-lang="ja">種類:</span><span data-lang="nl">Type:</span></span>
+        <button class="filter-tag" data-filter="category" data-value="starters"><span data-lang="zh-CN">🥗 前菜</span><span data-lang="zh-TW">🥗 前菜</span><span data-lang="en">🥗 Starters</span><span data-lang="es">🥗 Entrantes</span><span data-lang="ko">🥗 스터</span><span data-lang="ja">🥗 前菜</span><span data-lang="nl">🥗 Voorgerechten</span></button>
+        <button class="filter-tag" data-filter="category" data-value="bites"><span data-lang="zh-CN">🍢 小食</span><span data-lang="zh-TW">🍢 小食</span><span data-lang="en">🥢 Bites & Snacks</span><span data-lang="es">🥢 Bocados</span><span data-lang="ko">🥢 간식</span><span data-lang="ja">🥢 スナック</span><span data-lang="nl">🥢 Hapjes</span></button>
+        <button class="filter-tag" data-filter="category" data-value="mains"><span data-lang="zh-CN">🍽️ 主菜</span><span data-lang="zh-TW">🍽️ 主菜</span><span data-lang="en">🍽️ Main Courses</span><span data-lang="es">🍽️ Platos Principales</span><span data-lang="ko">🍽️ 메인</span><span data-lang="ja">🍽️ メイン</span><span data-lang="nl">🍽️ Hoofdgerechten</span></button>
+        <button class="filter-tag" data-filter="category" data-value="desserts"><span data-lang="zh-CN">🍰 甜点</span><span data-lang="zh-TW">🍰 甜點</span><span data-lang="en">🍰 Desserts</span><span data-lang="es">🍰 Postres</span><span data-lang="ko">🍰 디저트</span><span data-lang="ja">🍰 デザート</span><span data-lang="nl">🍰 Nagerechten</span></button>
+        <button class="filter-tag" data-filter="category" data-value="drinks"><span data-lang="zh-CN">🥤 饮料</span><span data-lang="zh-TW">🥤 飼料</span><span data-lang="en">🥤 Drinks</span><span data-lang="es">🥤 Bebidas</span><span data-lang="ko">🥤 음료</span><span data-lang="ja">🥤 ドリンク</span><span data-lang="nl">🥤 Dranken</span></button>
+        <button class="filter-tag" data-filter="category" data-value="alcohol"><span data-lang="zh-CN">🍷 酒水</span><span data-lang="zh-TW">🍷 酒水</span><span data-lang="en">🍷 Alcoholic Beverages</span><span data-lang="es">🍷 Bebidas Alcohólicas</span><span data-lang="ko">🍷 주류</span><span data-lang="ja">🍷 アルコール</span><span data-lang="nl">🍷 Alcoholische dranken</span></button>
+        <button class="filter-tag" data-filter="category" data-value="sauce"><span data-lang="zh-CN">🥫 酱汁</span><span data-lang="zh-TW">🥫 醬汁</span><span data-lang="en">🥫 Sauces & Curries</span><span data-lang="es">🥫 Salsas y Curris</span><span data-lang="ko">🥫 소스 & 커리</span><span data-lang="ja">🥫 ソース & カレー</span><span data-lang="nl">🥫 Sauzen & Curries</span></button>
+    </div>
     </div>
 </div>
 
@@ -2962,6 +2979,11 @@ Diner van 20.30 begint
     </div>
     <script>
 
+function toggleFilterSection(header) {
+    const section = header.parentElement;
+    section.classList.toggle('collapsed');
+}
+
 let currentLang = 'zh-CN';
 let currentRestaurant = '10';
 
@@ -3017,7 +3039,7 @@ switchLanguage('zh-CN');
 
 const filterTags = document.querySelectorAll('.filter-tag');
 const resetBtn = document.getElementById('resetBtn');
-let activeFilters = { taste: [], diet: [], allergen: [], special: [] }
+let activeFilters = { taste: [], diet: [], allergen: [], special: [], category: [] }
 
 filterTags.forEach(tag => {
     tag.addEventListener('click', function() {
@@ -3039,7 +3061,7 @@ resetBtn.addEventListener('click', resetFilters);
 
 function resetFilters() {
     filterTags.forEach(tag => tag.classList.remove('active'));
-    activeFilters = { taste: [], diet: [], allergen: [], special: [] };
+    activeFilters = { taste: [], diet: [], allergen: [], special: [], category: [] };
     document.querySelectorAll('.dish-card').forEach(card => card.classList.remove('hidden'));
     document.querySelectorAll('.no-results').forEach(n => n.style.display = 'none');
 }
@@ -3086,6 +3108,33 @@ function applyFilters() {
             });
         }
         
+        // Category filter - check dish-category text
+        if (activeFilters.category.length > 0 && show) {
+            const categoryEl = card.querySelector('.dish-category span[data-lang="en"]') || card.querySelector('.dish-category');
+            const categoryText = categoryEl ? categoryEl.textContent.toLowerCase() : '';
+            const nameEl = card.querySelector('.dish-name span[data-lang="en"]') || card.querySelector('.dish-name');
+            const dishName = nameEl ? nameEl.textContent.toLowerCase() : '';
+            let cardCategory = 'mains'; // default
+            
+            if (categoryText.includes('starter') || categoryText.includes('entrante') || categoryText.includes('前菜') || categoryText.includes('voorgerecht') || categoryText.includes('스타터') || categoryText.includes('开胃')) {
+                cardCategory = 'starters';
+            } else if (categoryText.includes('bite') || categoryText.includes('snack') || categoryText.includes('小食') || categoryText.includes('hapje') || categoryText.includes('간식')) {
+                cardCategory = 'bites';
+            } else if (categoryText.includes('dessert') || categoryText.includes('sweet') || categoryText.includes('甜点') || categoryText.includes('nagerecht') || categoryText.includes('디저트') || categoryText.includes('甜品')) {
+                cardCategory = 'desserts';
+            } else if (categoryText.includes('beer') || categoryText.includes('wine') || categoryText.includes('cervezas y vinos') || categoryText.includes('bieren wijnen') || categoryText.includes('啤酒红酒') || dishName.includes(' beer') || dishName.includes(' wine') || dishName.includes('ale ') || dishName.includes('cava') || dishName.includes('champagne') || dishName.includes('cocktail') || dishName.includes('mojito') || dishName.includes('whiskey') || dishName.includes(' gin ') || dishName.includes('vodka') || dishName.includes('rum') || dishName.includes('spirit') || dishName.includes('sangria') || dishName.includes('prosecco') || dishName.includes('pils') || dishName.includes('blond') || dishName.includes('dubbel') || dishName.includes('tripel') || dishName.includes('trappist') || dishName.includes('stout') || dishName.includes('porter')) {
+                cardCategory = 'alcohol';
+            } else if (dishName.includes('gravy (45ml)') || dishName.includes('肉汁 (45ml)') || dishName.includes('green curry (45ml)') || dishName.includes('绿咖喱 (45ml)') || dishName.includes('groene curry (45ml)')) {
+                cardCategory = 'sauce';
+            } else if (categoryText.includes('drink') || categoryText.includes('beverage') || categoryText.includes('饮料') || categoryText.includes('drank') || categoryText.includes('음료') || dishName.includes('lemonade') || dishName.includes('juice') || dishName.includes('coffee') || dishName.includes('tea') || dishName.includes('water') || dishName.includes('soda')) {
+                cardCategory = 'drinks';
+            }
+            
+            if (!activeFilters.category.includes(cardCategory)) {
+                show = false;
+            }
+        }
+        
         if (show) {
             card.classList.remove('hidden');
             visibleCount++;
@@ -3124,17 +3173,19 @@ function applyFilters() {
 </style>
 
 
-<!-- 评论系统样式 -->
+<!-- 订单系统和评论系统样式 -->
 <style>
+/* Feedback 悬浮球 */
 .feedback-float {
     position: fixed;
     right: 30px;
-    bottom: 30px;
+    bottom: 120px;
     width: 60px;
     height: 60px;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     border-radius: 50%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     cursor: grab;
@@ -3150,12 +3201,73 @@ function applyFilters() {
     box-shadow: 0 6px 30px rgba(102, 126, 234, 0.7);
 }
 .feedback-float svg {
-    width: 30px;
-    height: 30px;
+    width: 24px;
+    height: 24px;
     fill: white;
     pointer-events: none;
 }
-.feedback-panel {
+.feedback-float .float-text {
+    font-size: 10px;
+    color: white;
+    margin-top: 2px;
+    pointer-events: none;
+}
+
+/* Order 悬浮球 */
+.order-float {
+    position: fixed;
+    right: 30px;
+    bottom: 40px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+    box-shadow: 0 4px 20px rgba(245, 87, 108, 0.5);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    user-select: none;
+    touch-action: none;
+}
+.order-float:active { cursor: grabbing; }
+.order-float:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 30px rgba(245, 87, 108, 0.7);
+}
+.order-float svg {
+    width: 24px;
+    height: 24px;
+    fill: white;
+    pointer-events: none;
+}
+.order-float .float-text {
+    font-size: 10px;
+    color: white;
+    margin-top: 2px;
+    pointer-events: none;
+}
+.order-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #ff4757;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 面板样式 */
+.feedback-panel, .order-panel {
     position: fixed;
     right: -450px;
     top: 0;
@@ -3168,7 +3280,7 @@ function applyFilters() {
     display: flex;
     flex-direction: column;
 }
-.feedback-panel.active { right: 0; }
+.feedback-panel.active, .order-panel.active { right: 0; }
 .panel-header {
     padding: 20px;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -3176,6 +3288,9 @@ function applyFilters() {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+.order-panel .panel-header {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
 }
 .panel-header h2 { font-size: 20px; }
 .close-btn {
@@ -3192,6 +3307,8 @@ function applyFilters() {
     border-radius: 50%;
 }
 .close-btn:hover { background: rgba(255,255,255,0.2); }
+
+/* 评论表单 */
 .comment-form {
     padding: 20px;
     border-bottom: 1px solid #eee;
@@ -3228,6 +3345,8 @@ function applyFilters() {
     transform: translateY(-2px);
     box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
 }
+
+/* 评论列表 */
 .comments-list {
     flex: 1;
     overflow-y: auto;
@@ -3292,6 +3411,108 @@ function applyFilters() {
     padding: 12px;
     margin-bottom: 10px;
 }
+
+/* 订单面板 */
+.order-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+.order-item {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.order-item-info h4 { margin: 0 0 5px 0; font-size: 15px; }
+.order-item-info p { margin: 0; font-size: 13px; color: #666; }
+.order-item-price { font-weight: bold; color: #f5576c; margin-right: 15px; }
+.remove-item {
+    background: none;
+    border: none;
+    color: #ff4757;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 5px;
+}
+.order-empty {
+    text-align: center;
+    padding: 40px 20px;
+    color: #999;
+}
+.order-empty svg {
+    width: 60px;
+    height: 60px;
+    fill: #ddd;
+    margin-bottom: 15px;
+}
+.order-footer {
+    padding: 20px;
+    border-top: 1px solid #eee;
+    background: #fafafa;
+}
+.order-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+.order-total span:last-child { color: #f5576c; }
+.clear-order-btn {
+    width: 100%;
+    padding: 12px;
+    background: #ff4757;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+.clear-order-btn:hover { background: #ff3344; }
+.copy-order-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* Add to Order 按钮 */
+.add-order-btn {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 12px;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+}
+.dish-card:hover .add-order-btn {
+    opacity: 1;
+    transform: translateY(0);
+}
+.add-order-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
+}
+.add-order-btn.added {
+    background: #2ed573;
+}
+
 .overlay {
     position: fixed;
     top: 0;
@@ -3341,10 +3562,20 @@ function applyFilters() {
     <svg viewBox="0 0 24 24">
         <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/>
     </svg>
+    <span class="float-text" id="feedbackText">反馈</span>
+</div>
+
+<div class="order-float" id="orderFloat">
+    <svg viewBox="0 0 24 24">
+        <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+    </svg>
+    <span class="float-text" id="orderText">订单</span>
+    <span class="order-badge" id="orderBadge" style="display:none">0</span>
 </div>
 
 <!-- 遮罩层 -->
 <div class="overlay" id="feedbackOverlay"></div>
+<div class="overlay" id="orderOverlay"></div>
 
 <!-- 评论面板 -->
 <div class="feedback-panel" id="feedbackPanel">
@@ -3358,7 +3589,7 @@ function applyFilters() {
             <span data-lang="ja">💬 コメント</span>
             <span data-lang="nl">💬 Reacties</span>
         </h2>
-        <button class="close-btn" id="closeBtn">×</button>
+        <button class="close-btn" id="closeFeedbackBtn">×</button>
     </div>
     <div class="comment-form">
         <input type="text" id="author-name" maxlength="50">
@@ -3395,27 +3626,61 @@ function applyFilters() {
     </div>
 </div>
 
+<!-- 订单面板 -->
+<div class="order-panel" id="orderPanel">
+    <div class="panel-header">
+        <h2>
+            <span data-lang="zh-CN">🛒 我的订单</span>
+            <span data-lang="zh-TW">🛒 我的訂單</span>
+            <span data-lang="en">🛒 My Order</span>
+            <span data-lang="es">🛒 Mi Pedido</span>
+            <span data-lang="ko">🛒 내 주문</span>
+            <span data-lang="ja">🛒 注文リスト</span>
+            <span data-lang="nl">🛒 Mijn Bestelling</span>
+        </h2>
+        <button class="close-btn" id="closeOrderBtn">×</button>
+    </div>
+    <div class="order-list" id="orderList"></div>
+    <div class="order-footer">
+        <div class="order-total">
+            <span data-lang="zh-CN">总计</span>
+            <span data-lang="zh-TW">總計</span>
+            <span data-lang="en">Total</span>
+            <span data-lang="es">Total</span>
+            <span data-lang="ko">합계</span>
+            <span data-lang="ja">合計</span>
+            <span data-lang="nl">Totaal</span>
+            <span id="orderTotal">EUR 0,00</span>
+        </div>
+        <button class="clear-order-btn" id="clearOrderBtn">
+            <span data-lang="zh-CN">清空订单</span>
+            <span data-lang="zh-TW">清空訂單</span>
+            <span data-lang="en">Clear Order</span>
+            <span data-lang="es">Vaciar Pedido</span>
+            <span data-lang="ko">주문 비우기</span>
+            <span data-lang="ja">注文をクリア</span>
+            <span data-lang="nl">Bestelling Wissen</span>
+        </button>
+    </div>
+</div>
+
 <!-- 提示消息 -->
 <div class="toast" id="toast"></div>
 
 <!-- Supabase SDK -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<!-- 评论系统脚本 -->
+<!-- 订单和评论系统脚本 -->
 <script>
 (function() {
     const SUPABASE_URL = 'https://syfqaxgnuznglmrnsnit.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_-GNxZYY2Ev_PbEEbIBcByQ__9VhIxMf';
     const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    const feedbackFloat = document.getElementById('feedbackFloat');
-    const feedbackPanel = document.getElementById('feedbackPanel');
-    const feedbackOverlay = document.getElementById('feedbackOverlay');
-    const closeBtn = document.getElementById('closeBtn');
-    const submitBtn = document.getElementById('submitBtn');
-
-    // 翻译文本（用于动态内容）
+    // 翻译文本
     const translations = {
+        'feedback': { 'zh-CN': '反馈', 'zh-TW': '反饋', 'en': 'Feedback', 'es': 'Feedback', 'ko': '피드백', 'ja': 'フィードバック', 'nl': 'Feedback' },
+        'order': { 'zh-CN': '订单', 'zh-TW': '訂單', 'en': 'Order', 'es': 'Pedido', 'ko': '주문', 'ja': '注文', 'nl': 'Bestelling' },
         'select-restaurant': { 'zh-CN': '选择餐厅（可选）', 'zh-TW': '選擇餐廳（可選）', 'en': 'Select Restaurant (Optional)', 'es': 'Seleccionar Restaurante', 'ko': '레스토랑 선택', 'ja': 'レストランを選択', 'nl': 'Selecteer Restaurant' },
         'reply': { 'zh-CN': '💬 回复', 'zh-TW': '💬 回覆', 'en': '💬 Reply', 'es': '💬 Responder', 'ko': '💬 답글', 'ja': '💬 返信', 'nl': '💬 Reageren' },
         'no-comments': { 'zh-CN': '暂无评论，快来发表第一条评论吧！', 'zh-TW': '暫無評論，快來發表第一條評論吧！', 'en': 'No comments yet. Be the first to comment!', 'es': 'Sin comentarios. ¡Sé el primero en comentar!', 'ko': '아직 댓글이 없습니다. 첫 번째 댓글을 작성하세요!', 'ja': 'まだコメントはありません。最初のコメントを投稿してください！', 'nl': 'Nog geen reacties. Wees de eerste om te reageren!' },
@@ -3432,86 +3697,245 @@ function applyFilters() {
         'just-now': { 'zh-CN': '刚刚', 'zh-TW': '剛剛', 'en': 'Just now', 'es': 'Recién', 'ko': '방금', 'ja': 'たった今', 'nl': 'Zojuist' },
         'minutes-ago': { 'zh-CN': '分钟前', 'zh-TW': '分鐘前', 'en': ' min ago', 'es': ' min atrás', 'ko': '분 전', 'ja': '分前', 'nl': ' min geleden' },
         'hours-ago': { 'zh-CN': '小时前', 'zh-TW': '小時前', 'en': ' hours ago', 'es': ' horas atrás', 'ko': '시간 전', 'ja': '時間前', 'nl': ' uur geleden' },
-        'days-ago': { 'zh-CN': '天前', 'zh-TW': '天前', 'en': ' days ago', 'es': ' días atrás', 'ko': '일 전', 'ja': '日前', 'nl': ' dagen geleden' }
+        'days-ago': { 'zh-CN': '天前', 'zh-TW': '天前', 'en': ' days ago', 'es': ' días atrás', 'ko': '일 전', 'ja': '日前', 'nl': ' dagen geleden' },
+        'add-order': { 'zh-CN': '+ 加入订单', 'zh-TW': '+ 加入訂單', 'en': '+ Add to Order', 'es': '+ Añadir al Pedido', 'ko': '+ 주문 추가', 'ja': '+ 注文に追加', 'nl': '+ Toevoegen' },
+        'added': { 'zh-CN': '已添加 ✓', 'zh-TW': '已新增 ✓', 'en': 'Added ✓', 'es': 'Añadido ✓', 'ko': '추가됨 ✓', 'ja': '追加済み ✓', 'nl': 'Toegevoegd ✓' },
+        'order-empty': { 'zh-CN': '还没有添加任何菜品', 'zh-TW': '還沒有添加任何菜品', 'en': 'No items added yet', 'es': 'Sin artículos añadidos', 'ko': '추가된 항목이 없습니다', 'ja': 'まだアイテムがありません', 'nl': 'Nog geen items toegevoegd' },
+        'order-empty-tip': { 'zh-CN': '点击菜品卡片上的"加入订单"按钮开始', 'zh-TW': '點擊菜品卡片上的「加入訂單」按鈕開始', 'en': 'Click "Add to Order" on dishes to start', 'es': 'Haga clic en "Añadir" en los platos', 'ko': '요리에서 "주문 추가"를 클릭하세요', 'ja': '料理の「注文に追加」をクリック', 'nl': 'Klik op "Toevoegen" bij gerechten' },
+        'order-copied': { 'zh-CN': '订单已复制到剪贴板！', 'zh-TW': '訂單已複製到剪貼板！', 'en': 'Order copied to clipboard!', 'es': '¡Pedido copiado!', 'ko': '주문이 클립보드에 복사되었습니다!', 'ja': '注文がクリップボードにコピーされました！', 'nl': 'Bestelling gekopieerd!' },
+        'order-cleared': { 'zh-CN': '订单已清空', 'zh-TW': '訂單已清空', 'en': 'Order cleared', 'es': 'Pedido vaciado', 'ko': '주문이 비워졌습니다', 'ja': '注文をクリアしました', 'nl': 'Bestelling gewist' }
     };
 
-    // 获取当前语言
     function getCurrentLang() {
         const activeOption = document.querySelector('.language-option.active');
         return activeOption ? activeOption.dataset.lang : 'zh-CN';
     }
 
-    // 获取翻译文本
     function getText(key) {
         return translations[key]?.[getCurrentLang()] || translations[key]?.['en'] || key;
     }
 
-    // 更新占位符（这些不能用 data-lang）
+    function updateFloatText() {
+        document.getElementById('feedbackText').textContent = getText('feedback');
+        document.getElementById('orderText').textContent = getText('order');
+    }
+
     function updatePlaceholders() {
         document.getElementById('author-name').placeholder = getText('name-placeholder');
         document.getElementById('comment-content').placeholder = getText('comment-placeholder');
         document.getElementById('select-restaurant-option').text = getText('select-restaurant');
+        updateOrderButtons();
     }
+
+    function updateOrderButtons() {
+        document.querySelectorAll('.add-order-btn').forEach(btn => {
+            const dishId = btn.dataset.dishId;
+            const isInOrder = orderItems.some(item => item.id === dishId);
+            if (isInOrder) {
+                btn.textContent = getText('added');
+                btn.classList.add('added');
+            } else {
+                btn.textContent = getText('add-order');
+                btn.classList.remove('added');
+            }
+        });
+    }
+
+    // ============ 订单系统 ============
+    let orderItems = JSON.parse(localStorage.getItem('menuOrder') || '[]');
+
+    function saveOrder() {
+        localStorage.setItem('menuOrder', JSON.stringify(orderItems));
+        updateOrderBadge();
+        updateOrderButtons();
+    }
+
+    function updateOrderBadge() {
+        const badge = document.getElementById('orderBadge');
+        if (orderItems.length > 0) {
+            badge.textContent = orderItems.length;
+            badge.style.display = 'flex';
+        } else {
+            badge.style.display = 'none';
+        }
+    }
+
+    function addToOrder(dishId, dishName, dishPrice, dishCategory) {
+        if (!orderItems.some(item => item.id === dishId)) {
+            orderItems.push({ id: dishId, name: dishName, price: dishPrice, category: dishCategory });
+            saveOrder();
+            showToast(getText('added'));
+        }
+    }
+
+    function removeFromOrder(dishId) {
+        orderItems = orderItems.filter(item => item.id !== dishId);
+        saveOrder();
+        renderOrderList();
+    }
+
+    function clearOrder() {
+        orderItems = [];
+        saveOrder();
+        renderOrderList();
+        showToast(getText('order-cleared'));
+    }
+
+    function renderOrderList() {
+        const listEl = document.getElementById('orderList');
+        
+        if (orderItems.length === 0) {
+            listEl.innerHTML = `
+                <div class="order-empty">
+                    <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                    <p>${getText('order-empty')}</p>
+                    <p style="font-size:12px;margin-top:10px">${getText('order-empty-tip')}</p>
+                </div>
+            `;
+            document.getElementById('orderTotal').textContent = 'EUR 0,00';
+            return;
+        }
+
+        listEl.innerHTML = orderItems.map(item => `
+            <div class="order-item">
+                <div class="order-item-info">
+                    <h4>${item.name}</h4>
+                    <p>${item.category}</p>
+                </div>
+                <span class="order-item-price">${item.price}</span>
+                <button class="remove-item" onclick="window.removeOrderItem('${item.id}')">×</button>
+            </div>
+        `).join('');
+
+        // 计算总价
+        let total = 0;
+        orderItems.forEach(item => {
+            const priceMatch = item.price.match(/[\d.,]+/);
+            if (priceMatch) {
+                total += parseFloat(priceMatch[0].replace(',', '.'));
+            }
+        });
+        document.getElementById('orderTotal').textContent = `EUR ${total.toFixed(2).replace('.', ',')}`;
+    }
+
+    // 全局函数供 onclick 调用
+    window.removeOrderItem = removeFromOrder;
+
+    // 为每个菜品卡片添加"加入订单"按钮
+    function addOrderButtons() {
+        document.querySelectorAll('.dish-card').forEach((card, index) => {
+            const dishId = 'dish-' + index;
+            const nameEl = card.querySelector('.dish-name span[data-lang="en"]') || card.querySelector('.dish-name');
+            const priceEl = card.querySelector('.dish-price');
+            const categoryEl = card.querySelector('.dish-category span[data-lang="en"]') || card.querySelector('.dish-category');
+            
+            if (nameEl && priceEl) {
+                const dishName = nameEl.textContent.trim();
+                const dishPrice = priceEl.textContent.trim();
+                const dishCategory = categoryEl ? categoryEl.textContent.trim() : 'mains';
+                
+                // 确定分类
+                let category = 'mains';
+                const catLower = dishCategory.toLowerCase();
+                if (catLower.includes('starter') || catLower.includes('entrante') || catLower.includes('前菜') || catLower.includes('voorgerecht') || catLower.includes('스타터')) {
+                    category = 'starters';
+                } else if (catLower.includes('bite') || catLower.includes('snack') || catLower.includes('小食') || catLower.includes('hapje') || catLower.includes('간식')) {
+                    category = 'bites';
+                } else if (catLower.includes('dessert') || catLower.includes('sweet') || catLower.includes('甜点') || catLower.includes('nagerecht') || catLower.includes('디저트')) {
+                    category = 'desserts';
+                } else if (catLower.includes('drink') || catLower.includes('beverage') || catLower.includes('饮料') || catLower.includes('drank') || catLower.includes('음료')) {
+                    category = 'drinks';
+                }
+
+                const btn = document.createElement('button');
+                btn.className = 'add-order-btn';
+                btn.dataset.dishId = dishId;
+                btn.textContent = getText('add-order');
+                btn.onclick = () => addToOrder(dishId, dishName, dishPrice, category);
+                card.style.position = 'relative';
+                card.appendChild(btn);
+            }
+        });
+        updateOrderButtons();
+    }
+
+    // ============ 评论系统 ============
+    const feedbackFloat = document.getElementById('feedbackFloat');
+    const feedbackPanel = document.getElementById('feedbackPanel');
+    const feedbackOverlay = document.getElementById('feedbackOverlay');
+    const closeFeedbackBtn = document.getElementById('closeFeedbackBtn');
+    const submitBtn = document.getElementById('submitBtn');
+
+    const orderFloat = document.getElementById('orderFloat');
+    const orderPanel = document.getElementById('orderPanel');
+    const orderOverlay = document.getElementById('orderOverlay');
+    const closeOrderBtn = document.getElementById('closeOrderBtn');
+    const clearOrderBtn = document.getElementById('clearOrderBtn');
 
     // 拖动功能
-    let isDragging = false;
-    let isMoved = false;
-    let startX, startY, initialX, initialY;
+    function setupDrag(element, onToggle) {
+        let isDragging = false;
+        let isMoved = false;
+        let startX, startY, initialX, initialY;
 
-    feedbackFloat.addEventListener('mousedown', startDrag);
-    feedbackFloat.addEventListener('touchstart', startDrag, { passive: false });
-    document.addEventListener('mousemove', drag);
-    document.addEventListener('touchmove', drag, { passive: false });
-    document.addEventListener('mouseup', endDrag);
-    document.addEventListener('touchend', endDrag);
+        element.addEventListener('mousedown', startDrag);
+        element.addEventListener('touchstart', startDrag, { passive: false });
+        document.addEventListener('mousemove', drag);
+        document.addEventListener('touchmove', drag, { passive: false });
+        document.addEventListener('mouseup', endDrag);
+        document.addEventListener('touchend', endDrag);
 
-    function startDrag(e) {
-        isDragging = true;
-        isMoved = false;
-        const rect = feedbackFloat.getBoundingClientRect();
-        initialX = rect.left;
-        initialY = rect.top;
-        if (e.type === 'touchstart') {
-            startX = e.touches[0].clientX;
-            startY = e.touches[0].clientY;
-        } else {
-            startX = e.clientX;
-            startY = e.clientY;
+        function startDrag(e) {
+            isDragging = true;
+            isMoved = false;
+            const rect = element.getBoundingClientRect();
+            initialX = rect.left;
+            initialY = rect.top;
+            if (e.type === 'touchstart') {
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+            } else {
+                startX = e.clientX;
+                startY = e.clientY;
+            }
+            element.style.cursor = 'grabbing';
         }
-        feedbackFloat.style.cursor = 'grabbing';
+
+        function drag(e) {
+            if (!isDragging) return;
+            e.preventDefault();
+            let currentX, currentY;
+            if (e.type === 'touchmove') {
+                currentX = e.touches[0].clientX;
+                currentY = e.touches[0].clientY;
+            } else {
+                currentX = e.clientX;
+                currentY = e.clientY;
+            }
+            const deltaX = currentX - startX;
+            const deltaY = currentY - startY;
+            if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) isMoved = true;
+            const newX = Math.max(0, Math.min(window.innerWidth - 60, initialX + deltaX));
+            const newY = Math.max(0, Math.min(window.innerHeight - 60, initialY + deltaY));
+            element.style.left = newX + 'px';
+            element.style.top = newY + 'px';
+            element.style.right = 'auto';
+            element.style.bottom = 'auto';
+        }
+
+        function endDrag() {
+            if (isDragging) {
+                isDragging = false;
+                element.style.cursor = 'grab';
+                if (!isMoved && onToggle) onToggle();
+            }
+        }
     }
 
-    function drag(e) {
-        if (!isDragging) return;
-        e.preventDefault();
-        let currentX, currentY;
-        if (e.type === 'touchmove') {
-            currentX = e.touches[0].clientX;
-            currentY = e.touches[0].clientY;
-        } else {
-            currentX = e.clientX;
-            currentY = e.clientY;
-        }
-        const deltaX = currentX - startX;
-        const deltaY = currentY - startY;
-        if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) isMoved = true;
-        const newX = Math.max(0, Math.min(window.innerWidth - 60, initialX + deltaX));
-        const newY = Math.max(0, Math.min(window.innerHeight - 60, initialY + deltaY));
-        feedbackFloat.style.left = newX + 'px';
-        feedbackFloat.style.top = newY + 'px';
-        feedbackFloat.style.right = 'auto';
-        feedbackFloat.style.bottom = 'auto';
-    }
+    setupDrag(feedbackFloat, toggleFeedbackPanel);
+    setupDrag(orderFloat, toggleOrderPanel);
 
-    function endDrag() {
-        if (isDragging) {
-            isDragging = false;
-            feedbackFloat.style.cursor = 'grab';
-            if (!isMoved) togglePanel();
-        }
-    }
-
-    function togglePanel() {
+    function toggleFeedbackPanel() {
         feedbackPanel.classList.toggle('active');
         feedbackOverlay.classList.toggle('active');
         if (feedbackPanel.classList.contains('active')) {
@@ -3520,9 +3944,21 @@ function applyFilters() {
         }
     }
 
-    feedbackOverlay.addEventListener('click', togglePanel);
-    closeBtn.addEventListener('click', togglePanel);
+    function toggleOrderPanel() {
+        orderPanel.classList.toggle('active');
+        orderOverlay.classList.toggle('active');
+        if (orderPanel.classList.contains('active')) {
+            renderOrderList();
+        }
+    }
+
+    feedbackOverlay.addEventListener('click', toggleFeedbackPanel);
+    closeFeedbackBtn.addEventListener('click', toggleFeedbackPanel);
     submitBtn.addEventListener('click', submitComment);
+
+    orderOverlay.addEventListener('click', toggleOrderPanel);
+    closeOrderBtn.addEventListener('click', toggleOrderPanel);
+    clearOrderBtn.addEventListener('click', clearOrder);
 
     async function loadComments() {
         const listEl = document.getElementById('comments-list');
@@ -3535,7 +3971,6 @@ function applyFilters() {
             '<span data-lang="ja">コメントを読み込んでいます...</span>' +
             '<span data-lang="nl">Reacties laden...</span>' +
             '</div>';
-        // 触发语言切换
         const currentLang = getCurrentLang();
         if (typeof switchLanguage === 'function') {
             switchLanguage(currentLang);
@@ -3686,8 +4121,37 @@ function applyFilters() {
         return date.toLocaleDateString('zh-CN');
     }
 
-    // 初始化占位符
-    setTimeout(updatePlaceholders, 200);
+    // 监听语言切换
+    function setupLanguageListener() {
+        const langOptions = document.querySelectorAll('.language-option');
+        langOptions.forEach(function(option) {
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.target.classList.contains('active')) {
+                        setTimeout(function() {
+                            updateFloatText();
+                            updatePlaceholders();
+                            updateOrderButtons();
+                        }, 50);
+                    }
+                });
+            });
+            observer.observe(option, { attributes: true, attributeFilter: ['class'] });
+        });
+    }
+
+    // 初始化
+    setTimeout(function() {
+        updateFloatText();
+        updatePlaceholders();
+        updateOrderBadge();
+        addOrderButtons();
+        setupLanguageListener();
+        // 初始化面板中的 data-lang 元素
+        if (typeof switchLanguage === 'function') {
+            switchLanguage(getCurrentLang());
+        }
+    }, 300);
 })();
 </script>
 
