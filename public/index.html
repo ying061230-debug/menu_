@@ -3349,7 +3349,15 @@ function applyFilters() {
 <!-- 评论面板 -->
 <div class="feedback-panel" id="feedbackPanel">
     <div class="panel-header">
-        <h2 id="comments-title"></h2>
+        <h2>
+            <span data-lang="zh-CN">💬 评论反馈</span>
+            <span data-lang="zh-TW">💬 評論反饋</span>
+            <span data-lang="en">💬 Comments</span>
+            <span data-lang="es">💬 Comentarios</span>
+            <span data-lang="ko">💬 댓글</span>
+            <span data-lang="ja">💬 コメント</span>
+            <span data-lang="nl">💬 Reacties</span>
+        </h2>
         <button class="close-btn" id="closeBtn">×</button>
     </div>
     <div class="comment-form">
@@ -3364,10 +3372,26 @@ function applyFilters() {
             </select>
         </div>
         <textarea id="comment-content"></textarea>
-        <button class="submit-btn" id="submitBtn"></button>
+        <button class="submit-btn" id="submitBtn">
+            <span data-lang="zh-CN">发表评论</span>
+            <span data-lang="zh-TW">發表評論</span>
+            <span data-lang="en">Post Comment</span>
+            <span data-lang="es">Publicar Comentario</span>
+            <span data-lang="ko">댓글 게시</span>
+            <span data-lang="ja">コメントを投稿</span>
+            <span data-lang="nl">Plaats Reactie</span>
+        </button>
     </div>
     <div class="comments-list" id="comments-list">
-        <div class="loading" id="loading-comments"></div>
+        <div class="loading" id="loading-comments">
+            <span data-lang="zh-CN">加载评论中...</span>
+            <span data-lang="zh-TW">載入評論中...</span>
+            <span data-lang="en">Loading comments...</span>
+            <span data-lang="es">Cargando comentarios...</span>
+            <span data-lang="ko">댓글 로딩 중...</span>
+            <span data-lang="ja">コメントを読み込んでいます...</span>
+            <span data-lang="nl">Reacties laden...</span>
+        </div>
     </div>
 </div>
 
@@ -3390,23 +3414,20 @@ function applyFilters() {
     const closeBtn = document.getElementById('closeBtn');
     const submitBtn = document.getElementById('submitBtn');
 
-    // 翻译文本
+    // 翻译文本（用于动态内容）
     const translations = {
-        'title': { 'zh-CN': '💬 评论反馈', 'zh-TW': '💬 評論反饋', 'en': '💬 Comments', 'es': '💬 Comentarios', 'ko': '💬 댓글', 'ja': '💬 コメント', 'nl': '💬 Reacties' },
-        'name-placeholder': { 'zh-CN': '您的名字', 'zh-TW': '您的名字', 'en': 'Your Name', 'es': 'Su Nombre', 'ko': '이름', 'ja': 'お名前', 'nl': 'Uw Naam' },
-        'comment-placeholder': { 'zh-CN': '写下您的评论或反馈...', 'zh-TW': '寫下您的評論或反饋...', 'en': 'Write your comment or feedback...', 'es': 'Escriba su comentario...', 'ko': '댓글이나 피드백을 작성하세요...', 'ja': 'コメントやフィードバックを書いてください...', 'nl': 'Schrijf uw reactie...' },
         'select-restaurant': { 'zh-CN': '选择餐厅（可选）', 'zh-TW': '選擇餐廳（可選）', 'en': 'Select Restaurant (Optional)', 'es': 'Seleccionar Restaurante', 'ko': '레스토랑 선택', 'ja': 'レストランを選択', 'nl': 'Selecteer Restaurant' },
-        'submit': { 'zh-CN': '发表评论', 'zh-TW': '發表評論', 'en': 'Post Comment', 'es': 'Publicar Comentario', 'ko': '댓글 게시', 'ja': 'コメントを投稿', 'nl': 'Plaats Reactie' },
         'reply': { 'zh-CN': '💬 回复', 'zh-TW': '💬 回覆', 'en': '💬 Reply', 'es': '💬 Responder', 'ko': '💬 답글', 'ja': '💬 返信', 'nl': '💬 Reageren' },
         'no-comments': { 'zh-CN': '暂无评论，快来发表第一条评论吧！', 'zh-TW': '暫無評論，快來發表第一條評論吧！', 'en': 'No comments yet. Be the first to comment!', 'es': 'Sin comentarios. ¡Sé el primero en comentar!', 'ko': '아직 댓글이 없습니다. 첫 번째 댓글을 작성하세요!', 'ja': 'まだコメントはありません。最初のコメントを投稿してください！', 'nl': 'Nog geen reacties. Wees de eerste om te reageren!' },
-        'loading': { 'zh-CN': '加载评论中...', 'zh-TW': '載入評論中...', 'en': 'Loading comments...', 'es': 'Cargando comentarios...', 'ko': '댓글 로딩 중...', 'ja': 'コメントを読み込んでいます...', 'nl': 'Reacties laden...' },
+        'name-placeholder': { 'zh-CN': '您的名字', 'zh-TW': '您的名字', 'en': 'Your Name', 'es': 'Su Nombre', 'ko': '이름', 'ja': 'お名前', 'nl': 'Uw Naam' },
+        'comment-placeholder': { 'zh-CN': '写下您的评论或反馈...', 'zh-TW': '寫下您的評論或反饋...', 'en': 'Write your comment or feedback...', 'es': 'Escriba su comentario...', 'ko': '댓글이나 피드백을 작성하세요...', 'ja': 'コメントやフィードバックを書いてください...', 'nl': 'Schrijf uw reactie...' },
+        'reply-placeholder': { 'zh-CN': '写下您的回复...', 'zh-TW': '寫下您的回覆...', 'en': 'Write your reply...', 'es': 'Escriba su respuesta...', 'ko': '답글을 작성하세요...', 'ja': '返信を書いてください...', 'nl': 'Schrijf uw reactie...' },
+        'submit-reply': { 'zh-CN': '发送回复', 'zh-TW': '發送回覆', 'en': 'Send Reply', 'es': 'Enviar', 'ko': '답글 보내기', 'ja': '返信を送信', 'nl': 'Verstuur' },
         'enter-name': { 'zh-CN': '请输入您的名字', 'zh-TW': '請輸入您的名字', 'en': 'Please enter your name', 'es': 'Ingrese su nombre', 'ko': '이름을 입력하세요', 'ja': 'お名前を入力してください', 'nl': 'Voer uw naam in' },
         'enter-content': { 'zh-CN': '请输入评论内容', 'zh-TW': '請輸入評論內容', 'en': 'Please enter your comment', 'es': 'Ingrese su comentario', 'ko': '댓글을 입력하세요', 'ja': 'コメントを入力してください', 'nl': 'Voer uw reactie in' },
         'success': { 'zh-CN': '评论发表成功！', 'zh-TW': '評論發表成功！', 'en': 'Comment posted!', 'es': '¡Comentario publicado!', 'ko': '댓글이 게시되었습니다!', 'ja': 'コメントが投稿されました！', 'nl': 'Reactie geplaatst!' },
         'failed': { 'zh-CN': '发表失败，请重试', 'zh-TW': '發表失敗', 'en': 'Failed to post', 'es': 'Error al publicar', 'ko': '게시 실패', 'ja': '投稿に失敗しました', 'nl': 'Plaatsen mislukt' },
         'reply-success': { 'zh-CN': '回复成功！', 'zh-TW': '回覆成功！', 'en': 'Reply posted!', 'es': '¡Respuesta publicada!', 'ko': '답글이 게시되었습니다!', 'ja': '返信が投稿されました！', 'nl': 'Reactie geplaatst!' },
-        'reply-placeholder': { 'zh-CN': '写下您的回复...', 'zh-TW': '寫下您的回覆...', 'en': 'Write your reply...', 'es': 'Escriba su respuesta...', 'ko': '답글을 작성하세요...', 'ja': '返信を書いてください...', 'nl': 'Schrijf uw reactie...' },
-        'submit-reply': { 'zh-CN': '发送回复', 'zh-TW': '發送回覆', 'en': 'Send Reply', 'es': 'Enviar', 'ko': '답글 보내기', 'ja': '返信を送信', 'nl': 'Verstuur' },
         'anonymous': { 'zh-CN': '匿名用户', 'zh-TW': '匿名用戶', 'en': 'Anonymous', 'es': 'Anónimo', 'ko': '익명', 'ja': '匿名', 'nl': 'Anoniem' },
         'just-now': { 'zh-CN': '刚刚', 'zh-TW': '剛剛', 'en': 'Just now', 'es': 'Recién', 'ko': '방금', 'ja': 'たった今', 'nl': 'Zojuist' },
         'minutes-ago': { 'zh-CN': '分钟前', 'zh-TW': '分鐘前', 'en': ' min ago', 'es': ' min atrás', 'ko': '분 전', 'ja': '分前', 'nl': ' min geleden' },
@@ -3414,13 +3435,10 @@ function applyFilters() {
         'days-ago': { 'zh-CN': '天前', 'zh-TW': '天前', 'en': ' days ago', 'es': ' días atrás', 'ko': '일 전', 'ja': '日前', 'nl': ' dagen geleden' }
     };
 
-    // 获取当前语言 - 从 active 的语言选项读取
+    // 获取当前语言
     function getCurrentLang() {
         const activeOption = document.querySelector('.language-option.active');
-        if (activeOption && activeOption.dataset.lang) {
-            return activeOption.dataset.lang;
-        }
-        return 'zh-CN';
+        return activeOption ? activeOption.dataset.lang : 'zh-CN';
     }
 
     // 获取翻译文本
@@ -3428,58 +3446,12 @@ function applyFilters() {
         return translations[key]?.[getCurrentLang()] || translations[key]?.['en'] || key;
     }
 
-    // 更新所有文字
-    function updateAllText() {
-        const lang = getCurrentLang();
-        document.getElementById('comments-title').textContent = getText('title');
+    // 更新占位符（这些不能用 data-lang）
+    function updatePlaceholders() {
         document.getElementById('author-name').placeholder = getText('name-placeholder');
         document.getElementById('comment-content').placeholder = getText('comment-placeholder');
         document.getElementById('select-restaurant-option').text = getText('select-restaurant');
-        document.getElementById('submitBtn').textContent = getText('submit');
-        document.getElementById('loading-comments').textContent = getText('loading');
-        // 更新"暂无评论"文字
-        const noCommentsEl = document.getElementById('no-comments-text');
-        if (noCommentsEl) {
-            noCommentsEl.textContent = getText('no-comments');
-        }
-        // 更新评论列表中的按钮和回复表单
-        document.querySelectorAll('.reply-btn').forEach(btn => {
-            btn.textContent = getText('reply');
-        });
-        document.querySelectorAll('.submit-reply').forEach(btn => {
-            btn.textContent = getText('submit-reply');
-        });
-        // 更新回复表单的占位符
-        document.querySelectorAll('.reply-name').forEach(input => {
-            input.placeholder = getText('name-placeholder');
-        });
-        document.querySelectorAll('.reply-form textarea').forEach(textarea => {
-            textarea.placeholder = getText('reply-placeholder');
-        });
     }
-
-    // 监听语言切换 - 使用 MutationObserver 监听 active 类变化
-    setTimeout(function() {
-        const langOptions = document.querySelectorAll('.language-option');
-        langOptions.forEach(function(option) {
-            const observer = new MutationObserver(function(mutations) {
-                mutations.forEach(function(mutation) {
-                    // 当有选项变成 active 时触发
-                    if (mutation.target.classList.contains('active')) {
-                        // 延迟执行，确保语言切换完成
-                        setTimeout(function() {
-                            updateAllText();
-                            loadComments();
-                        }, 100);
-                    }
-                });
-            });
-            observer.observe(option, { attributes: true, attributeFilter: ['class'] });
-        });
-    }, 500);
-    
-    // 初始化文字
-    setTimeout(updateAllText, 200);
 
     // 拖动功能
     let isDragging = false;
@@ -3543,7 +3515,7 @@ function applyFilters() {
         feedbackPanel.classList.toggle('active');
         feedbackOverlay.classList.toggle('active');
         if (feedbackPanel.classList.contains('active')) {
-            updateAllText();
+            updatePlaceholders();
             loadComments();
         }
     }
@@ -3554,13 +3526,26 @@ function applyFilters() {
 
     async function loadComments() {
         const listEl = document.getElementById('comments-list');
-        // 显示加载状态
-        listEl.innerHTML = '<div class="loading">' + getText('loading') + '</div>';
+        listEl.innerHTML = '<div class="loading">' + 
+            '<span data-lang="zh-CN">加载评论中...</span>' +
+            '<span data-lang="zh-TW">載入評論中...</span>' +
+            '<span data-lang="en">Loading comments...</span>' +
+            '<span data-lang="es">Cargando comentarios...</span>' +
+            '<span data-lang="ko">댓글 로딩 중...</span>' +
+            '<span data-lang="ja">コメントを読み込んでいます...</span>' +
+            '<span data-lang="nl">Reacties laden...</span>' +
+            '</div>';
+        // 触发语言切换
+        const currentLang = getCurrentLang();
+        if (typeof switchLanguage === 'function') {
+            switchLanguage(currentLang);
+        }
+        
         try {
             const { data: comments, error } = await db.from('comments').select('*').is('parent_id', null).order('created_at', { ascending: false });
             if (error) throw error;
             if (comments.length === 0) {
-                listEl.innerHTML = `<div class="no-comments" id="no-comments-text">${getText('no-comments')}</div>`;
+                listEl.innerHTML = `<div class="no-comments">${getText('no-comments')}</div>`;
                 return;
             }
             listEl.innerHTML = '';
@@ -3579,6 +3564,11 @@ function applyFilters() {
         div.className = 'comment-item';
         const timeAgo = getTimeAgo(new Date(comment.created_at));
         const restaurantTag = comment.restaurant ? ` · ${comment.restaurant}` : '';
+        const replyText = getText('reply');
+        const namePlaceholder = getText('name-placeholder');
+        const replyPlaceholder = getText('reply-placeholder');
+        const submitReply = getText('submit-reply');
+        
         div.innerHTML = `
             <div class="comment-header">
                 <span class="comment-author">${escapeHtml(comment.name)}</span>
@@ -3586,12 +3576,12 @@ function applyFilters() {
             </div>
             <div class="comment-content">${escapeHtml(comment.content)}</div>
             <div class="comment-actions">
-                <button class="reply-btn">${getText('reply')}</button>
+                <button class="reply-btn">${replyText}</button>
             </div>
             <div class="reply-form">
-                <input type="text" placeholder="${getText('name-placeholder')}" class="reply-name">
-                <textarea placeholder="${getText('reply-placeholder')}"></textarea>
-                <button class="submit-reply">${getText('submit-reply')}</button>
+                <input type="text" placeholder="${namePlaceholder}" class="reply-name">
+                <textarea placeholder="${replyPlaceholder}"></textarea>
+                <button class="submit-reply">${submitReply}</button>
             </div>
             <div class="replies" id="replies-${comment.id}"></div>
         `;
@@ -3695,6 +3685,9 @@ function applyFilters() {
         if (days < 30) return `${days}${getText('days-ago')}`;
         return date.toLocaleDateString('zh-CN');
     }
+
+    // 初始化占位符
+    setTimeout(updatePlaceholders, 200);
 })();
 </script>
 
