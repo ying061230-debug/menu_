@@ -3438,12 +3438,19 @@ function applyFilters() {
         if (noCommentsEl) {
             noCommentsEl.textContent = getText('no-comments');
         }
-        // 更新评论列表中的按钮
+        // 更新评论列表中的按钮和回复表单
         document.querySelectorAll('.reply-btn').forEach(btn => {
             btn.textContent = getText('reply');
         });
         document.querySelectorAll('.submit-reply').forEach(btn => {
             btn.textContent = getText('submit-reply');
+        });
+        // 更新回复表单的占位符
+        document.querySelectorAll('.reply-name').forEach(input => {
+            input.placeholder = getText('name-placeholder');
+        });
+        document.querySelectorAll('.reply-form textarea').forEach(textarea => {
+            textarea.placeholder = getText('reply-placeholder');
         });
     }
 
@@ -3530,10 +3537,13 @@ function applyFilters() {
     async function loadComments() {
         const loadingEl = document.getElementById('loading-comments');
         const listEl = document.getElementById('comments-list');
+        // 重置加载状态
+        loadingEl.style.display = 'block';
+        loadingEl.textContent = getText('loading');
+        listEl.innerHTML = '<div class="loading" id="loading-comments">' + getText('loading') + '</div>';
         try {
             const { data: comments, error } = await db.from('comments').select('*').is('parent_id', null).order('created_at', { ascending: false });
             if (error) throw error;
-            loadingEl.style.display = 'none';
             if (comments.length === 0) {
                 listEl.innerHTML = `<div class="no-comments" id="no-comments-text">${getText('no-comments')}</div>`;
                 return;
@@ -3545,7 +3555,7 @@ function applyFilters() {
             }
         } catch (error) {
             console.error('加载评论失败:', error);
-            loadingEl.textContent = getText('failed');
+            listEl.innerHTML = `<div class="no-comments">${getText('failed')}</div>`;
         }
     }
 
