@@ -121,9 +121,11 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:
 .filter-tag.active { background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 4px 12px var(--card-shadow); }
 .filter-tag.active::after { width: 200px; height: 200px; background: white; }
 .dish-content { flex: 1; }
-.dish-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.6rem; }
-.dish-name { font-size: 1.3rem; font-weight: 700; color: var(--ink); }
+.dish-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.6rem; flex-wrap: wrap; }
+.dish-name { font-size: 1.3rem; font-weight: 700; color: var(--ink); flex: 1; min-width: 200px; }
+.dish-price-wrapper { display: flex; flex-direction: column; align-items: flex-end; margin-left: 1rem; }
 .dish-price { font-size: 1.2rem; color: var(--accent3); font-weight: 700; }
+.dish-price-note { font-size: 0.75rem; color: var(--muted); margin-top: 0.2rem; font-style: italic; text-align: right; }
 .dish-category { font-size: 0.9rem; color: var(--muted); margin-bottom: 0.6rem; }
 .dish-tags { display: flex; gap: 0.5rem; margin-bottom: 0.6rem; }
 .tag { padding: 0.25rem 0.6rem; background: var(--accent2); border-radius: 6px; font-size: 0.8rem; color: var(--accent3); font-weight: 500; }
@@ -166,7 +168,80 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:
 .nav-btn span { display: none; }
 .nav-btn span[data-lang="zh-CN"] { display: inline; }
 /* 响应式优化 */
-@media (max-width: 768px) { .restaurant-header { height: 280px; } .carousel-item { height: 280px; } .restaurant-name { font-size: 1.8rem; } .restaurant-meta { flex-direction: column; gap: 0.5rem; } .restaurant-selector { flex-direction: column; padding: 1rem; } .dish-card { flex-direction: column; } .dish-image { width: 100%; height: 150px; } .dish-header { flex-direction: column; } .dish-price { margin-top: 0.5rem; } .filter-label { min-width: 70px; } }
+@media (max-width: 768px) {
+    .restaurant-header { height: 320px; position: relative; }
+    .carousel-item { height: 320px; }
+    .restaurant-info { 
+        position: absolute; 
+        bottom: 0; 
+        left: 0; 
+        right: 0; 
+        padding: 1rem; 
+        background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    }
+    .restaurant-name { font-size: 1.5rem; margin-bottom: 0.3rem; }
+    .restaurant-meta { flex-direction: column; gap: 0.3rem; font-size: 0.85rem; }
+    /* 餐厅选择器保持横向排列 */
+    .restaurant-selector { 
+        flex-direction: row; 
+        flex-wrap: wrap; 
+        padding: 0.8rem; 
+        justify-content: center;
+        gap: 0.5rem;
+    }
+    .restaurant-btn { padding: 0.5rem 0.8rem; font-size: 0.8rem; min-width: auto; }
+    /* 语言栏保持横向排列 */
+    .language-bar { 
+        flex-direction: row; 
+        flex-wrap: wrap;
+        gap: 0.3rem; 
+        padding: 0.6rem; 
+        justify-content: center;
+    }
+    .language-tip { font-size: 0.75rem; width: 100%; text-align: center; order: -1; }
+    .language-options { display: flex; flex-wrap: wrap; gap: 0.3rem; justify-content: center; }
+    .language-option { padding: 0.3rem 0.5rem; font-size: 0.8rem; }
+    .currency-selector { width: auto; justify-content: center; }
+    .currency-select { padding: 0.3rem; font-size: 0.8rem; }
+    .dish-card { flex-direction: column; padding: 1rem; margin: 0.5rem 0; }
+    .dish-image { width: 100%; height: 150px; border-radius: 10px; }
+    .dish-content { padding: 1rem 0 0 0; }
+    .dish-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+    .dish-name { font-size: 1.1rem; }
+    .dish-price-wrapper { align-items: flex-start; margin-left: 0; }
+    .dish-price { font-size: 1rem; margin-top: 0.5rem; }
+    .dish-price-note { font-size: 0.7rem; }
+    .dish-category { font-size: 0.85rem; }
+    .dish-description { font-size: 0.85rem; }
+    .dish-tags { flex-wrap: wrap; }
+    .filter-label { min-width: 70px; font-size: 0.85rem; }
+    .filter-tags-container { flex-wrap: wrap; }
+    .filter-tag { padding: 0.4rem 0.6rem; font-size: 0.8rem; }
+    .order-panel { width: 100%; max-width: none; right: 0; bottom: 0; border-radius: 0; }
+    .staff-modal-content { width: 95%; max-height: 90vh; }
+    .staff-order-item { flex-direction: column; align-items: flex-start; gap: 0.3rem; font-size: 1rem; }
+    .staff-order-item-price { margin-top: 0.3rem; }
+    .comment-panel { width: 100%; max-width: none; right: 0; bottom: 0; border-radius: 0; }
+    .comment-item { padding: 0.8rem; }
+    .comment-author { font-size: 0.9rem; }
+    .comment-content { font-size: 0.85rem; }
+    .add-btn { padding: 0.5rem 0.8rem; font-size: 0.85rem; }
+}
+@media (max-width: 480px) {
+    .restaurant-header { height: 260px; }
+    .carousel-item { height: 260px; }
+    .restaurant-info { padding: 0.8rem; }
+    .restaurant-name { font-size: 1.3rem; }
+    .restaurant-meta { font-size: 0.8rem; }
+    .restaurant-btn { padding: 0.4rem 0.6rem; font-size: 0.75rem; }
+    .language-option { padding: 0.25rem 0.4rem; font-size: 0.75rem; }
+    .dish-card { padding: 0.8rem; }
+    .dish-image { height: 120px; }
+    .dish-name { font-size: 1rem; }
+    .dish-price { font-size: 0.9rem; }
+    .filter-label { min-width: 60px; font-size: 0.8rem; }
+    .filter-tag { padding: 0.3rem 0.5rem; font-size: 0.75rem; }
+}
 
     </style>
 </head>
@@ -243,17 +318,17 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:
 晚餐从20.30开始
 ***私人场所需要预定。</span><span data-lang="zh-TW">午餐從13.30開始
 晚餐從20.30開始
-***私人场所需要預定。</span><span data-lang="en">Lunch from 13.30 starts
+***私人場所需要預定。</span><span data-lang="en">Lunch from 13.30 starts
 Dinner from 20.30 starts
-***Private venue, reservation required.</span><span data-lang="es">Almuerzodesde13.30empieza
-Cenadesde20.30empieza
-***私人场所需要Reserva requerida。</span><span data-lang="ko">런치부터13.30시작
-디너부터20.30시작
-***私人场所需要예약 필요。</span><span data-lang="ja">ランチから13.30開始
+***Private venue, reservation required.</span><span data-lang="es">Almuerzo desde 13.30 empieza
+Cena desde 20.30 empieza
+***Lugar privado, reserva requerida.</span><span data-lang="ko">런치부터 13.30 시작
+디너부터 20.30 시작
+***사설 장소, 예약 필요.</span><span data-lang="ja">ランチから13.30開始
 ディナーから20.30開始
-***私人场所需要予約必要。</span><span data-lang="nl">Lunchvan13.30begint
-Dinervan20.30begint
-***私人场所需要Reservering vereist。</span></span></div>
+***私設場所、予約必要。</span><span data-lang="nl">Lunch van 13.30 begint
+Diner van 20.30 begint
+***Privé locatie, reservering vereist.</span></span></div>
             <div class="meta-item"><span>📞</span><span>+39 (0) 3392048499</span></div>
             <div class="meta-item"><span>💳</span><span>Visa · Mastercard</span></div>
         </div>
@@ -330,7 +405,7 @@ Dinervan20.30begint
         <button class="filter-tag" data-filter="category" data-value="bites"><span data-lang="zh-CN">🍢 小食</span><span data-lang="zh-TW">🍢 小食</span><span data-lang="en">🥢 Bites & Snacks</span><span data-lang="es">🥢 Bocados</span><span data-lang="ko">🥢 간식</span><span data-lang="ja">🥢 スナック</span><span data-lang="nl">🥢 Hapjes</span></button>
         <button class="filter-tag" data-filter="category" data-value="mains"><span data-lang="zh-CN">🍽️ 主菜</span><span data-lang="zh-TW">🍽️ 主菜</span><span data-lang="en">🍽️ Main Courses</span><span data-lang="es">🍽️ Platos Principales</span><span data-lang="ko">🍽️ 메인</span><span data-lang="ja">🍽️ メイン</span><span data-lang="nl">🍽️ Hoofdgerechten</span></button>
         <button class="filter-tag" data-filter="category" data-value="desserts"><span data-lang="zh-CN">🍰 甜点</span><span data-lang="zh-TW">🍰 甜點</span><span data-lang="en">🍰 Desserts</span><span data-lang="es">🍰 Postres</span><span data-lang="ko">🍰 디저트</span><span data-lang="ja">🍰 デザート</span><span data-lang="nl">🍰 Nagerechten</span></button>
-        <button class="filter-tag" data-filter="category" data-value="drinks"><span data-lang="zh-CN">🥤 饮料</span><span data-lang="zh-TW">🥤 飼料</span><span data-lang="en">🥤 Drinks</span><span data-lang="es">🥤 Bebidas</span><span data-lang="ko">🥤 음료</span><span data-lang="ja">🥤 ドリンク</span><span data-lang="nl">🥤 Dranken</span></button>
+        <button class="filter-tag" data-filter="category" data-value="drinks"><span data-lang="zh-CN">🥤 饮料</span><span data-lang="zh-TW">🥤 飲料</span><span data-lang="en">🥤 Drinks</span><span data-lang="es">🥤 Bebidas</span><span data-lang="ko">🥤 음료</span><span data-lang="ja">🥤 ドリンク</span><span data-lang="nl">🥤 Dranken</span></button>
         <button class="filter-tag" data-filter="category" data-value="alcohol"><span data-lang="zh-CN">🍷 酒水</span><span data-lang="zh-TW">🍷 酒水</span><span data-lang="en">🍷 Alcoholic Beverages</span><span data-lang="es">🍷 Bebidas Alcohólicas</span><span data-lang="ko">🍷 주류</span><span data-lang="ja">🍷 アルコール</span><span data-lang="nl">🍷 Alcoholische dranken</span></button>
         <button class="filter-tag" data-filter="category" data-value="sauce"><span data-lang="zh-CN">🥫 酱汁</span><span data-lang="zh-TW">🥫 醬汁</span><span data-lang="en">🥫 Sauces & Curries</span><span data-lang="es">🥫 Salsas y Curris</span><span data-lang="ko">🥫 소스 & 커리</span><span data-lang="ja">🥫 ソース & カレー</span><span data-lang="nl">🥫 Sauzen & Curries</span></button>
     </div>
@@ -465,7 +540,7 @@ Dinervan20.30begint
         <p class="dish-category"><span data-lang="zh-CN">小食套餐</span><span data-lang="zh-TW">小食套餐</span><span data-lang="en">Bites (ready to eat)</span><span data-lang="es">Bocados listos</span><span data-lang="ko">간식 세트</span><span data-lang="ja">スナックセット</span><span data-lang="nl">Hapjes klaar</span></p>
         <div class="dish-tags"></div>
         <p class="dish-description"><span data-lang="zh-CN">这道菜体现了安特卫普作为欧洲美食之都的融合精神。烟熏技法源自欧洲传统的食物保存智慧，而青酱则带来地中海的热那亚风情。在现代比利时小酒馆文化中，将传统烟熏蔬菜与意式青酱结合并作为冷食前菜，展现了当地厨师对食材本味的追求以及跨国界风味融合的创新理念。</span><span data-lang="zh-TW">這道菜體現了安特衛普作為歐洲美食之都的融合精神。煙燻技法源自歐洲傳統的食物保存智慧，而青醬則帶來地中海的熱那亞風情。在現代比利時小酒館文化中，將傳統煙燻蔬菜與義式青醬結合作為冷盤前菜，展現了當地廚師對食材本味的追求以及跨國界風味融合的創新理念。</span><span data-lang="en">This dish embodies the spirit of fusion in Antwerp, a culinary capital of Europe. The smoking technique originates from the traditional European wisdom of food preservation, while the pesto brings the Genoese flair of the Mediterranean. In modern Belgian bistro culture, combining traditional smoked vegetables with Italian pesto and serving it as a cold starter showcases the local chefs' pursuit of the ingredients' original flavors and their innovative concept of cross-border flavor fusion.</span><span data-lang="es">Este plato encarna el espíritu de fusión de Amberes como capital gastronómica de Europa. La técnica del ahumado proviene de la sabiduría tradicional europea para la conservación de alimentos, mientras que el pesto aporta el aire genovés del Mediterráneo. En la cultura moderna de los bistrós belgas, combinar verduras ahumadas tradicionales con pesto italiano y servirlo como entrante frío demuestra la búsqueda de los chefs locales por los sabores originales de los ingredientes y su concepto innovador de fusión de sabores transfronterizos.</span><span data-lang="ko">이 요리는 유럽 미식의 수도인 앤트워프의 융합 정신을 보여줍니다. 훈제 기법은 유럽 전통의 음식 보존 지혜에서 유래했으며, 페스토는 지중해의 제노바 풍경을 선사합니다. 현대 벨기에 비스트로 문화에서 전통 훈제 채소와 이탈리안 페스토를 결합하여 차가운 에피타이저로 제공하는 것은 지역 셰프들이 식재료 본연의 맛을 추구함과 동시에 국경을 초월한 맛의 융합이라는 혁신적인 철학을 보여줍니다.</span><span data-lang="ja">この料理は、ヨーロッパの美食の都アントワープの融合の精神を体現しています。燻製技法はヨーロッパの伝統的な食品保存の知恵に由来し、ジェノベーゼは地中海のジェノヴァの風情をもたらします。現代のベルギーのビストロ文化において、伝統的な燻製野菜とイタリアンジェノベーゼを組み合わせ、冷製前菜として提供することは、地元のシェフたちが食材本来の味を追求し、国境を越えた風味の融合という革新的な理念を持っていることを示しています。</span><span data-lang="nl">Dit gerecht belichaamt de fusiegeest van Antwerpen als culinaire hoofdstad van Europa. De rooktechniek is afkomstig uit de traditionele Europese wijsheid van voedselconservering, terwijl de pesto de Genuese flair van de Middellandse Zee brengt. In de moderne Belgische bistrocultuur toont het combineren van traditioneel gerookte groenten met Italiaanse pesto en het serveren als koud voorgerecht de zoektocht van lokale chefs naar de oorspronkelijke smaken van de ingrediënten en hun innovatieve concept van grensoverschrijdende smaakfusie.</span></p>
-        <p class="dish-allergens"><span data-lang="zh-CN">⚠️ 过敏原：乳制品, 坚果</span><span data-lang="zh-TW">⚠️ 過敏原：乳製品, 坚果</span><span data-lang="en">⚠️ Allergens: Dairy, 坚果</span><span data-lang="es">⚠️ Alérgenos: Lácteos, 坚果</span><span data-lang="ko">⚠️ 알레르기: 유제품, 坚果</span><span data-lang="ja">⚠️ アレルゲン: 乳製品, 坚果</span><span data-lang="nl">⚠️ Allergenen: Melkproducten, 坚果</span></p><p class="allergen-warning"><span data-lang="zh-CN">过敏原信息仅供参考，如有疑问请咨询服务员</span><span data-lang="zh-TW">過敏原資訊僅供參考，如有疑問請諮詢服務員</span><span data-lang="en">Allergen info is for reference only. Please ask staff if unsure.</span><span data-lang="es">Info de alérgenos solo referencial. Consulte al personal.</span><span data-lang="ko">알레르기 정보는 참고용입니다. 확실하지 않으면 직원에게 문의하세요.</span><span data-lang="ja">アレルゲン情報は参考用です。不明な場合は店員にお尋ねください。</span><span data-lang="nl">Allergeneninfo is indicatief. Vraag het personeel bij onzekerheid.</span></p>
+        <p class="dish-allergens"><span data-lang="zh-CN">⚠️ 过敏原：乳制品, 坚果</span><span data-lang="zh-TW">⚠️ 過敏原：乳製品, 堅果</span><span data-lang="en">⚠️ Allergens: Dairy, Nuts</span><span data-lang="es">⚠️ Alérgenos: Lácteos, Nueces</span><span data-lang="ko">⚠️ 알레르기: 유제품, 견과류</span><span data-lang="ja">⚠️ アレルゲン: 乳製品, ナッツ</span><span data-lang="nl">⚠️ Allergenen: Melkproducten, Noten</span></p><p class="allergen-warning"><span data-lang="zh-CN">过敏原信息仅供参考，如有疑问请咨询服务员</span><span data-lang="zh-TW">過敏原資訊僅供參考，如有疑問請諮詢服務員</span><span data-lang="en">Allergen info is for reference only. Please ask staff if unsure.</span><span data-lang="es">Info de alérgenos solo referencial. Consulte al personal.</span><span data-lang="ko">알레르기 정보는 참고용입니다. 확실하지 않으면 직원에게 문의하세요.</span><span data-lang="ja">アレルゲン情報は参考用です。不明な場合は店員にお尋ねください。</span><span data-lang="nl">Allergeneninfo is indicatief. Vraag het personeel bij onzekerheid.</span></p>
     </div>
 </div>
 <div class="dish-card" data-taste="咸鲜" data-vegetarian="false" data-halal="false" data-no_pork="false" data-no_seafood="true" data-no_beef="true" data-allergens="麸质,乳制品" data-must_try="false" data-kid_friendly="true">
@@ -545,7 +620,7 @@ Dinervan20.30begint
         <p class="dish-category"><span data-lang="zh-CN">加肉丸配菜</span><span data-lang="zh-TW">加肉丸配菜</span><span data-lang="en">Extra balls & sides</span><span data-lang="es">Extra bolas</span><span data-lang="ko">추가 볼</span><span data-lang="ja">追加ボール</span><span data-lang="nl">Extra ballen</span></p>
         <div class="dish-tags"></div>
         <p class="dish-description"><span data-lang="zh-CN">绿咖喱源自泰国传统料理，以青辣椒、香茅、青柠叶等香料研磨而成，传统配方中含有虾酱。在安特卫普这座融合多元文化的港口城市，B&G Antwerp将这道东南亚风味酱汁作为比利时经典肉丸的创新搭配，体现了佛兰德斯传统美食与全球风味的碰撞与融合。</span><span data-lang="zh-TW">綠咖哩源自泰國傳統料理，以青辣椒、香茅、青檸葉等香料研磨而成，傳統配方中含有蝦醬。在安特衛普這座融合多元文化的港口城市，B&G Antwerp將這道東南亞風味醬汁作為比利時經典肉丸的創新搭配，體現了法蘭德斯傳統美食與全球風味的碰撞與融合。</span><span data-lang="en">Originating from traditional Thai cuisine, green curry is ground from spices such as green chilies, lemongrass, and kaffir lime leaves, with shrimp paste in its traditional recipe. In Antwerp, a port city blending diverse cultures, B&G Antwerp creatively pairs this Southeast Asian flavored sauce with classic Belgian meatballs, embodying the collision and fusion of traditional Flemish cuisine with global flavors.</span><span data-lang="es">Originario de la cocina tradicional tailandesa, el curry verde se elabora moliendo especias como chiles verdes, limoncillo y hojas de lima kaffir, y su receta tradicional incluye pasta de camarón. En Amberes, una ciudad portuaria que fusiona diversas culturas, B&G Antwerp combina de manera innovadora esta salsa de sabor del sudeste asiático con las clásicas albóndigas belgas, reflejando el encuentro y la fusión de la gastronomía tradicional flamenca con los sabores globales.</span><span data-lang="ko">그린 커리는 태국 전통 요리에서 유래하여 청고추, 레몬그라스, 카피르 라임 잎 등의 향신료를 빻아 만들며, 전통 레시피에는 새우 페이스트가 들어갑니다. 다채로운 문화가 어우러진 항구 도시 앤트워프에서 B&G 앤트워프는 이 동남아시아 풍미의 소스를 벨기에 클래식 미트볼과 혁신적으로 조합하여, 플랑드르 전통 요리와 글로벌 풍미의 충돌과 융합을 보여줍니다.</span><span data-lang="ja">グリーンカレーはタイの伝統料理に由来し、青唐辛子、レモングラス、コブミカンの葉などのスパイスをすり潰して作られ、伝統的なレシピにはエビペーストが含まれています。多様な文化が融合する港町アントワープで、B&Gアントワープはこの東南アジア風味のソースをベルギーの定番ミートボールと革新的に組み合わせ、フランダースの伝統料理とグローバルな風味の衝突と融合を体現しています。</span><span data-lang="nl">Groene curry, afkomstig uit de traditionele Thaise keuken, wordt gemaakt door specerijen zoals groene chili's, citroengras en kaffirlimoenbladeren te malen, en het traditionele recept bevat garnalenpasta. In Antwerpen, een havenstad waar diverse culturen samenkomen, combineert B&G Antwerp deze Zuidoost-Aziatische saus op innovatieve wijze met de klassieke Belgische vleesballen, wat de botsing en versmelting van de traditionele Vlaamse keuken met wereldse smaken weerspiegelt.</span></p>
-        <p class="dish-allergens"><span data-lang="zh-CN">⚠️ 过敏原：乳制品, 坚果</span><span data-lang="zh-TW">⚠️ 過敏原：乳製品, 坚果</span><span data-lang="en">⚠️ Allergens: Dairy, 坚果</span><span data-lang="es">⚠️ Alérgenos: Lácteos, 坚果</span><span data-lang="ko">⚠️ 알레르기: 유제품, 坚果</span><span data-lang="ja">⚠️ アレルゲン: 乳製品, 坚果</span><span data-lang="nl">⚠️ Allergenen: Melkproducten, 坚果</span></p><p class="allergen-warning"><span data-lang="zh-CN">过敏原信息仅供参考，如有疑问请咨询服务员</span><span data-lang="zh-TW">過敏原資訊僅供參考，如有疑問請諮詢服務員</span><span data-lang="en">Allergen info is for reference only. Please ask staff if unsure.</span><span data-lang="es">Info de alérgenos solo referencial. Consulte al personal.</span><span data-lang="ko">알레르기 정보는 참고용입니다. 확실하지 않으면 직원에게 문의하세요.</span><span data-lang="ja">アレルゲン情報は参考用です。不明な場合は店員にお尋ねください。</span><span data-lang="nl">Allergeneninfo is indicatief. Vraag het personeel bij onzekerheid.</span></p>
+        <p class="dish-allergens"><span data-lang="zh-CN">⚠️ 过敏原：乳制品, 坚果</span><span data-lang="zh-TW">⚠️ 過敏原：乳製品, 堅果</span><span data-lang="en">⚠️ Allergens: Dairy, Nuts</span><span data-lang="es">⚠️ Alérgenos: Lácteos, Nueces</span><span data-lang="ko">⚠️ 알레르기: 유제품, 견과류</span><span data-lang="ja">⚠️ アレルゲン: 乳製品, ナッツ</span><span data-lang="nl">⚠️ Allergenen: Melkproducten, Noten</span></p><p class="allergen-warning"><span data-lang="zh-CN">过敏原信息仅供参考，如有疑问请咨询服务员</span><span data-lang="zh-TW">過敏原資訊僅供參考，如有疑問請諮詢服務員</span><span data-lang="en">Allergen info is for reference only. Please ask staff if unsure.</span><span data-lang="es">Info de alérgenos solo referencial. Consulte al personal.</span><span data-lang="ko">알레르기 정보는 참고용입니다. 확실하지 않으면 직원에게 문의하세요.</span><span data-lang="ja">アレルゲン情報は参考用です。不明な場合は店員にお尋ねください。</span><span data-lang="nl">Allergeneninfo is indicatief. Vraag het personeel bij onzekerheid.</span></p>
     </div>
 </div>
 <div class="dish-card" data-taste="咸鲜" data-vegetarian="false" data-halal="false" data-no_pork="false" data-no_seafood="true" data-no_beef="true" data-allergens="麸质,乳制品" data-must_try="false" data-kid_friendly="true">
@@ -826,7 +901,7 @@ Dinervan20.30begint
         <p class="dish-category"><span data-lang="zh-CN">小食</span><span data-lang="zh-TW">小食</span><span data-lang="en">Bites</span><span data-lang="es">Bocados</span><span data-lang="ko">간식</span><span data-lang="ja">スナック</span><span data-lang="nl">Hapjes</span></p>
         <div class="dish-tags"></div>
         <p class="dish-description"><span data-lang="zh-CN">这道菜体现了安特卫普作为欧洲美食之都的融合精神。烟熏技法源自欧洲传统的食物保存智慧，而青酱则带来地中海热那亚的风情。在现代比利时小酒馆文化中，将传统烟熏蔬菜与意式青酱结合并作为冷食前菜，展现了当地厨师对食材本味的追求以及跨国界风味融合的创新理念。</span><span data-lang="zh-TW">這道菜體現了安特衛普作為歐洲美食之都的融合精神。煙燻技法源自歐洲傳統的食物保存智慧，而青醬則帶來地中海熱那亞的風情。在現代比利時小酒館文化中，將傳統煙燻蔬菜與意式青醬結合作為冷食前菜，展現了當地廚師對食材本味的追求以及跨國界風味融合的創新理念。</span><span data-lang="en">This dish embodies the fusion spirit of Antwerp as a European culinary capital. The smoking technique draws on Europe's traditional food preservation wisdom, while the pesto brings the Mediterranean flair of Genoa. In modern Belgian bistro culture, combining traditionally smoked vegetables with Italian pesto as a cold appetizer reflects local chefs' pursuit of authentic flavours and their innovative approach to cross-border culinary fusion.</span><span data-lang="es">Este plato encarna el espíritu de fusión de Amberes como capital gastronómica europea. La técnica del ahumado bebe de la sabiduría tradicional europea en la conservación de alimentos, mientras que el pesto aporta el toque mediterráneo de Génova. En la cultura moderna de los bistrós belgas, combinar verduras ahumadas tradicionales con pesto italiano como aperitivo frío refleja la búsqueda de los sabores auténticos por parte de los chefs locales y su enfoque innovador hacia la fusión culinaria transfronteriza.</span><span data-lang="ko">이 요리는 유럽 미식의 수도 앤트워프의 융합 정신을 보여줍니다. 훈연 기법은 유럽 전통 음식 보존의 지혜에서 비롯되었고, 페스토는 지중해 제노바의 정서를 담아냅니다. 현대 벨기에 비스트로 문화에서 전통 훈연 채소와 이탈리안 페스토를 결합하여 냉채 전채로 선보이는 것은 현지 셰프들이 식재료 본연의 맛을 추구하면서도 국경을 초월한 풍미 융합의 혁신적 철학을 보여줍니다.</span><span data-lang="ja">この料理は、ヨーロッパの美食都市アントワープの融合精神を体現しています。燻製技法はヨーロッパの伝統的な食品保存の知恵に由来し、ペストは地中海ジェノヴァの風情を添えます。現代ベルギーのビストロ文化において、伝統的な燻製野菜とイタリアンペストを組み合わせ冷製前菜として提供するこの一皿は、地元シェフたちの素材本来の味への追求と、国境を越えた風味の融合に対する革新的な姿勢を示しています。</span><span data-lang="nl">Dit gerecht belichaamt de fusiegeest van Antwerpen als Europese culinaire hoofdstad. De rooktechniek put uit de Europese wijsheid van traditionele voedselconservering, terwijl de pesto de mediterrane flair van Genua brengt. In de moderne Belgische bistrocultuur toont het combineren van traditioneel gerookte groenten met Italiaanse pesto als koud voorgerecht de zoektocht van lokale chefs naar authentieke smaken en hun innovatieve aanpak van grensoverschrijdende culinaire fusie.</span></p>
-        <p class="dish-allergens"><span data-lang="zh-CN">⚠️ 过敏原：乳制品, 坚果</span><span data-lang="zh-TW">⚠️ 過敏原：乳製品, 坚果</span><span data-lang="en">⚠️ Allergens: Dairy, 坚果</span><span data-lang="es">⚠️ Alérgenos: Lácteos, 坚果</span><span data-lang="ko">⚠️ 알레르기: 유제품, 坚果</span><span data-lang="ja">⚠️ アレルゲン: 乳製品, 坚果</span><span data-lang="nl">⚠️ Allergenen: Melkproducten, 坚果</span></p><p class="allergen-warning"><span data-lang="zh-CN">过敏原信息仅供参考，如有疑问请咨询服务员</span><span data-lang="zh-TW">過敏原資訊僅供參考，如有疑問請諮詢服務員</span><span data-lang="en">Allergen info is for reference only. Please ask staff if unsure.</span><span data-lang="es">Info de alérgenos solo referencial. Consulte al personal.</span><span data-lang="ko">알레르기 정보는 참고용입니다. 확실하지 않으면 직원에게 문의하세요.</span><span data-lang="ja">アレルゲン情報は参考用です。不明な場合は店員にお尋ねください。</span><span data-lang="nl">Allergeneninfo is indicatief. Vraag het personeel bij onzekerheid.</span></p>
+        <p class="dish-allergens"><span data-lang="zh-CN">⚠️ 过敏原：乳制品, 坚果</span><span data-lang="zh-TW">⚠️ 過敏原：乳製品, 堅果</span><span data-lang="en">⚠️ Allergens: Dairy, Nuts</span><span data-lang="es">⚠️ Alérgenos: Lácteos, Nueces</span><span data-lang="ko">⚠️ 알레르기: 유제품, 견과류</span><span data-lang="ja">⚠️ アレルゲン: 乳製品, ナッツ</span><span data-lang="nl">⚠️ Allergenen: Melkproducten, Noten</span></p><p class="allergen-warning"><span data-lang="zh-CN">过敏原信息仅供参考，如有疑问请咨询服务员</span><span data-lang="zh-TW">過敏原資訊僅供參考，如有疑問請諮詢服務員</span><span data-lang="en">Allergen info is for reference only. Please ask staff if unsure.</span><span data-lang="es">Info de alérgenos solo referencial. Consulte al personal.</span><span data-lang="ko">알레르기 정보는 참고용입니다. 확실하지 않으면 직원에게 문의하세요.</span><span data-lang="ja">アレルゲン情報は参考用です。不明な場合は店員にお尋ねください。</span><span data-lang="nl">Allergeneninfo is indicatief. Vraag het personeel bij onzekerheid.</span></p>
     </div>
 </div>
 <div class="dish-card" data-taste="咸鲜" data-vegetarian="false" data-halal="false" data-no_pork="false" data-no_seafood="true" data-no_beef="true" data-allergens="麸质,乳制品" data-must_try="false" data-kid_friendly="true">
@@ -906,7 +981,7 @@ Dinervan20.30begint
         <p class="dish-category"><span data-lang="zh-CN">加肉丸配菜</span><span data-lang="zh-TW">加肉丸配菜</span><span data-lang="en">Extra balls & sides</span><span data-lang="es">Extra bolas</span><span data-lang="ko">추가 볼</span><span data-lang="ja">追加ボール</span><span data-lang="nl">Extra ballen</span></p>
         <div class="dish-tags"></div>
         <p class="dish-description"><span data-lang="zh-CN">绿咖喱源自泰国传统料理，由青辣椒、香茅、青柠叶等香料研磨而成，传统配方中更添虾酱提鲜。在安特卫普这座多元文化交融的港口城市，B&G Antwerp将这道东南亚风味酱汁作为比利时经典肉丸的创新蘸酱，完美诠释了佛兰德斯传统美食与全球风味的碰撞与融合。</span><span data-lang="zh-TW">綠咖哩源自泰國傳統料理，由青辣椒、香茅、青檸葉等香料研磨而成，傳統配方中更添蝦醬提鮮。在安特衛普這座多元文化交融的港口城市，B&G Antwerp將這道東南亞風味醬汁作為比利時經典肉丸的創新沾醬，完美詮釋了法蘭德斯傳統美食與全球風味的碰撞與融合。</span><span data-lang="en">Originating from traditional Thai cuisine, green curry is a paste ground from green chilies, lemongrass, kaffir lime leaves, and other spices, traditionally enriched with shrimp paste. In Antwerp, a port city embracing diverse cultures, B&G Antwerp pairs this Southeast Asian sauce innovatively with classic Belgian meatballs, perfectly embodying the collision and fusion of traditional Flemish gastronomy with global flavors.</span><span data-lang="es">Originario de la cocina tradicional tailandesa, el curry verde es una pasta molida a base de chiles verdes, limoncillo, hojas de lima kaffir y otras especias, enriquecida tradicionalmente con pasta de camarón. En Amberes, una ciudad portuaria que abraza la diversidad cultural, B&G Antwerp marida esta salsa de sabor asiático de forma innovadora con las clásicas albóndigas belgas, encarnando a la perfección el encuentro y la fusión de la gastronomía tradicional flamenca con los sabores globales.</span><span data-lang="ko">그린 커리는 태국 전통 요리에서 유래하여 청고추, 레몬그라스, 카피르 라임 잎 등의 향신료를 빻아 만들며, 전통적으로 새우 페이스트가 들어갑니다. 다문화가 공존하는 항구 도시 앤트워프에서 B&G 앤트워프는 이 동남아풍 소스를 벨기에 전통 미트볼과 혁신적으로 조합하여, 플랑드르 전통 미식과 글로벌 풍미의 완벽한 조화를 선보입니다.</span><span data-lang="ja">タイの伝統料理に由来するグリーンカレーは、青唐辛子、レモングラス、コブミカンの葉などのスパイスをすり潰して作られ、伝統的にエビペーストが加えられます。多文化が交差する港町アントワープで、B&Gアントワープはこの東南アジア風のソースをベルギーの定番ミートボールと革新的に組み合わせ、フランダースの伝統美食とグローバルな風味の衝突と融合を体現しています。</span><span data-lang="nl">Groene curry, afkomstig uit de traditionele Thaise keuken, is een pasta van groene pepers, citroengras, kaffirlimoenblaadjes en andere specerijen, van oudsher verrijkt met garnalenpasta. In Antwerpen, een havenstad die diversiteit omarmt, combineert B&G Antwerp deze Zuidoost-Aziatische saus op innovatieve wijze met de klassieke Belgische vleesballen. Dit is een perfecte weerspiegeling van de ontmoeting en versmelting van de traditionele Vlaamse gastronomie met wereldse smaken.</span></p>
-        <p class="dish-allergens"><span data-lang="zh-CN">⚠️ 过敏原：乳制品, 坚果</span><span data-lang="zh-TW">⚠️ 過敏原：乳製品, 坚果</span><span data-lang="en">⚠️ Allergens: Dairy, 坚果</span><span data-lang="es">⚠️ Alérgenos: Lácteos, 坚果</span><span data-lang="ko">⚠️ 알레르기: 유제품, 坚果</span><span data-lang="ja">⚠️ アレルゲン: 乳製品, 坚果</span><span data-lang="nl">⚠️ Allergenen: Melkproducten, 坚果</span></p><p class="allergen-warning"><span data-lang="zh-CN">过敏原信息仅供参考，如有疑问请咨询服务员</span><span data-lang="zh-TW">過敏原資訊僅供參考，如有疑問請諮詢服務員</span><span data-lang="en">Allergen info is for reference only. Please ask staff if unsure.</span><span data-lang="es">Info de alérgenos solo referencial. Consulte al personal.</span><span data-lang="ko">알레르기 정보는 참고용입니다. 확실하지 않으면 직원에게 문의하세요.</span><span data-lang="ja">アレルゲン情報は参考用です。不明な場合は店員にお尋ねください。</span><span data-lang="nl">Allergeneninfo is indicatief. Vraag het personeel bij onzekerheid.</span></p>
+        <p class="dish-allergens"><span data-lang="zh-CN">⚠️ 过敏原：乳制品, 坚果</span><span data-lang="zh-TW">⚠️ 過敏原：乳製品, 堅果</span><span data-lang="en">⚠️ Allergens: Dairy, Nuts</span><span data-lang="es">⚠️ Alérgenos: Lácteos, Nueces</span><span data-lang="ko">⚠️ 알레르기: 유제품, 견과류</span><span data-lang="ja">⚠️ アレルゲン: 乳製品, ナッツ</span><span data-lang="nl">⚠️ Allergenen: Melkproducten, Noten</span></p><p class="allergen-warning"><span data-lang="zh-CN">过敏原信息仅供参考，如有疑问请咨询服务员</span><span data-lang="zh-TW">過敏原資訊僅供參考，如有疑問請諮詢服務員</span><span data-lang="en">Allergen info is for reference only. Please ask staff if unsure.</span><span data-lang="es">Info de alérgenos solo referencial. Consulte al personal.</span><span data-lang="ko">알레르기 정보는 참고용입니다. 확실하지 않으면 직원에게 문의하세요.</span><span data-lang="ja">アレルゲン情報は参考用です。不明な場合は店員にお尋ねください。</span><span data-lang="nl">Allergeneninfo is indicatief. Vraag het personeel bij onzekerheid.</span></p>
     </div>
 </div>
 <div class="dish-card" data-taste="咸鲜" data-vegetarian="false" data-halal="false" data-no_pork="false" data-no_seafood="true" data-no_beef="true" data-allergens="麸质,乳制品" data-must_try="false" data-kid_friendly="true">
@@ -3003,11 +3078,55 @@ function toggleFilterSection(header) {
 
 let currentLang = 'zh-CN';
 let currentRestaurant = '10';
+let orderItems = [];
+
+// 餐厅语言映射（根据餐厅地点）
+const restaurantLangMap = {
+    '10': 'nl',    // B&G Antwerp - 比利时安特卫普，荷兰语
+    '9': 'nl',     // B&G Ghent - 比利时根特，荷兰语
+    '136': 'it',   // Nonna Betta - 意大利，意大利语
+    '140': 'it'    // Villa Bianca - 意大利，意大利语
+};
+
+// 获取当前餐厅的当地语言
+function getRestaurantLang() {
+    return restaurantLangMap[currentRestaurant] || 'es';
+}
+
+// 餐厅订单存储函数（全局）
+function saveRestaurantOrder(restaurantId) {
+    localStorage.setItem('menuOrder_' + restaurantId, JSON.stringify(orderItems));
+}
+
+function loadRestaurantOrder(restaurantId) {
+    orderItems = JSON.parse(localStorage.getItem('menuOrder_' + restaurantId) || '[]');
+}
+
+// 全局更新徽章函数
+function updateOrderBadgeGlobal() {
+    const badge = document.getElementById('orderBadge');
+    if (badge) {
+        if (orderItems.length > 0) {
+            badge.textContent = orderItems.length;
+            badge.style.display = 'flex';
+        } else {
+            badge.style.display = 'none';
+        }
+    }
+}
+
+// 初始化加载当前餐厅订单
+loadRestaurantOrder(currentRestaurant);
+updateOrderBadgeGlobal(); // 立即更新徽章
 
 const restaurantBtns = document.querySelectorAll('.restaurant-btn');
 restaurantBtns.forEach(btn => {
     btn.addEventListener('click', function() {
         const restaurantId = this.dataset.restaurant;
+        
+        // 保存当前餐厅的订单
+        saveRestaurantOrder(currentRestaurant);
+        
         restaurantBtns.forEach(b => b.classList.remove('active'));
         this.classList.add('active');
         document.querySelectorAll('.restaurant-header').forEach(h => h.classList.remove('active'));
@@ -3015,7 +3134,19 @@ restaurantBtns.forEach(btn => {
         document.querySelectorAll('.restaurant-menu').forEach(m => m.classList.remove('active'));
         document.getElementById('menu-' + restaurantId).classList.add('active');
         resetFilters();
+        
+        // 切换到新餐厅，加载该餐厅的订单
         currentRestaurant = restaurantId;
+        loadRestaurantOrder(restaurantId);
+        
+        // 立即更新徽章
+        updateOrderBadgeGlobal();
+        
+        // 延迟更新订单列表（等待IIFE初始化完成）
+        setTimeout(() => {
+            if (typeof renderOrderList === 'function') renderOrderList();
+            if (typeof updateOrderButtons === 'function') updateOrderButtons();
+        }, 100);
     });
 });
 
@@ -3123,12 +3254,22 @@ function updateAllPrices() {
             } else {
                 priceEl.textContent = `${symbol}${converted.toFixed(2).replace('.', ',')}`;
             }
-            // 添加免责声明
-            if (!priceEl.nextElementSibling || !priceEl.nextElementSibling.classList.contains('dish-price-note')) {
+            
+            // 查找或创建价格wrapper
+            let priceWrapper = priceEl.parentElement;
+            if (!priceWrapper.classList.contains('dish-price-wrapper')) {
+                priceWrapper = document.createElement('div');
+                priceWrapper.className = 'dish-price-wrapper';
+                priceEl.parentNode.insertBefore(priceWrapper, priceEl);
+                priceWrapper.appendChild(priceEl);
+            }
+            
+            // 添加免责声明到wrapper下面
+            if (!priceWrapper.querySelector('.dish-price-note')) {
                 const note = document.createElement('p');
                 note.className = 'dish-price-note';
-                note.innerHTML = `<span data-lang="zh-CN">实际价格以餐厅为准</span><span data-lang="zh-TW">實際價格以餐廳為準</span><span data-lang="en">Actual price may vary at restaurant</span><span data-lang="es">El precio real puede variar</span><span data-lang="ko">실제 가격은 레스토랑에서 확인하세요</span><span data-lang="ja">実際の価格はレストランで確認してください</span><span data-lang="nl">Prijs kan variëren in restaurant</span>`;
-                priceEl.parentNode.insertBefore(note, priceEl.nextSibling);
+                note.innerHTML = `<span data-lang="zh-CN">实际价格以餐厅为准</span><span data-lang="zh-TW">實際價格以餐廳為準</span><span data-lang="en">Actual price may vary</span><span data-lang="es">El precio real puede variar</span><span data-lang="ko">실제 가격은 확인하세요</span><span data-lang="ja">実際の価格は確認してください</span><span data-lang="nl">Prijs kan variëren</span>`;
+                priceWrapper.appendChild(note);
             }
         }
     });
@@ -3170,7 +3311,10 @@ filterTags.forEach(tag => {
     });
 });
 
-resetBtn.addEventListener('click', resetFilters);
+resetBtn.addEventListener('click', function(e) {
+    e.stopPropagation(); // 阻止事件冒泡，防止触发toggleFilterSection
+    resetFilters();
+});
 
 function resetFilters() {
     filterTags.forEach(tag => tag.classList.remove('active'));
@@ -3221,26 +3365,25 @@ function applyFilters() {
             });
         }
         
-        // Category filter - check dish-category text
+        // Category filter - 主要根据菜品分类判断，而不是菜品名称
         if (activeFilters.category.length > 0 && show) {
             const categoryEl = card.querySelector('.dish-category span[data-lang="en"]') || card.querySelector('.dish-category');
             const categoryText = categoryEl ? categoryEl.textContent.toLowerCase() : '';
-            const nameEl = card.querySelector('.dish-name span[data-lang="en"]') || card.querySelector('.dish-name');
-            const dishName = nameEl ? nameEl.textContent.toLowerCase() : '';
             let cardCategory = 'mains'; // default
             
-            if (categoryText.includes('starter') || categoryText.includes('entrante') || categoryText.includes('前菜') || categoryText.includes('voorgerecht') || categoryText.includes('스타터') || categoryText.includes('开胃')) {
+            // 首先根据菜品分类判断
+            if (categoryText.includes('beer') || categoryText.includes('wine') || categoryText.includes('cervezas y vinos') || categoryText.includes('bieren wijnen') || categoryText.includes('啤酒红酒') || categoryText.includes('alcohol') || categoryText.includes('alcoholic')) {
+                cardCategory = 'alcohol';
+            } else if (categoryText.includes('drink') || categoryText.includes('beverage') || categoryText.includes('饮料') || categoryText.includes('饮品') || categoryText.includes('drank') || categoryText.includes('음료') || categoryText.includes('ドリンク') || categoryText.includes('homemade drink')) {
+                cardCategory = 'drinks';
+            } else if (categoryText.includes('starter') || categoryText.includes('entrante') || categoryText.includes('前菜') || categoryText.includes('voorgerecht') || categoryText.includes('스타터') || categoryText.includes('开胃')) {
                 cardCategory = 'starters';
             } else if (categoryText.includes('bite') || categoryText.includes('snack') || categoryText.includes('小食') || categoryText.includes('hapje') || categoryText.includes('간식')) {
                 cardCategory = 'bites';
             } else if (categoryText.includes('dessert') || categoryText.includes('sweet') || categoryText.includes('甜点') || categoryText.includes('nagerecht') || categoryText.includes('디저트') || categoryText.includes('甜品')) {
                 cardCategory = 'desserts';
-            } else if (categoryText.includes('beer') || categoryText.includes('wine') || categoryText.includes('cervezas y vinos') || categoryText.includes('bieren wijnen') || categoryText.includes('啤酒红酒') || dishName.includes(' beer') || dishName.includes(' wine') || dishName.includes('ale ') || dishName.includes('cava') || dishName.includes('champagne') || dishName.includes('cocktail') || dishName.includes('mojito') || dishName.includes('whiskey') || dishName.includes(' gin ') || dishName.includes('vodka') || dishName.includes('rum') || dishName.includes('spirit') || dishName.includes('sangria') || dishName.includes('prosecco') || dishName.includes('pils') || dishName.includes('blond') || dishName.includes('dubbel') || dishName.includes('tripel') || dishName.includes('trappist') || dishName.includes('stout') || dishName.includes('porter')) {
-                cardCategory = 'alcohol';
-            } else if (dishName.includes('gravy (45ml)') || dishName.includes('肉汁 (45ml)') || dishName.includes('green curry (45ml)') || dishName.includes('绿咖喱 (45ml)') || dishName.includes('groene curry (45ml)')) {
+            } else if (categoryText.includes('sauce') || categoryText.includes('curry') || categoryText.includes('酱汁') || categoryText.includes('咖喱')) {
                 cardCategory = 'sauce';
-            } else if (categoryText.includes('drink') || categoryText.includes('beverage') || categoryText.includes('饮料') || categoryText.includes('drank') || categoryText.includes('음료') || dishName.includes('lemonade') || dishName.includes('juice') || dishName.includes('coffee') || dishName.includes('tea') || dishName.includes('water') || dishName.includes('soda')) {
-                cardCategory = 'drinks';
             }
             
             if (!activeFilters.category.includes(cardCategory)) {
@@ -3587,6 +3730,228 @@ function applyFilters() {
     margin-bottom: 10px;
 }
 .clear-order-btn:hover { background: #ff3344; }
+.show-staff-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+.show-staff-btn:hover { background: linear-gradient(135deg, #764ba2 0%, #667eea 100%); }
+/* 服务员展示弹窗 */
+.staff-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    z-index: 10000;
+    justify-content: center;
+    align-items: center;
+}
+.staff-modal.active { display: flex; }
+.staff-modal-content {
+    background: white;
+    width: 90%;
+    max-width: 500px;
+    max-height: 85vh;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    overflow: hidden;
+}
+.staff-modal-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+}
+.staff-modal-header h2 { margin: 0; font-size: 1.5rem; }
+.close-staff-modal {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+}
+.staff-modal-body {
+    padding: 20px;
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+    max-height: 40vh;
+}
+.staff-order-list { margin-bottom: 15px; }
+.staff-order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+.staff-order-item-name { font-weight: 600; color: #333; }
+.staff-order-item-price { color: #f5576c; font-weight: 700; }
+.staff-order-total {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 10px;
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+.staff-modal-footer {
+    padding: 20px;
+    background: #f8f9fa;
+    flex-shrink: 0;
+    border-top: 1px solid #ddd;
+}
+.staff-message-area {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.staff-message-label {
+    font-weight: 600;
+    color: #333;
+}
+.staff-input-wrapper {
+    position: relative;
+}
+.staff-input {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-family: inherit;
+}
+.staff-input:focus {
+    border-color: #667eea;
+    outline: none;
+}
+.staff-autocomplete {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 100;
+    display: none;
+}
+.staff-autocomplete.active { display: block; }
+.staff-autocomplete-item {
+    padding: 10px 15px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+.staff-autocomplete-item:hover { background: #f0f0f0; }
+.staff-autocomplete-item:last-child { border-bottom: none; }
+.staff-translation-area {
+    margin-top: 10px;
+}
+.staff-translation-label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 5px;
+}
+.staff-translation-text {
+    padding: 15px;
+    background: #e8f4f8;
+    border-radius: 10px;
+    min-height: 60px;
+    max-height: 150px;
+    overflow-y: auto;
+    font-size: 1rem;
+    color: #333;
+    border: 2px solid #667eea;
+}
+.staff-original-area {
+    margin-top: 10px;
+}
+.staff-original-label {
+    font-size: 0.85rem;
+    color: #888;
+    margin-bottom: 5px;
+}
+.staff-original-text {
+    padding: 10px 15px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: #666;
+    min-height: 40px;
+}
+.staff-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.clear-message-btn {
+    padding: 12px 15px;
+    background: #ff6b6b;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    font-weight: 600;
+}
+.clear-message-btn:hover { background: #ee5a5a; }
+.regenerate-btn {
+    padding: 12px 15px;
+    background: #4ecdc4;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    font-weight: 600;
+}
+.regenerate-btn:hover { background: #3dbdb5; }
+.staff-voice-btn {
+    flex: 1;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: 600;
+}
+.staff-voice-btn:hover { background: linear-gradient(135deg, #f5576c 0%, #f093fb 100%); }
+.copy-message-btn {
+    flex: 1;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: 600;
+}
+.copy-message-btn:hover { background: linear-gradient(135deg, #764ba2 0%, #667eea 100%); }
 .copy-order-btn {
     width: 100%;
     padding: 12px;
@@ -3774,6 +4139,125 @@ function applyFilters() {
             <span data-lang="ja">注文をクリア</span>
             <span data-lang="nl">Bestelling Wissen</span>
         </button>
+        <button class="show-staff-btn" id="showStaffBtn">
+            <span data-lang="zh-CN">📱 向服务员展示</span>
+            <span data-lang="zh-TW">📱 向服務員展示</span>
+            <span data-lang="en">📱 Show to Staff</span>
+            <span data-lang="es">📱 Mostrar al Personal</span>
+            <span data-lang="ko">📱 직원에게 보여주기</span>
+            <span data-lang="ja">📱 スタッフに見せる</span>
+            <span data-lang="nl">📱 Toon aan Personeel</span>
+        </button>
+    </div>
+</div>
+
+<!-- 服务员展示弹窗 -->
+<div class="staff-modal" id="staffModal">
+    <div class="staff-modal-content">
+        <div class="staff-modal-header">
+            <h2>
+                <span data-lang="zh-CN">我的订单</span>
+                <span data-lang="zh-TW">我的訂單</span>
+                <span data-lang="en">My Order</span>
+                <span data-lang="es">Mi Pedido</span>
+                <span data-lang="ko">내 주문</span>
+                <span data-lang="ja">私の注文</span>
+                <span data-lang="nl">Mijn Bestelling</span>
+            </h2>
+            <button class="close-staff-modal" id="closeStaffModal">×</button>
+        </div>
+        <div class="staff-modal-body">
+            <div class="staff-order-list" id="staffOrderList"></div>
+            <div class="staff-order-total">
+                <span data-lang="zh-CN">总计</span>
+                <span data-lang="zh-TW">總計</span>
+                <span data-lang="en">Total</span>
+                <span data-lang="es">Total</span>
+                <span data-lang="ko">합계</span>
+                <span data-lang="ja">合計</span>
+                <span data-lang="nl">Totaal</span>
+                <span id="staffOrderTotal"></span>
+            </div>
+        </div>
+        <div class="staff-modal-footer">
+            <div class="staff-message-area">
+                <label class="staff-message-label">
+                    <span data-lang="zh-CN">输入想说的话（自动补全菜品）：</span>
+                    <span data-lang="zh-TW">輸入想說的話（自動補全菜品）：</span>
+                    <span data-lang="en">Type your message (auto-complete dishes):</span>
+                    <span data-lang="es">Escribe tu mensaje (autocompletar platos):</span>
+                    <span data-lang="ko">메시지 입력 (요리 자동 완성):</span>
+                    <span data-lang="ja">メッセージ入力（料理自動補完）：</span>
+                    <span data-lang="nl">Typ uw bericht (auto-complete gerechten):</span>
+                </label>
+                <div class="staff-input-wrapper">
+                    <input class="staff-input" id="staffInput" type="text" placeholder="输入菜品名称或想说的话..." autocomplete="off">
+                    <div class="staff-autocomplete" id="staffAutocomplete"></div>
+                </div>
+                <div class="staff-translation-area">
+                    <div class="staff-translation-label" id="staffTranslationLabel">
+                        <span data-lang="zh-CN">翻译（餐厅当地语言）：</span>
+                        <span data-lang="zh-TW">翻譯（餐廳當地語言）：</span>
+                        <span data-lang="en">Translation (Restaurant Language):</span>
+                        <span data-lang="es">Traducción (Idioma del Restaurante):</span>
+                        <span data-lang="ko">번역 (레스토랑 언어):</span>
+                        <span data-lang="ja">翻訳（レストラン言語）：</span>
+                        <span data-lang="nl">Vertaling (Restaurant Taal):</span>
+                    </div>
+                    <div class="staff-translation-text" id="staffTranslationText"></div>
+                    <div class="staff-original-area">
+                        <div class="staff-original-label">
+                            <span data-lang="zh-CN">原文意思（您的语言）：</span>
+                            <span data-lang="zh-TW">原文意思（您的語言）：</span>
+                            <span data-lang="en">Original Meaning (Your Language):</span>
+                            <span data-lang="es">Significado Original (Tu Idioma):</span>
+                            <span data-lang="ko">원문 의미 (당신의 언어):</span>
+                            <span data-lang="ja">原文の意味（あなたの言語）：</span>
+                            <span data-lang="nl">Originele Betekenis (Uw Taal):</span>
+                        </div>
+                        <div class="staff-original-text" id="staffOriginalText"></div>
+                    </div>
+                </div>
+                <div class="staff-actions">
+                    <button class="clear-message-btn" id="clearMessageBtn">
+                        <span data-lang="zh-CN">🗑️ 清空</span>
+                        <span data-lang="zh-TW">🗑️ 清空</span>
+                        <span data-lang="en">🗑️ Clear</span>
+                        <span data-lang="es">🗑️ Limpiar</span>
+                        <span data-lang="ko">🗑️ 지우기</span>
+                        <span data-lang="ja">🗑️ クリア</span>
+                        <span data-lang="nl">🗑️ Wissen</span>
+                    </button>
+                    <button class="regenerate-btn" id="regenerateBtn">
+                        <span data-lang="zh-CN">🔄 重新生成</span>
+                        <span data-lang="zh-TW">🔄 重新生成</span>
+                        <span data-lang="en">🔄 Regenerate</span>
+                        <span data-lang="es">🔄 Regenerar</span>
+                        <span data-lang="ko">🔄 재생성</span>
+                        <span data-lang="ja">🔄 再生成</span>
+                        <span data-lang="nl">🔄 Regenereren</span>
+                    </button>
+                    <button class="staff-voice-btn" id="staffVoiceBtn">
+                        <span data-lang="zh-CN">🔊 朗读</span>
+                        <span data-lang="zh-TW">🔊 讀出</span>
+                        <span data-lang="en">🔊 Speak</span>
+                        <span data-lang="es">🔊 Hablar</span>
+                        <span data-lang="ko">🔊 말하기</span>
+                        <span data-lang="ja">🔊 読む</span>
+                        <span data-lang="nl">🔊 Spreken</span>
+                    </button>
+                    <button class="copy-message-btn" id="copyMessageBtn">
+                        <span data-lang="zh-CN">📋 复制</span>
+                        <span data-lang="zh-TW">📋 複製</span>
+                        <span data-lang="en">📋 Copy</span>
+                        <span data-lang="es">📋 Copiar</span>
+                        <span data-lang="ko">📋 복사</span>
+                        <span data-lang="ja">📋 コピー</span>
+                        <span data-lang="nl">📋 Kopiëren</span>
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -3816,7 +4300,8 @@ function applyFilters() {
         'order-empty': { 'zh-CN': '还没有添加任何菜品', 'zh-TW': '還沒有添加任何菜品', 'en': 'No items added yet', 'es': 'Sin artículos añadidos', 'ko': '추가된 항목이 없습니다', 'ja': 'まだアイテムがありません', 'nl': 'Nog geen items toegevoegd' },
         'order-empty-tip': { 'zh-CN': '点击菜品卡片上的"加入订单"按钮开始', 'zh-TW': '點擊菜品卡片上的「加入訂單」按鈕開始', 'en': 'Click "Add to Order" on dishes to start', 'es': 'Haga clic en "Añadir" en los platos', 'ko': '요리에서 "주문 추가"를 클릭하세요', 'ja': '料理の「注文に追加」をクリック', 'nl': 'Klik op "Toevoegen" bij gerechten' },
         'order-copied': { 'zh-CN': '订单已复制到剪贴板！', 'zh-TW': '訂單已複製到剪貼板！', 'en': 'Order copied to clipboard!', 'es': '¡Pedido copiado!', 'ko': '주문이 클립보드에 복사되었습니다!', 'ja': '注文がクリップボードにコピーされました！', 'nl': 'Bestelling gekopieerd!' },
-        'order-cleared': { 'zh-CN': '订单已清空', 'zh-TW': '訂單已清空', 'en': 'Order cleared', 'es': 'Pedido vaciado', 'ko': '주문이 비워졌습니다', 'ja': '注文をクリアしました', 'nl': 'Bestelling gewist' }
+        'order-cleared': { 'zh-CN': '订单已清空', 'zh-TW': '訂單已清空', 'en': 'Order cleared', 'es': 'Pedido vaciado', 'ko': '주문이 비워졌습니다', 'ja': '注文をクリアしました', 'nl': 'Bestelling gewist' },
+        'switch-restaurant-clear-order': { 'zh-CN': '切换餐厅将清空当前订单，确定要切换吗？', 'zh-TW': '切換餐廳將清空當前訂單，確定要切換嗎？', 'en': 'Switching restaurant will clear your current order. Continue?', 'es': 'Cambiar restaurante vaciará su pedido. ¿Continuar?', 'ko': '레스토랑을 변경하면 현재 주문이 삭제됩니다. 계속하시겠습니까?', 'ja': 'レストランを切り替えると現在の注文がクリアされます。続けますか？', 'nl': 'Restaurant wisselen zal uw bestelling wissen. Doorgaan?' }
     };
 
     function getCurrentLang() {
@@ -3854,11 +4339,11 @@ function applyFilters() {
         });
     }
 
-    // ============ 订单系统 ============
-    let orderItems = JSON.parse(localStorage.getItem('menuOrder') || '[]');
+    // ============ 订单系统（每个餐厅独立订单）============
 
+    // 保存当前餐厅的订单
     function saveOrder() {
-        localStorage.setItem('menuOrder', JSON.stringify(orderItems));
+        saveRestaurantOrder(currentRestaurant);
         updateOrderBadge();
         updateOrderButtons();
     }
@@ -3962,13 +4447,22 @@ function applyFilters() {
     function addOrderButtons() {
         document.querySelectorAll('.dish-card').forEach((card, index) => {
             const dishId = 'dish-' + index;
+            
+            // 检查是否已经有按钮，避免重复添加
+            if (card.querySelector('.add-order-btn')) {
+                return; // 已有按钮，跳过
+            }
+            
+            card.setAttribute('data-id', dishId);
+            
             const nameEl = card.querySelector('.dish-name span[data-lang="en"]') || card.querySelector('.dish-name');
             const priceEl = card.querySelector('.dish-price');
             const categoryEl = card.querySelector('.dish-category span[data-lang="en"]') || card.querySelector('.dish-category');
             
             if (nameEl && priceEl) {
                 const dishName = nameEl.textContent.trim();
-                const dishPrice = priceEl.textContent.trim();
+                // 获取原始EUR价格（从data-original-price或HTML）
+                let dishPrice = priceEl.getAttribute('data-original-price') || priceEl.textContent.trim();
                 const dishCategory = categoryEl ? categoryEl.textContent.trim() : 'mains';
                 
                 // 确定分类
@@ -4096,6 +4590,497 @@ function applyFilters() {
     orderOverlay.addEventListener('click', toggleOrderPanel);
     closeOrderBtn.addEventListener('click', toggleOrderPanel);
     clearOrderBtn.addEventListener('click', clearOrder);
+    
+    // 服务员展示功能
+    const showStaffBtn = document.getElementById('showStaffBtn');
+    const staffModal = document.getElementById('staffModal');
+    const closeStaffModal = document.getElementById('closeStaffModal');
+    const copyMessageBtn = document.getElementById('copyMessageBtn');
+    const staffVoiceBtn = document.getElementById('staffVoiceBtn');
+    const clearMessageBtn = document.getElementById('clearMessageBtn');
+    const regenerateBtn = document.getElementById('regenerateBtn');
+    const staffInput = document.getElementById('staffInput');
+    const staffAutocomplete = document.getElementById('staffAutocomplete');
+    const staffTranslationText = document.getElementById('staffTranslationText');
+    const staffOriginalText = document.getElementById('staffOriginalText');
+    
+    let messageText = ''; // 存储用户输入的文字（餐厅当地语言）
+    let inputText = ''; // 存储用户输入的文字（当前语言）
+    let originalText = ''; // 存储原文意思（当前语言）
+    let hasUserContent = false; // 用户是否已自定义内容
+    
+    showStaffBtn.addEventListener('click', function() {
+        if (orderItems.length === 0) {
+            // 多语言提示
+            const messages = {
+                'zh-CN': '请先添加菜品到订单',
+                'zh-TW': '請先添加菜品到訂單',
+                'en': 'Please add items to your order first',
+                'es': 'Por favor añada platos al pedido primero',
+                'ko': '먼저 주문에 요리를 추가하세요',
+                'ja': 'まず注文に料理を追加してください',
+                'nl': 'Voeg eerst gerechten toe aan uw bestelling'
+            };
+            alert(messages[currentLang] || messages['en']);
+            return;
+        }
+        showStaffModal();
+    });
+    
+    closeStaffModal.addEventListener('click', closeStaffModalFn);
+    staffModal.addEventListener('click', function(e) {
+        if (e.target === staffModal) closeStaffModalFn();
+    });
+    
+    // 自动补全功能（显示餐厅当地语言菜品名称）
+    staffInput.addEventListener('input', function() {
+        const value = this.value.toLowerCase();
+        inputText = this.value;
+        
+        if (value.length === 0) {
+            staffAutocomplete.classList.remove('active');
+            // 清空后保持空白，不自动生成内容
+            if (hasUserContent) {
+                staffTranslationText.textContent = messageText || '';
+                staffOriginalText.textContent = originalText || '';
+            }
+            return;
+        }
+        
+        // 从订单中查找匹配的菜品（用餐厅当地语言名称）
+        const restaurantLang = getRestaurantLang();
+        const matches = orderItems.filter(item => {
+            const langSpan = document.querySelector(`.dish-card[data-id="${item.id}"] .dish-name span[data-lang="${restaurantLang}"]`);
+            const nameLocal = langSpan ? langSpan.textContent.toLowerCase() : '';
+            const langSpanUser = document.querySelector(`.dish-card[data-id="${item.id}"] .dish-name span[data-lang="${currentLang}"]`);
+            const nameUser = langSpanUser ? langSpanUser.textContent.toLowerCase() : '';
+            return nameLocal.includes(value) || nameUser.includes(value);
+        });
+        
+        if (matches.length > 0) {
+            staffAutocomplete.innerHTML = matches.map(item => {
+                const langSpanLocal = document.querySelector(`.dish-card[data-id="${item.id}"] .dish-name span[data-lang="${restaurantLang}"]`);
+                const nameLocal = langSpanLocal ? langSpanLocal.textContent : item.name;
+                const langSpanUser = document.querySelector(`.dish-card[data-id="${item.id}"] .dish-name span[data-lang="${currentLang}"]`);
+                const nameUser = langSpanUser ? langSpanUser.textContent : item.name;
+                return `<div class="staff-autocomplete-item" data-name-local="${nameLocal}" data-name-user="${nameUser}">${nameUser} → ${nameLocal}</div>`;
+            }).join('');
+            staffAutocomplete.classList.add('active');
+        } else {
+            staffAutocomplete.classList.remove('active');
+        }
+        
+        // 实时更新翻译
+        updateTranslation();
+    });
+    
+    // 点击补全项（添加餐厅当地语言菜品名称）
+    staffAutocomplete.addEventListener('click', function(e) {
+        if (e.target.classList.contains('staff-autocomplete-item')) {
+            const nameLocal = e.target.getAttribute('data-name-local');
+            const nameUser = e.target.getAttribute('data-name-user');
+            messageText += nameLocal + ', ';
+            inputText += nameUser + ', ';
+            staffInput.value = inputText;
+            staffAutocomplete.classList.remove('active');
+            updateTranslation();
+        }
+    });
+    
+    // 添加普通文字（实时翻译）
+    staffInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            const value = this.value.trim();
+            if (value) {
+                // 使用MyMemory翻译API（翻译到餐厅当地语言）
+                const restaurantLang = getRestaurantLang();
+                showToast('正在翻译...');
+                translateText(value, currentLang, restaurantLang).then(translated => {
+                    messageText += translated + ' ';
+                    originalText += value + ' ';
+                    this.value = '';
+                    updateTranslation();
+                    showToast('翻译完成');
+                });
+            }
+        }
+    });
+    
+    // MyMemory翻译API（免费，无需API Key）
+    async function translateText(text, sourceLang, targetLang) {
+        try {
+            // MyMemory免费API
+            const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${sourceLang}|${targetLang}`;
+            
+            console.log('翻译请求:', url);
+            
+            const response = await fetch(url);
+            console.log('翻译响应状态:', response.status);
+            
+            if (!response.ok) {
+                console.error('翻译API错误:', response.status);
+                showToast('翻译服务暂时不可用');
+                return text; // 返回原文
+            }
+            
+            const data = await response.json();
+            console.log('翻译结果:', data);
+            
+            // 提取翻译结果
+            if (data && data.responseData && data.responseData.translatedText) {
+                return data.responseData.translatedText;
+            }
+            
+            return text; // 如果翻译失败，返回原文
+        } catch (error) {
+            console.error('翻译失败:', error);
+            showToast('翻译失败: ' + error.message);
+            return text; // 如果翻译失败，返回原文
+        }
+    }
+    
+    // 实时更新翻译显示
+    function updateTranslation() {
+        const restaurantLang = getRestaurantLang();
+        
+        // 如果用户已自定义内容，保持空白
+        if (hasUserContent && !messageText) {
+            staffTranslationText.textContent = '';
+            staffOriginalText.textContent = '';
+            return;
+        }
+        
+        // 如果没有输入且用户未自定义，显示默认问候语
+        if (!messageText && !hasUserContent) {
+            // 根据餐厅语言显示问候语（餐厅当地语言）
+            const greetings = {
+                'nl': 'Hallo, ik wil bestellen: ',  // 荷兰语
+                'it': 'Ciao, voglio ordinare: ',    // 意大利语
+                'es': 'Hola, quiero ordenar: ',     // 西班牙语
+                'en': 'Hello, I want to order: '    // 英语
+            };
+            messageText = greetings[restaurantLang] || greetings['en'];
+            
+            // 根据用户语言显示问候语（用户语言）
+            const greetingsUser = {
+                'zh-CN': '你好，我想点：',
+                'zh-TW': '您好，我想點：',
+                'en': 'Hello, I want to order:',
+                'es': 'Hola, quiero ordenar:',
+                'ko': '안녕하세요, 주문하고 싶습니다:',
+                'ja': 'こんにちは、注文したいです:',
+                'nl': 'Hallo, ik wil bestellen:'
+            };
+            originalText = greetingsUser[currentLang] || greetingsUser['en'];
+            
+            // 添加所有菜品（餐厅当地语言）
+            orderItems.forEach(item => {
+                const langSpan = document.querySelector(`.dish-card[data-id="${item.id}"] .dish-name span[data-lang="${restaurantLang}"]`);
+                const nameLocal = langSpan ? langSpan.textContent : item.name;
+                messageText += nameLocal + ', ';
+                
+                // 添加菜品（用户语言）
+                const langSpanUser = document.querySelector(`.dish-card[data-id="${item.id}"] .dish-name span[data-lang="${currentLang}"]`);
+                const nameUser = langSpanUser ? langSpanUser.textContent : item.name;
+                originalText += nameUser + ', ';
+            });
+            
+            // 添加结束语（餐厅当地语言）
+            const thanks = {
+                'nl': 'Dank u!',
+                'it': 'Grazie!',
+                'es': '¡Gracias!',
+                'en': 'Thank you!'
+            };
+            messageText += thanks[restaurantLang] || thanks['en'];
+            
+            // 添加结束语（用户语言）
+            const thanksUser = {
+                'zh-CN': '谢谢！',
+                'zh-TW': '謝謝！',
+                'en': 'Thank you!',
+                'es': '¡Gracias!',
+                'ko': '감사합니다!',
+                'ja': 'ありがとうございます！',
+                'nl': 'Dank u!'
+            };
+            originalText += thanksUser[currentLang] || thanksUser['en'];
+        }
+        
+        staffTranslationText.textContent = messageText;
+        staffOriginalText.textContent = originalText;
+    }
+    
+    // 复制翻译
+    copyMessageBtn.addEventListener('click', function() {
+        navigator.clipboard.writeText(messageText).then(() => {
+            showToast('已复制到剪贴板');
+        });
+    });
+    
+    // 清空翻译
+    clearMessageBtn.addEventListener('click', function() {
+        messageText = '';
+        inputText = '';
+        originalText = '';
+        hasUserContent = true; // 用户主动清空，算自定义，下次打开保持空白
+        staffInput.value = '';
+        staffTranslationText.textContent = '';
+        staffOriginalText.textContent = '';
+        showToast('已清空');
+    });
+    
+    // 重新生成（只生成菜品列表，不加问候语）
+    regenerateBtn.addEventListener('click', function() {
+        const restaurantLang = getRestaurantLang();
+        messageText = '';
+        originalText = '';
+        hasUserContent = true; // 用户主动重新生成，算自定义
+        
+        // 只添加菜品（餐厅当地语言）
+        orderItems.forEach(item => {
+            const langSpan = document.querySelector(`.dish-card[data-id="${item.id}"] .dish-name span[data-lang="${restaurantLang}"]`);
+            const nameLocal = langSpan ? langSpan.textContent : item.name;
+            messageText += nameLocal + ', ';
+            
+            // 添加菜品（用户语言）
+            const langSpanUser = document.querySelector(`.dish-card[data-id="${item.id}"] .dish-name span[data-lang="${currentLang}"]`);
+            const nameUser = langSpanUser ? langSpanUser.textContent : item.name;
+            originalText += nameUser + ', ';
+        });
+        
+        staffTranslationText.textContent = messageText;
+        staffOriginalText.textContent = originalText;
+        showToast('已重新生成');
+    });
+    
+    // 朗读翻译（餐厅当地语言）
+    staffVoiceBtn.addEventListener('click', function() {
+        // 如果没有翻译内容，朗读用户当前输入的内容
+        let textToSpeak = messageText;
+        
+        if (!textToSpeak) {
+            // 如果用户正在输入，翻译并朗读
+            const currentInput = staffInput.value.trim();
+            if (currentInput) {
+                const restaurantLang = getRestaurantLang();
+                translateText(currentInput, currentLang, restaurantLang).then(translated => {
+                    speakText(translated, restaurantLang);
+                });
+                return;
+            } else {
+                showToast('请先输入内容');
+                return;
+            }
+        }
+        
+        const restaurantLang = getRestaurantLang();
+        const langCodeMap = {
+            'nl': 'nl-NL',  // 荷兰语
+            'it': 'it-IT',  // 意大利语
+            'es': 'es-ES',  // 西班牙语
+            'en': 'en-GB'   // 英语
+        };
+        
+        // 使用浏览器原生TTS（餐厅当地语言）
+        speakText(textToSpeak, langCodeMap[restaurantLang] || 'es-ES');
+    });
+    
+    // 浏览器原生TTS函数
+    function speakText(text, lang) {
+        if (!('speechSynthesis' in window)) {
+            showToast('您的浏览器不支持语音功能');
+            return;
+        }
+        
+        // 确保语音列表已加载
+        let voices = speechSynthesis.getVoices();
+        
+        // 如果语音列表为空，等待加载
+        if (voices.length === 0) {
+            speechSynthesis.onvoiceschanged = function() {
+                voices = speechSynthesis.getVoices();
+                doSpeak(text, lang, voices);
+            };
+            // 尝试立即加载
+            speechSynthesis.getVoices();
+            return;
+        }
+        
+        doSpeak(text, lang, voices);
+    }
+    
+    function doSpeak(text, lang, voices) {
+        speechSynthesis.cancel();
+        
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = lang;
+        utterance.rate = 0.9;
+        utterance.pitch = 1.0;
+        utterance.volume = 1;
+        
+        // 尝试找到匹配的语音（多种匹配方式）
+        let voice = null;
+        
+        // 1. 精确匹配
+        voice = voices.find(v => v.lang === lang);
+        
+        // 2. 语言前缀匹配
+        if (!voice) {
+            const langPrefix = lang.split('-')[0];
+            voice = voices.find(v => v.lang.startsWith(langPrefix));
+        }
+        
+        // 3. 查找任何包含该语言的语音
+        if (!voice) {
+            const langPrefix = lang.split('-')[0];
+            voice = voices.find(v => v.lang.toLowerCase().includes(langPrefix.toLowerCase()));
+        }
+        
+        // 4. 使用默认语音
+        if (!voice && voices.length > 0) {
+            voice = voices[0];
+            console.log('使用默认语音:', voice.name, voice.lang);
+        }
+        
+        if (voice) {
+            utterance.voice = voice;
+            console.log('使用语音:', voice.name, voice.lang);
+        }
+        
+        // 添加事件监听
+        utterance.onstart = function() {
+            showToast('正在朗读...');
+        };
+        
+        utterance.onerror = function(e) {
+            console.error('语音错误:', e);
+            showToast('语音播放失败: ' + e.error);
+        };
+        
+        utterance.onend = function() {
+            console.log('朗读完成');
+        };
+        
+        speechSynthesis.speak(utterance);
+        
+        // 如果没有触发onstart，可能是语音包问题
+        setTimeout(function() {
+            if (!speechSynthesis.speaking) {
+                console.log('语音未开始，可用语音:', voices.map(v => v.name + ' (' + v.lang + ')'));
+                showToast('语音未播放，请检查语音包');
+            }
+        }, 1000);
+    }
+    
+    function showStaffModal() {
+        // 更新弹窗内容 - 显示餐厅原始货币（EUR €）
+        const staffOrderList = document.getElementById('staffOrderList');
+        
+        // 重置输入和翻译
+        messageText = '';
+        inputText = '';
+        originalText = '';
+        staffInput.value = '';
+        staffAutocomplete.classList.remove('active');
+        updateTranslation(); // 初始化翻译（显示默认问候语+所有菜品+原文意思）
+        
+        staffOrderList.innerHTML = orderItems.map(item => {
+            // 获取餐厅当地语言的菜品名称（而不是用户当前语言）
+            const restaurantLang = getRestaurantLang();
+            const langSpan = document.querySelector(`.dish-card[data-id="${item.id}"] .dish-name span[data-lang="${restaurantLang}"]`);
+            const displayName = langSpan ? langSpan.textContent : item.name;
+            
+            // 从菜品卡片获取原始EUR价格
+            const dishCard = document.querySelector(`.dish-card[data-id="${item.id}"]`);
+            const priceEl = dishCard?.querySelector('.dish-price');
+            let originalPrice = priceEl?.getAttribute('data-original-price');
+            
+            // 如果data-original-price不存在，从HTML中获取原始价格
+            if (!originalPrice) {
+                // 从HTML源码中查找原始EUR价格
+                const priceHtml = priceEl?.innerHTML || '';
+                const htmlMatch = priceHtml.match(/EUR\s*([\d,]+)/);
+                if (htmlMatch) {
+                    originalPrice = `EUR ${htmlMatch[1]}`;
+                } else {
+                    originalPrice = item.price;
+                }
+            }
+            
+            // 显示原始EUR价格（餐厅货币）- 使用欧元符号
+            const priceMatch = originalPrice.match(/EUR\s*([\d,]+)/);
+            let displayPrice = originalPrice;
+            if (priceMatch) {
+                displayPrice = `€${priceMatch[1]}`;
+            } else {
+                // 如果没有EUR格式，尝试提取数字并添加€符号
+                const numMatch = originalPrice.match(/([\d,]+)/);
+                if (numMatch) {
+                    displayPrice = `€${numMatch[1]}`;
+                }
+            }
+            
+            return `
+                <div class="staff-order-item">
+                    <span class="staff-order-item-name">${displayName}</span>
+                    <span class="staff-order-item-price">${displayPrice}</span>
+                </div>
+            `;
+        }).join('');
+        
+        // 更新总价 - 显示原始EUR价格（使用欧元符号）
+        let totalEUR = 0;
+        orderItems.forEach(item => {
+            const dishCard = document.querySelector(`.dish-card[data-id="${item.id}"]`);
+            const priceEl = dishCard?.querySelector('.dish-price');
+            let originalPrice = priceEl?.getAttribute('data-original-price');
+            
+            if (!originalPrice) {
+                const priceHtml = priceEl?.innerHTML || '';
+                const htmlMatch = priceHtml.match(/EUR\s*([\d,]+)/);
+                if (htmlMatch) {
+                    originalPrice = `EUR ${htmlMatch[1]}`;
+                } else {
+                    originalPrice = item.price;
+                }
+            }
+            
+            const priceMatch = originalPrice.match(/EUR\s*([\d,]+)/);
+            if (priceMatch) {
+                totalEUR += parseFloat(priceMatch[1].replace(',', '.'));
+            } else {
+                const numMatch = originalPrice.match(/([\d,]+)/);
+                if (numMatch) {
+                    totalEUR += parseFloat(numMatch[1].replace(',', '.'));
+                }
+            }
+        });
+        document.getElementById('staffOrderTotal').textContent = `€${totalEUR.toFixed(2).replace('.', ',')}`;
+        
+        staffModal.classList.add('active');
+    }
+    
+    function closeStaffModalFn() {
+        staffModal.classList.remove('active');
+        // 关闭弹窗时，如果用户清空了内容，下次打开会重新显示默认文本
+        // 如果用户填了内容，下次打开保持空白（hasUserContent = true）
+        // 重置状态
+        messageText = '';
+        inputText = '';
+        originalText = '';
+        // 只有用户没有自定义内容时，下次打开才显示默认文本
+        // hasUserContent保持不变，下次打开时根据这个值决定是否显示默认文本
+    }
+    
+    function showToast(message) {
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.textContent = message;
+        toast.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#333;color:#fff;padding:15px 25px;border-radius:10px;z-index:10001;font-size:1rem;';
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 2000);
+    }
 
     async function loadComments() {
         const listEl = document.getElementById('comments-list');
@@ -4289,6 +5274,9 @@ function applyFilters() {
     setTimeout(function() {
         updateFloatText();
         updatePlaceholders();
+        // 加载当前餐厅订单并更新徽章
+        loadRestaurantOrder(currentRestaurant);
+        renderOrderList();
         updateOrderBadge();
         addOrderButtons();
         setupLanguageListener();
