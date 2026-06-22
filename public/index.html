@@ -3169,6 +3169,7 @@ langOptions.forEach(option => {
         const lang = this.dataset.lang;
         const name = this.dataset.name;
         currentLangSpan.textContent = name;
+        currentLang = lang; // 更新全局变量currentLang
         langOptions.forEach(o => o.classList.remove('active'));
         this.classList.add('active');
         langDropdown.classList.remove('show');
@@ -4185,7 +4186,7 @@ function applyFilters() {
                     <span data-lang="nl">Typ uw bericht (auto-complete gerechten):</span>
                 </label>
                 <div class="staff-input-wrapper">
-                    <input class="staff-input" id="staffInput" type="text" placeholder="输入菜品名称或想说的话..." autocomplete="off">
+                    <input class="staff-input" id="staffInput" type="text" autocomplete="off">
                     <div class="staff-autocomplete" id="staffAutocomplete"></div>
                 </div>
                 <div class="staff-translation-area">
@@ -5062,6 +5063,21 @@ function applyFilters() {
             }
         });
         document.getElementById('staffOrderTotal').textContent = `€${totalEUR.toFixed(2).replace('.', ',')}`;
+        
+        // 应用当前选择的语言到服务员展示页面
+        switchLanguage(currentLang);
+        
+        // 设置输入框的placeholder（根据用户选择的语言）
+        const placeholders = {
+            'zh-CN': '输入菜品名称或想说的话...',
+            'zh-TW': '輸入菜品名稱或想說的話...',
+            'en': 'Enter dish name or message...',
+            'es': 'Ingrese nombre del plato o mensaje...',
+            'ko': '요리 이름 또는 메시지 입력...',
+            'ja': '料理名またはメッセージを入力...',
+            'nl': 'Voer gerecht naam of bericht in...'
+        };
+        staffInput.placeholder = placeholders[currentLang] || placeholders['en'];
         
         staffModal.classList.add('active');
     }
