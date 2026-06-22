@@ -28,17 +28,93 @@
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; background-image: radial-gradient(circle at 20% 30%, rgba(212, 160, 23, 0.03) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(233, 30, 99, 0.03) 0%, transparent 50%); }
-.restaurant-selector { display: flex; justify-content: center; gap: 1rem; padding: 1.5rem 2rem; background: var(--bg2); border-bottom: 3px solid var(--accent); }
-.restaurant-btn { padding: 1rem 2.5rem; border: 3px solid var(--accent); background: var(--bg3); color: var(--accent3); cursor: pointer; border-radius: 30px; font-size: 1.1rem; font-weight: 700; transition: all 0.3s; }
-.restaurant-btn:hover { background: var(--accent2); transform: translateY(-2px); }
-.restaurant-btn.active { background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 4px 15px var(--card-shadow); }
-/* 每个餐厅按钮的独特颜色 */
-.restaurant-btn[data-restaurant="antwerp"] { border-color: var(--accent-antwerp); color: var(--accent-antwerp); }
-.restaurant-btn[data-restaurant="antwerp"].active { background: var(--accent-antwerp); border-color: var(--accent-antwerp); }
-.restaurant-btn[data-restaurant="ghent"] { border-color: var(--accent-ghent); color: var(--accent-ghent); }
-.restaurant-btn[data-restaurant="ghent"].active { background: var(--accent-ghent); border-color: var(--accent-ghent); }
-.restaurant-btn[data-restaurant="136"] { border-color: var(--accent-nonna); color: var(--accent-nonna); }
-.restaurant-btn[data-restaurant="136"].active { background: var(--accent-nonna); border-color: var(--accent-nonna); }
+.restaurant-selector { 
+    display: flex; 
+    justify-content: center; 
+    gap: 1.5rem; 
+    padding: 2rem 2rem; 
+    background: linear-gradient(135deg, #FFF8E7 0%, #FFF5E6 100%);
+    border-bottom: 3px solid var(--accent);
+    position: relative;
+}
+.restaurant-selector::before {
+    content: '🍽️';
+    position: absolute;
+    left: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2rem;
+    opacity: 0.3;
+}
+.restaurant-btn { 
+    padding: 1.2rem 3rem; 
+    border: none;
+    background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%);
+    color: var(--accent3); 
+    cursor: pointer; 
+    border-radius: 50px;
+    font-size: 1.2rem; 
+    font-weight: 700; 
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.restaurant-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.5) 100%);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.restaurant-btn:hover::before {
+    opacity: 1;
+}
+.restaurant-btn:hover { 
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+.restaurant-btn.active { 
+    background: linear-gradient(135deg, var(--accent) 0%, #C49B14 100%);
+    color: white;
+    box-shadow: 0 6px 20px var(--card-shadow);
+    transform: translateY(-3px) scale(1.02);
+}
+/* 每个餐厅按钮的独特设计 */
+.restaurant-btn[data-restaurant="antwerp"] {
+    background: linear-gradient(135deg, rgba(232, 163, 56, 0.1) 0%, rgba(255,255,255,0.9) 100%);
+    border: 2px solid var(--accent-antwerp);
+    color: var(--accent-antwerp);
+}
+.restaurant-btn[data-restaurant="antwerp"].active {
+    background: linear-gradient(135deg, var(--accent-antwerp) 0%, #F5A623 100%);
+    border-color: var(--accent-antwerp);
+    box-shadow: 0 6px 20px rgba(232, 163, 56, 0.3);
+}
+.restaurant-btn[data-restaurant="ghent"] {
+    background: linear-gradient(135deg, rgba(74, 144, 226, 0.1) 0%, rgba(255,255,255,0.9) 100%);
+    border: 2px solid var(--accent-ghent);
+    color: var(--accent-ghent);
+}
+.restaurant-btn[data-restaurant="ghent"].active {
+    background: linear-gradient(135deg, var(--accent-ghent) 0%, #7B68EE 100%);
+    border-color: var(--accent-ghent);
+    box-shadow: 0 6px 20px rgba(74, 144, 226, 0.3);
+}
+.restaurant-btn[data-restaurant="136"] {
+    background: linear-gradient(135deg, rgba(233, 30, 99, 0.1) 0%, rgba(255,255,255,0.9) 100%);
+    border: 2px solid var(--accent-nonna);
+    color: var(--accent-nonna);
+}
+.restaurant-btn[data-restaurant="136"].active {
+    background: linear-gradient(135deg, var(--accent-nonna) 0%, #C2185B 100%);
+    border-color: var(--accent-nonna);
+    box-shadow: 0 6px 20px rgba(233, 30, 99, 0.3);
+}
 .restaurant-header { position: relative; height: 400px; overflow: hidden; background: var(--bg2); display: none; }
 .restaurant-header.active { display: block; }
 .carousel { display: flex; width: 400%; animation: slide 20s infinite; }
@@ -127,6 +203,242 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:
 .dish-price { font-size: 1.2rem; color: var(--accent3); font-weight: 700; }
 .dish-price-note { font-size: 0.75rem; color: var(--muted); margin-top: 0.2rem; font-style: italic; text-align: right; }
 .dish-category { font-size: 0.9rem; color: var(--muted); margin-bottom: 0.6rem; }
+
+/* 多语言显示控制 - 默认隐藏所有语言span，只显示中文 */
+.dish-name > span[data-lang],
+.dish-category > span[data-lang],
+.dish-description > span[data-lang],
+.dish-allergens > span[data-lang],
+.allergen-warning > span[data-lang],
+.dish-tags .tag > span[data-lang] { display: none !important; }
+
+.dish-name > span[data-lang="zh-CN"],
+.dish-category > span[data-lang="zh-CN"],
+.dish-description > span[data-lang="zh-CN"],
+.dish-allergens > span[data-lang="zh-CN"],
+.allergen-warning > span[data-lang="zh-CN"],
+.dish-tags .tag > span[data-lang="zh-CN"] { display: inline !important; }
+
+/* 菜品对比功能样式 */
+.compare-btn { 
+    padding: 0.5rem 1rem; 
+    border: 2px solid var(--accent); 
+    background: transparent; 
+    color: var(--accent); 
+    cursor: pointer; 
+    border-radius: 20px; 
+    font-size: 0.85rem; 
+    font-weight: 600; 
+    transition: all 0.3s; 
+    margin-top: 0.8rem;
+    display: inline-block;
+}
+.compare-btn:hover { 
+    background: var(--accent); 
+    color: white; 
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--card-shadow);
+}
+.compare-btn.selected { 
+    background: var(--accent); 
+    color: white; 
+    border-color: var(--accent);
+}
+.compare-counter {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: var(--accent);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 30px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 6px 20px var(--card-shadow);
+    z-index: 1000;
+    display: none;
+    animation: pulse 2s infinite;
+}
+.compare-counter.active {
+    display: block;
+}
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+.compare-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    z-index: 2000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+.compare-modal.active {
+    display: flex;
+}
+.compare-content {
+    background: var(--bg2);
+    border-radius: 20px;
+    padding: 2rem;
+    max-width: 1200px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+.compare-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--accent);
+}
+.compare-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--accent);
+}
+.compare-close {
+    background: transparent;
+    border: none;
+    font-size: 2rem;
+    color: var(--muted);
+    cursor: pointer;
+    transition: color 0.3s;
+}
+.compare-close:hover {
+    color: var(--accent);
+}
+.compare-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+.compare-item {
+    background: var(--bg3);
+    border-radius: 15px;
+    padding: 1.5rem;
+    border: 2px solid var(--rule);
+    transition: all 0.3s;
+}
+.compare-item:hover {
+    border-color: var(--accent);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px var(--card-shadow);
+}
+.compare-item-image {
+    width: 100%;
+    height: 200px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    border: 3px solid var(--accent);
+}
+.compare-item-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.compare-item-name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+}
+.compare-item-price {
+    font-size: 1.2rem;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+.compare-item-details {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+}
+.compare-item-tags {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+.compare-empty {
+    text-align: center;
+    padding: 3rem;
+    color: var(--muted);
+    font-size: 1.2rem;
+}
+
+/* 对比分析样式 */
+.compare-analysis {
+    background: var(--bg2);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border: 2px solid var(--rule);
+    grid-column: 1 / -1;
+}
+.analysis-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 0.5rem;
+}
+.analysis-section {
+    background: var(--bg3);
+    border-radius: 10px;
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--rule);
+}
+.analysis-section-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+    padding-left: 0.5rem;
+    border-left: 3px solid var(--accent);
+}
+.analysis-result {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+.analysis-item {
+    font-size: 0.95rem;
+    color: var(--ink);
+    padding: 0.6rem 0.8rem;
+    background: var(--bg2);
+    border-radius: 5px;
+    border: 1px solid var(--rule);
+}
+.analysis-item strong {
+    color: var(--accent);
+    font-weight: 700;
+}
+.analysis-item.warning {
+    background: rgba(233, 30, 99, 0.1);
+    border: 1px solid rgba(233, 30, 99, 0.3);
+    color: #E91E63;
+}
+.recommendation {
+    background: linear-gradient(135deg, var(--accent2) 0%, var(--bg2) 100%);
+    border: 2px solid var(--accent);
+}
+.recommendation-highlight {
+    color: var(--accent);
+    font-size: 1.1rem;
+    font-weight: 700;
+}
 .dish-tags { display: flex; gap: 0.5rem; margin-bottom: 0.6rem; }
 .tag { padding: 0.25rem 0.6rem; background: var(--accent2); border-radius: 6px; font-size: 0.8rem; color: var(--accent3); font-weight: 500; }
 .tag.must-try { background: var(--accent); color: white; }
@@ -3135,6 +3447,11 @@ restaurantBtns.forEach(btn => {
         document.getElementById('menu-' + restaurantId).classList.add('active');
         resetFilters();
         
+        // 切换餐厅时清除对比选择（因为不同餐厅不能对比）
+        if (window.clearCompareSelection) {
+            window.clearCompareSelection();
+        }
+        
         // 切换到新餐厅，加载该餐厅的订单
         currentRestaurant = restaurantId;
         loadRestaurantOrder(restaurantId);
@@ -3180,7 +3497,8 @@ langOptions.forEach(option => {
 function switchLanguage(lang) {
     document.querySelectorAll('[data-lang]').forEach(span => {
         if (span.classList.contains('language-option')) return;
-        span.style.display = span.dataset.lang === lang ? 'inline' : 'none';
+        // 使用 cssText 设置 !important 以覆盖 CSS 默认规则
+        span.style.cssText = span.dataset.lang === lang ? 'display: inline !important;' : 'display: none !important;';
     });
     // 根据语言自动选择货币
     autoSelectCurrency(lang);
@@ -4256,6 +4574,46 @@ function applyFilters() {
     </div>
 </div>
 
+<!-- 菜品对比弹窗 -->
+<div class="compare-modal" id="compareModal">
+    <div class="compare-content">
+        <div class="compare-header">
+            <h2 class="compare-title">
+                <span data-lang="zh-CN">菜品对比</span>
+                <span data-lang="zh-TW">菜品對比</span>
+                <span data-lang="en">Dish Comparison</span>
+                <span data-lang="es">Comparación de Platos</span>
+                <span data-lang="ko">요리 비교</span>
+                <span data-lang="ja">料理比較</span>
+                <span data-lang="nl">Gerecht Vergelijking</span>
+            </h2>
+            <button class="compare-close" id="closeCompareModal">×</button>
+        </div>
+        <div class="compare-grid" id="compareGrid">
+            <div class="compare-empty">
+                <span data-lang="zh-CN">请选择菜品进行对比</span>
+                <span data-lang="zh-TW">請選擇菜品進行對比</span>
+                <span data-lang="en">Please select dishes to compare</span>
+                <span data-lang="es">Seleccione platos para comparar</span>
+                <span data-lang="ko">비교할 요리를 선택하세요</span>
+                <span data-lang="ja">比較する料理を選択してください</span>
+                <span data-lang="nl">Selecteer gerechten om te vergelijken</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 菜品对比计数器 -->
+<div class="compare-counter" id="compareCounter">
+    <span data-lang="zh-CN">对比 (0)</span>
+    <span data-lang="zh-TW">對比 (0)</span>
+    <span data-lang="en">Compare (0)</span>
+    <span data-lang="es">Comparar (0)</span>
+    <span data-lang="ko">비교 (0)</span>
+    <span data-lang="ja">比較 (0)</span>
+    <span data-lang="nl">Vergelijken (0)</span>
+</div>
+
 <!-- 提示消息 -->
 <div class="toast" id="toast"></div>
 
@@ -4585,6 +4943,642 @@ function applyFilters() {
     orderOverlay.addEventListener('click', toggleOrderPanel);
     closeOrderBtn.addEventListener('click', toggleOrderPanel);
     clearOrderBtn.addEventListener('click', clearOrder);
+    
+    // 菜品对比功能
+    let selectedDishes = [];
+    const compareModal = document.getElementById('compareModal');
+    const compareGrid = document.getElementById('compareGrid');
+    const compareCounter = document.getElementById('compareCounter');
+    const closeCompareModal = document.getElementById('closeCompareModal');
+    
+    // 清除对比选择（切换餐厅时调用）
+    function clearCompareSelection() {
+        // 移除所有对比按钮的选中状态
+        document.querySelectorAll('.compare-btn.selected').forEach(btn => {
+            btn.classList.remove('selected');
+        });
+        // 清空选择数组
+        selectedDishes = [];
+        // 更新计数器
+        updateCompareCounter();
+    }
+    
+    // 暴露到全局，供餐厅切换时调用
+    window.clearCompareSelection = clearCompareSelection;
+    
+    // 为每个菜品卡片添加对比按钮
+    function addCompareButtons() {
+        const dishCards = document.querySelectorAll('.dish-card');
+        dishCards.forEach(card => {
+            // 检查是否已经有对比按钮
+            if (card.querySelector('.compare-btn')) return;
+            
+            // 创建对比按钮
+            const compareBtn = document.createElement('button');
+            compareBtn.className = 'compare-btn';
+            compareBtn.innerHTML = `
+                <span data-lang="zh-CN">⚖️ 对比</span>
+                <span data-lang="zh-TW">⚖️ 對比</span>
+                <span data-lang="en">⚖️ Compare</span>
+                <span data-lang="es">⚖️ Comparar</span>
+                <span data-lang="ko">⚖️ 비교</span>
+                <span data-lang="ja">⚖️ 比較</span>
+                <span data-lang="nl">⚖️ Vergelijken</span>
+            `;
+            
+            // 添加点击事件
+            compareBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                toggleDishCompare(card, compareBtn);
+            });
+            
+            // 添加到菜品卡片
+            const dishContent = card.querySelector('.dish-content');
+            if (dishContent) {
+                dishContent.appendChild(compareBtn);
+            }
+        });
+        
+        // 应用当前语言
+        switchLanguage(currentLang);
+    }
+    
+    // 切换菜品对比选择
+    function toggleDishCompare(card, btn) {
+        // 获取菜品所属的餐厅ID
+        const menuEl = card.closest('.restaurant-menu');
+        const dishRestaurantId = menuEl?.dataset?.restaurant || menuEl?.id?.replace('menu-', '') || '';
+        
+        // 检查是否已有其他餐厅的菜品被选中
+        if (selectedDishes.length > 0 && selectedDishes[0].restaurantId !== dishRestaurantId) {
+            // 提示用户只能对比同一餐厅的菜品
+            alert(getCompareRestaurantWarning(currentLang));
+            return;
+        }
+        
+        const dishId = card.querySelector('.dish-name span[data-lang="en"]')?.textContent || 
+                       card.querySelector('.dish-name')?.textContent;
+        const dishName = card.querySelector(`.dish-name span[data-lang="${currentLang}"]`)?.textContent || 
+                         card.querySelector('.dish-name span[data-lang="en"]')?.textContent;
+        const dishPriceEl = card.querySelector('.dish-price');
+        const dishPrice = dishPriceEl?.textContent;
+        // 获取原始EUR价格用于货币转换
+        const originalEurPrice = dishPriceEl?.getAttribute('data-original-price') || '';
+        const priceMatch = originalEurPrice.match(/EUR\s*(\d+[,\.]\d+)/);
+        const eurPriceValue = priceMatch ? parseFloat(priceMatch[1].replace(',', '.')) : 0;
+        const dishImage = card.querySelector('.dish-img')?.src;
+        const dishCategory = card.querySelector(`.dish-category span[data-lang="${currentLang}"]`)?.textContent || 
+                             card.querySelector('.dish-category span[data-lang="en"]')?.textContent;
+        const dishDescription = card.querySelector(`.dish-description span[data-lang="${currentLang}"]`)?.textContent || 
+                                card.querySelector('.dish-description span[data-lang="en"]')?.textContent;
+        const dishTags = card.querySelector('.dish-tags')?.innerHTML || '';
+        
+        const dishData = {
+            id: dishId,
+            name: dishName,
+            price: dishPrice,
+            eurPrice: eurPriceValue, // 存储原始EUR价格
+            image: dishImage,
+            category: dishCategory,
+            description: dishDescription,
+            tags: dishTags,
+            card: card,
+            restaurantId: dishRestaurantId // 存储餐厅ID
+        };
+        
+        // 检查是否已选择
+        const index = selectedDishes.findIndex(d => d.id === dishId);
+        
+        if (index > -1) {
+            // 已选择，取消选择
+            selectedDishes.splice(index, 1);
+            btn.classList.remove('selected');
+            card.style.borderColor = '';
+        } else {
+            // 未选择，添加选择
+            if (selectedDishes.length >= 4) {
+                showToast('最多只能对比4个菜品');
+                return;
+            }
+            selectedDishes.push(dishData);
+            btn.classList.add('selected');
+            card.style.borderColor = 'var(--accent)';
+        }
+        
+        // 更新计数器
+        updateCompareCounter();
+    }
+    
+    // 更新对比计数器
+    function updateCompareCounter() {
+        const count = selectedDishes.length;
+        const counterTexts = compareCounter.querySelectorAll('span');
+        counterTexts.forEach(span => {
+            const lang = span.dataset.lang;
+            const text = span.textContent.replace(/\(\d+\)/, `(${count})`);
+            span.textContent = text;
+        });
+        
+        if (count > 0) {
+            compareCounter.classList.add('active');
+        } else {
+            compareCounter.classList.remove('active');
+        }
+    }
+    
+    // 显示对比弹窗
+    function showCompareModal() {
+        if (selectedDishes.length === 0) {
+            showToast('请先选择菜品进行对比');
+            return;
+        }
+        
+        // 清空对比网格
+        compareGrid.innerHTML = '';
+        
+        // 添加对比分析区域（放在顶部）
+        const analysisHTML = `
+            <div class="compare-analysis">
+                <h3 class="analysis-title">
+                    <span data-lang="zh-CN">对比分析</span>
+                    <span data-lang="zh-TW">對比分析</span>
+                    <span data-lang="en">Comparison Analysis</span>
+                    <span data-lang="es">Análisis Comparativo</span>
+                    <span data-lang="ko">비교 분석</span>
+                    <span data-lang="ja">比較分析</span>
+                    <span data-lang="nl">Vergelijkingsanalyse</span>
+                </h3>
+                <div class="analysis-content" id="analysisContent"></div>
+            </div>
+        `;
+        compareGrid.innerHTML = analysisHTML;
+        
+        // 生成对比分析（在菜品卡片之前）
+        generateComparisonAnalysis();
+        
+        // 添加选中的菜品（放在分析区域之后）
+        selectedDishes.forEach(dish => {
+            // 获取用户选择的语言的菜品名称
+            const dishName = dish.card.querySelector(`.dish-name span[data-lang="${currentLang}"]`)?.textContent || 
+                             dish.card.querySelector('.dish-name span[data-lang="en"]')?.textContent || 
+                             dish.name;
+            
+            // 获取用户选择的语言的分类
+            const dishCategory = dish.card.querySelector(`.dish-category span[data-lang="${currentLang}"]`)?.textContent || 
+                                 dish.card.querySelector('.dish-category span[data-lang="en"]')?.textContent || 
+                                 dish.category;
+            
+            // 获取用户选择的语言的描述
+            const dishDescription = dish.card.querySelector(`.dish-description span[data-lang="${currentLang}"]`)?.textContent || 
+                                    dish.card.querySelector('.dish-description span[data-lang="en"]')?.textContent || 
+                                    dish.description;
+            
+            // 动态获取菜品标签HTML（确保语言正确）
+            const dishTags = dish.card.querySelector('.dish-tags')?.innerHTML || '';
+            
+            // 获取用户选择的语言的标签文字
+            const categoryLabel = getCategoryLabel(currentLang);
+            const descriptionLabel = getDescriptionLabel(currentLang);
+            
+            // 动态转换价格到当前货币
+            const convertedPrice = convertPrice(dish.eurPrice, currentCurrency);
+            const symbol = currencySymbols[currentCurrency] || '€';
+            let displayPrice;
+            if (currentCurrency === 'JPY' || currentCurrency === 'KRW') {
+                displayPrice = `${symbol}${Math.round(convertedPrice)}`;
+            } else {
+                displayPrice = `${symbol}${convertedPrice.toFixed(2).replace('.', ',')}`;
+            }
+            
+            const itemHTML = `
+                <div class="compare-item">
+                    <div class="compare-item-image">
+                        <img src="${dish.image}" alt="${dishName}">
+                    </div>
+                    <h3 class="compare-item-name">${dishName}</h3>
+                    <p class="compare-item-price">${displayPrice}</p>
+                    <p class="compare-item-details"><strong>${categoryLabel}:</strong> ${dishCategory}</p>
+                    <p class="compare-item-details"><strong>${descriptionLabel}:</strong> ${dishDescription.substring(0, 100)}...</p>
+                    <div class="compare-item-tags">${dishTags}</div>
+                </div>
+            `;
+            compareGrid.innerHTML += itemHTML;
+        });
+        
+        // 显示弹窗
+        compareModal.classList.add('active');
+        
+        // 应用当前语言到对比弹窗
+        switchLanguage(currentLang);
+    }
+    
+    // 获取分类标签的多语言文字
+    function getCategoryLabel(lang) {
+        const labels = {
+            'zh-CN': '分类',
+            'zh-TW': '分類',
+            'en': 'Category',
+            'es': 'Categoría',
+            'ko': '분류',
+            'ja': '分類',
+            'nl': 'Categorie'
+        };
+        return labels[lang] || labels['en'];
+    }
+    
+    // 获取描述标签的多语言文字
+    function getDescriptionLabel(lang) {
+        const labels = {
+            'zh-CN': '描述',
+            'zh-TW': '描述',
+            'en': 'Description',
+            'es': 'Descripción',
+            'ko': '설명',
+            'ja': '説明',
+            'nl': 'Beschrijving'
+        };
+        return labels[lang] || labels['en'];
+    }
+    
+    // 生成对比分析
+    function generateComparisonAnalysis() {
+        const analysisContent = document.getElementById('analysisContent');
+        if (!analysisContent) return;
+        
+        // 价格分析 - 从菜品卡片获取原始欧元价格
+        const prices = selectedDishes.map(dish => {
+            // 从菜品卡片中获取原始欧元价格
+            const priceEl = dish.card.querySelector('.dish-price');
+            const originalPrice = priceEl?.getAttribute('data-original-price') || '';
+            const priceMatch = originalPrice.match(/EUR\s*(\d+[,\.]\d+)/);
+            const eurPrice = priceMatch ? parseFloat(priceMatch[1].replace(',', '.')) : 0;
+            // 转换为用户选择的货币
+            return convertPrice(eurPrice, currentCurrency);
+        });
+        
+        const minPrice = Math.min(...prices);
+        const maxPrice = Math.max(...prices);
+        const priceDiff = maxPrice - minPrice;
+        
+        const cheapestIndex = prices.indexOf(minPrice);
+        const mostExpensiveIndex = prices.indexOf(maxPrice);
+        
+        // 获取用户选择的语言的菜品名称
+        const dishNames = selectedDishes.map(dish => 
+            dish.card.querySelector(`.dish-name span[data-lang="${currentLang}"]`)?.textContent || 
+            dish.card.querySelector('.dish-name span[data-lang="en"]')?.textContent || 
+            dish.name
+        );
+        
+        // 口味分析（从菜品卡片获取）
+        const tastes = selectedDishes.map(dish => {
+            const tasteAttr = dish.card?.dataset?.taste || '';
+            return tasteAttr.split(',').map(t => getTasteLabel(t.trim(), currentLang));
+        });
+        
+        // 过敏原分析
+        const allergens = selectedDishes.map(dish => {
+            const allergenAttr = dish.card?.dataset?.allergens || '';
+            return allergenAttr.split(',').map(a => getAllergenLabel(a.trim(), currentLang));
+        });
+        
+        // 找出共同过敏原
+        const commonAllergens = allergens[0].filter(a => 
+            allergens.every(als => als.includes(a))
+        );
+        
+        // 找出独特过敏原
+        const uniqueAllergens = allergens.map((als, i) => 
+            als.filter(a => !allergens.some((otherAls, j) => j !== i && otherAls.includes(a)))
+        );
+        
+        // 适合人群分析
+        const kidFriendly = selectedDishes.map(dish => 
+            dish.card?.dataset?.kid_friendly === 'true'
+        );
+        const vegetarian = selectedDishes.map(dish => 
+            dish.card?.dataset?.vegetarian === 'true'
+        );
+        const halal = selectedDishes.map(dish => 
+            dish.card?.dataset?.halal === 'true'
+        );
+        
+        // 获取货币符号
+        const symbol = currencySymbols[currentCurrency] || '€';
+        
+        // 格式化价格（根据货币类型）
+        function formatPrice(price) {
+            if (currentCurrency === 'JPY' || currentCurrency === 'KRW') {
+                return `${symbol}${Math.round(price)}`;
+            } else {
+                return `${symbol}${price.toFixed(2).replace('.', ',')}`;
+            }
+        }
+        
+        // 价格分析HTML
+        let priceAnalysisHTML = `
+            <div class="analysis-section">
+                <h4 class="analysis-section-title">
+                    <span data-lang="zh-CN">价格对比</span>
+                    <span data-lang="zh-TW">價格對比</span>
+                    <span data-lang="en">Price Comparison</span>
+                    <span data-lang="es">Comparación de Precios</span>
+                    <span data-lang="ko">가격 비교</span>
+                    <span data-lang="ja">価格比較</span>
+                    <span data-lang="nl">Prijs Vergelijking</span>
+                </h4>
+                <div class="analysis-result">
+                    <p class="analysis-item">
+                        <span data-lang="zh-CN">最便宜: </span>
+                        <span data-lang="zh-TW">最便宜: </span>
+                        <span data-lang="en">Cheapest: </span>
+                        <span data-lang="es">Más barato: </span>
+                        <span data-lang="ko">가장 저렴: </span>
+                        <span data-lang="ja">最安値: </span>
+                        <span data-lang="nl">Cheapest: </span>
+                        <strong>${dishNames[cheapestIndex]}</strong> (${formatPrice(minPrice)})
+                    </p>
+                    <p class="analysis-item">
+                        <span data-lang="zh-CN">最贵: </span>
+                        <span data-lang="zh-TW">最貴: </span>
+                        <span data-lang="en">Most expensive: </span>
+                        <span data-lang="es">Más caro: </span>
+                        <span data-lang="ko">가장 비싼: </span>
+                        <span data-lang="ja">最高値: </span>
+                        <span data-lang="nl">Most expensive: </span>
+                        <strong>${dishNames[mostExpensiveIndex]}</strong> (${formatPrice(maxPrice)})
+                    </p>
+                    <p class="analysis-item">
+                        <span data-lang="zh-CN">价格差距: </span>
+                        <span data-lang="zh-TW">價格差距: </span>
+                        <span data-lang="en">Price difference: </span>
+                        <span data-lang="es">Diferencia de precio: </span>
+                        <span data-lang="ko">가격 차이: </span>
+                        <span data-lang="ja">価格差: </span>
+                        <span data-lang="nl">Prijsverschil: </span>
+                        <strong>${formatPrice(priceDiff)}</strong>
+                    </p>
+                </div>
+            </div>
+        `;
+        
+        // 口味分析HTML
+        let tasteAnalysisHTML = `
+            <div class="analysis-section">
+                <h4 class="analysis-section-title">
+                    <span data-lang="zh-CN">口味对比</span>
+                    <span data-lang="zh-TW">口味對比</span>
+                    <span data-lang="en">Taste Comparison</span>
+                    <span data-lang="es">Comparación de Sabores</span>
+                    <span data-lang="ko">맛 비교</span>
+                    <span data-lang="ja">味比較</span>
+                    <span data-lang="nl">Smaak Vergelijking</span>
+                </h4>
+                <div class="analysis-result">
+                    ${selectedDishes.map((dish, i) => `
+                        <p class="analysis-item">
+                            <strong>${dishNames[i]}:</strong> 
+                            ${tastes[i].length > 0 ? tastes[i].join(', ') : getNotSpecifiedLabel(currentLang)}
+                        </p>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+        
+        // 过敏原分析HTML
+        let allergenAnalysisHTML = `
+            <div class="analysis-section">
+                <h4 class="analysis-section-title">
+                    <span data-lang="zh-CN">过敏原对比</span>
+                    <span data-lang="zh-TW">過敏原對比</span>
+                    <span data-lang="en">Allergen Comparison</span>
+                    <span data-lang="es">Comparación de Alérgenos</span>
+                    <span data-lang="ko">알레르기 비교</span>
+                    <span data-lang="ja">アレルゲン比較</span>
+                    <span data-lang="nl">Allergenen Vergelijking</span>
+                </h4>
+                <div class="analysis-result">
+                    ${commonAllergens.length > 0 ? `
+                        <p class="analysis-item warning">
+                            <span data-lang="zh-CN">共同过敏原: </span>
+                            <span data-lang="zh-TW">共同過敏原: </span>
+                            <span data-lang="en">Common allergens: </span>
+                            <span data-lang="es">Alérgenos comunes: </span>
+                            <span data-lang="ko">공통 알레르기: </span>
+                            <span data-lang="ja">共通アレルゲン: </span>
+                            <span data-lang="nl">Common allergens: </span>
+                            <strong>${commonAllergens.join(', ')}</strong>
+                        </p>
+                    ` : ''}
+                    ${selectedDishes.map((dish, i) => 
+                        uniqueAllergens[i].length > 0 ? `
+                            <p class="analysis-item">
+                                <strong>${dishNames[i]}</strong>
+                                <span data-lang="zh-CN">独有过敏原: </span>
+                                <span data-lang="zh-TW">獨有過敏原: </span>
+                                <span data-lang="en">Unique allergens: </span>
+                                <span data-lang="es">Alérgenos únicos: </span>
+                                <span data-lang="ko">고유 알레르기: </span>
+                                <span data-lang="ja">独自アレルゲン: </span>
+                                <span data-lang="nl">Unique allergens: </span>
+                                ${uniqueAllergens[i].join(', ')}
+                            </p>
+                        ` : ''
+                    ).join('')}
+                </div>
+            </div>
+        `;
+        
+        // 适合人群分析HTML
+        let suitabilityAnalysisHTML = `
+            <div class="analysis-section">
+                <h4 class="analysis-section-title">
+                    <span data-lang="zh-CN">适合人群对比</span>
+                    <span data-lang="zh-TW">適合人群對比</span>
+                    <span data-lang="en">Suitability Comparison</span>
+                    <span data-lang="es">Comparación de Aptitud</span>
+                    <span data-lang="ko">적합성 비교</span>
+                    <span data-lang="ja">適合性比較</span>
+                    <span data-lang="nl">Geschiktheid Vergelijking</span>
+                </h4>
+                <div class="analysis-result">
+                    ${selectedDishes.map((dish, i) => `
+                        <p class="analysis-item">
+                            <strong>${dishNames[i]}:</strong>
+                            ${kidFriendly[i] ? `
+                                <span data-lang="zh-CN">适合儿童</span>
+                                <span data-lang="zh-TW">適合兒童</span>
+                                <span data-lang="en">Kid-friendly</span>
+                                <span data-lang="es">Para niños</span>
+                                <span data-lang="ko">어린이 적합</span>
+                                <span data-lang="ja">子供向け</span>
+                                <span data-lang="nl">Kindvriendelijk</span>
+                            ` : ''}
+                            ${vegetarian[i] ? `
+                                <span data-lang="zh-CN">素食</span>
+                                <span data-lang="zh-TW">素食</span>
+                                <span data-lang="en">Vegetarian</span>
+                                <span data-lang="es">Vegetariano</span>
+                                <span data-lang="ko">채식</span>
+                                <span data-lang="ja">ベジタリアン</span>
+                                <span data-lang="nl">Vegetarisch</span>
+                            ` : ''}
+                            ${halal[i] ? `
+                                <span data-lang="zh-CN">清真</span>
+                                <span data-lang="zh-TW">清真</span>
+                                <span data-lang="en">Halal</span>
+                                <span data-lang="es">Halal</span>
+                                <span data-lang="ko">할랄</span>
+                                <span data-lang="ja">ハラル</span>
+                                <span data-lang="nl">Halal</span>
+                            ` : ''}
+                            ${!kidFriendly[i] && !vegetarian[i] && !halal[i] ? `
+                                <span data-lang="zh-CN">普通</span>
+                                <span data-lang="zh-TW">普通</span>
+                                <span data-lang="en">Regular</span>
+                                <span data-lang="es">Regular</span>
+                                <span data-lang="ko">일반</span>
+                                <span data-lang="ja">一般</span>
+                                <span data-lang="nl">Normaal</span>
+                            ` : ''}
+                        </p>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+        
+        // 推荐建议HTML
+        let recommendationHTML = `
+            <div class="analysis-section recommendation">
+                <h4 class="analysis-section-title">
+                    <span data-lang="zh-CN">推荐建议</span>
+                    <span data-lang="zh-TW">推薦建議</span>
+                    <span data-lang="en">Recommendation</span>
+                    <span data-lang="es">Recomendación</span>
+                    <span data-lang="ko">추천</span>
+                    <span data-lang="ja">推奨</span>
+                    <span data-lang="nl">Aanbeveling</span>
+                </h4>
+                <div class="analysis-result">
+                    <p class="analysis-item recommendation-text">
+                        <span data-lang="zh-CN">如果您注重性价比，我们推荐: </span>
+                        <span data-lang="zh-TW">如果您注重性價比，我們推薦: </span>
+                        <span data-lang="en">If you value cost-effectiveness, we recommend: </span>
+                        <span data-lang="es">Si valoras la relación calidad-precio, recomendamos: </span>
+                        <span data-lang="ko">가성비를 고려하면 추천: </span>
+                        <span data-lang="ja">コスパを重視なら推奨: </span>
+                        <span data-lang="nl">Als u kosten-effectiefheid belangrijk vindt, raden wij aan: </span>
+                        <strong class="recommendation-highlight">${dishNames[cheapestIndex]}</strong>
+                    </p>
+                    ${kidFriendly.some(k => k) ? `
+                        <p class="analysis-item recommendation-text">
+                            <span data-lang="zh-CN">如果您带孩子，可以考虑: </span>
+                            <span data-lang="zh-TW">如果您帶孩子，可以考慮: </span>
+                            <span data-lang="en">If you have children, consider: </span>
+                            <span data-lang="es">Si tiene niños, considere: </span>
+                            <span data-lang="ko">어린이가 있다면 고려: </span>
+                            <span data-lang="ja">子供がいるなら考慮: </span>
+                            <span data-lang="nl">Als u kinderen heeft, overweeg: </span>
+                            <strong class="recommendation-highlight">${dishNames.filter((name, i) => kidFriendly[i])[0] || ''}</strong>
+                        </p>
+                    ` : ''}
+                    ${vegetarian.some(v => v) ? `
+                        <p class="analysis-item recommendation-text">
+                            <span data-lang="zh-CN">如果您是素食者，可以选择: </span>
+                            <span data-lang="zh-TW">如果您是素食者，可以選擇: </span>
+                            <span data-lang="en">If you are vegetarian, choose: </span>
+                            <span data-lang="es">Si es vegetariano, elija: </span>
+                            <span data-lang="ko">채식자라면 선택: </span>
+                            <span data-lang="ja">ベジタリアンなら選択: </span>
+                            <span data-lang="nl">Als u vegetarisch bent, kies: </span>
+                            <strong class="recommendation-highlight">${dishNames.filter((name, i) => vegetarian[i])[0] || ''}</strong>
+                        </p>
+                    ` : ''}
+                </div>
+            </div>
+        `;
+        
+        analysisContent.innerHTML = priceAnalysisHTML + tasteAnalysisHTML + allergenAnalysisHTML + suitabilityAnalysisHTML + recommendationHTML;
+        
+        // 应用当前语言
+        switchLanguage(currentLang);
+    }
+    
+    // 获取口味标签的多语言文字
+    // 获取餐厅对比警告的多语言文字
+    function getCompareRestaurantWarning(lang) {
+        const warnings = {
+            'zh-CN': '只能对比同一餐厅的菜品，请先清除当前选择或切换到同一餐厅',
+            'zh-TW': '只能對比同一餐廳的菜品，請先清除當前選擇或切換到同一餐廳',
+            'en': 'You can only compare dishes from the same restaurant. Please clear your selection or switch to the same restaurant.',
+            'es': 'Solo puede comparar platos del mismo restaurante. Borre su selección o cambie al mismo restaurante.',
+            'ko': '같은 레스토랑의 메뉴만 비교할 수 있습니다. 선택을 지우거나 같은 레스토랑으로 이동하세요.',
+            'ja': '同じレストランの料理のみ比較できます。選択をクリアするか、同じレストランに切り替えてください。',
+            'nl': 'U kunt alleen gerechten van hetzelfde restaurant vergelijken. Maak uw selectie leeg of ga naar hetzelfde restaurant.'
+        };
+        return warnings[lang] || warnings['en'];
+    }
+    
+    function getTasteLabel(taste, lang) {
+        const tasteLabels = {
+            '咸鲜': { 'zh-CN': '咸鲜', 'zh-TW': '鹹鮮', 'en': 'Salty & Savory', 'es': 'Salado y Sabroso', 'ko': '짠맛', 'ja': '塩味', 'nl': 'Zout en Hartig' },
+            '甜味': { 'zh-CN': '甜味', 'zh-TW': '甜味', 'en': 'Sweet', 'es': 'Dulce', 'ko': '단맛', 'ja': '甘味', 'nl': 'Zoet' },
+            '清淡': { 'zh-CN': '清淡', 'zh-TW': '清淡', 'en': 'Light', 'es': 'Ligero', 'ko': '담백', 'ja': '淡味', 'nl': 'Licht' },
+            '酸甜': { 'zh-CN': '酸甜', 'zh-TW': '酸甜', 'en': 'Sweet & Sour', 'es': 'Agridulce', 'ko': '신단맛', 'ja': '甘酸味', 'nl': 'Zoet en Zuur' }
+        };
+        return tasteLabels[taste]?.[lang] || tasteLabels[taste]?.['en'] || taste;
+    }
+    
+    // 获取过敏原标签的多语言文字
+    function getAllergenLabel(allergen, lang) {
+        const allergenLabels = {
+            '乳制品': { 'zh-CN': '乳制品', 'zh-TW': '乳製品', 'en': 'Dairy', 'es': 'Lácteos', 'ko': '유제품', 'ja': '乳製品', 'nl': 'Zuivel' },
+            '麸质': { 'zh-CN': '麸质', 'zh-TW': '麩質', 'en': 'Gluten', 'es': 'Gluten', 'ko': '글루텐', 'ja': 'グルテン', 'nl': 'Gluten' },
+            '花生': { 'zh-CN': '花生', 'zh-TW': '花生', 'en': 'Peanuts', 'es': 'Cacahuetes', 'ko': '땅콩', 'ja': 'ピーナッツ', 'nl': 'Pinda\'s' },
+            '海鲜': { 'zh-CN': '海鲜', 'zh-TW': '海鮮', 'en': 'Seafood', 'es': 'Mariscos', 'ko': '해산물', 'ja': '海産物', 'nl': 'Zeevruchten' },
+            '鸡蛋': { 'zh-CN': '鸡蛋', 'zh-TW': '鸡蛋', 'en': 'Eggs', 'es': 'Huevos', 'ko': '계란', 'ja': '卵', 'nl': 'Eieren' }
+        };
+        return allergenLabels[allergen]?.[lang] || allergenLabels[allergen]?.['en'] || allergen;
+    }
+    
+    // 获取未标注标签的多语言文字
+    function getNotSpecifiedLabel(lang) {
+        const labels = {
+            'zh-CN': '未标注',
+            'zh-TW': '未標注',
+            'en': 'Not specified',
+            'es': 'No especificado',
+            'ko': '미지정',
+            'ja': '未指定',
+            'nl': 'Niet gespecificeerd'
+        };
+        return labels[lang] || labels['en'];
+    }
+    
+    // 关闭对比弹窗
+    function closeCompareModalFn() {
+        compareModal.classList.remove('active');
+    }
+    
+    // 清空对比选择
+    function clearCompare() {
+        selectedDishes = [];
+        const compareBtns = document.querySelectorAll('.compare-btn.selected');
+        compareBtns.forEach(btn => btn.classList.remove('selected'));
+        const dishCards = document.querySelectorAll('.dish-card');
+        dishCards.forEach(card => card.style.borderColor = '');
+        updateCompareCounter();
+    }
+    
+    // 事件监听
+    compareCounter.addEventListener('click', showCompareModal);
+    closeCompareModal.addEventListener('click', closeCompareModalFn);
+    compareModal.addEventListener('click', function(e) {
+        if (e.target === compareModal) closeCompareModalFn();
+    });
+    
+    // 初始化对比按钮
+    setTimeout(addCompareButtons, 500);
     
     // 服务员展示功能
     const showStaffBtn = document.getElementById('showStaffBtn');
