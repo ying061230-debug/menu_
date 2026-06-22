@@ -4169,13 +4169,7 @@ function applyFilters() {
         <div class="staff-modal-body">
             <div class="staff-order-list" id="staffOrderList"></div>
             <div class="staff-order-total">
-                <span data-lang="zh-CN">总计</span>
-                <span data-lang="zh-TW">總計</span>
-                <span data-lang="en">Total</span>
-                <span data-lang="es">Total</span>
-                <span data-lang="ko">합계</span>
-                <span data-lang="ja">合計</span>
-                <span data-lang="nl">Totaal</span>
+                <span id="staffTotalLabel">Totaal</span>
                 <span id="staffOrderTotal"></span>
             </div>
         </div>
@@ -4985,9 +4979,11 @@ function applyFilters() {
         staffAutocomplete.classList.remove('active');
         updateTranslation(); // 初始化翻译（显示默认问候语+所有菜品+原文意思）
         
+        // 获取餐厅当地语言（在map函数外部定义，避免作用域问题）
+        const restaurantLang = getRestaurantLang();
+        
         staffOrderList.innerHTML = orderItems.map(item => {
             // 获取餐厅当地语言的菜品名称（而不是用户当前语言）
-            const restaurantLang = getRestaurantLang();
             const langSpan = document.querySelector(`.dish-card[data-id="${item.id}"] .dish-name span[data-lang="${restaurantLang}"]`);
             const displayName = langSpan ? langSpan.textContent : item.name;
             
@@ -5028,6 +5024,15 @@ function applyFilters() {
                 </div>
             `;
         }).join('');
+        
+        // 设置"总计"文字为餐厅当地语言
+        const totalLabels = {
+            'nl': 'Totaal',      // 荷兰语
+            'it': 'Totale',      // 意大利语
+            'es': 'Total',       // 西班牙语
+            'en': 'Total'        // 英语
+        };
+        document.getElementById('staffTotalLabel').textContent = totalLabels[restaurantLang] || 'Total';
         
         // 更新总价 - 显示原始EUR价格（使用欧元符号）
         let totalEUR = 0;
