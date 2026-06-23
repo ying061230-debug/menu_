@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>B&G Restaurants - Menu</title>
+    <!-- Google Fonts: 优雅经典风格 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
     <style>
 
 :root {
@@ -27,7 +31,7 @@
     --accent-nonna: #E91E63;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; background-image: radial-gradient(circle at 20% 30%, rgba(212, 160, 23, 0.03) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(233, 30, 99, 0.03) 0%, transparent 50%); }
+body { font-family: 'Noto Sans SC', 'Segoe UI', sans-serif; background: var(--bg); color: var(--ink); line-height: 1.7; background-image: radial-gradient(circle at 20% 30%, rgba(212, 160, 23, 0.03) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(233, 30, 99, 0.03) 0%, transparent 50%); }
 .restaurant-selector { 
     display: flex; 
     justify-content: center; 
@@ -121,7 +125,7 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:
 .carousel-item { width: 100%; height: 400px; background-size: cover; background-position: center; }
 @keyframes slide { 0%, 20% { transform: translateX(0); } 25%, 45% { transform: translateX(-25%); } 50%, 70% { transform: translateX(-50%); } 75%, 95% { transform: translateX(-75%); } 100% { transform: translateX(0); } }
 .restaurant-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem; background: linear-gradient(transparent, rgba(212, 160, 23, 0.9)); }
-.restaurant-name { font-size: 2.5rem; font-weight: 700; color: white; margin-bottom: 0.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+.restaurant-name { font-family: 'Playfair Display', 'Noto Serif SC', serif; font-size: 2.5rem; font-weight: 700; color: white; margin-bottom: 0.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); letter-spacing: 0.02em; }
 .restaurant-meta { display: flex; gap: 2rem; margin-top: 1rem; flex-wrap: wrap; }
 .meta-item { display: flex; align-items: center; gap: 0.5rem; color: #333; font-size: 0.95rem; font-weight: 600; background: rgba(255,255,255,0.9); padding: 0.5rem 1rem; border-radius: 8px; }
 .language-bar { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background: var(--bg2); border-bottom: 2px solid var(--accent); gap: 1rem; }
@@ -198,7 +202,7 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:
 .filter-tag.active::after { width: 200px; height: 200px; background: white; }
 .dish-content { flex: 1; }
 .dish-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.6rem; flex-wrap: wrap; }
-.dish-name { font-size: 1.3rem; font-weight: 700; color: var(--ink); flex: 1; min-width: 200px; }
+.dish-name { font-family: 'Playfair Display', 'Noto Serif SC', serif; font-size: 1.3rem; font-weight: 600; color: var(--ink); flex: 1; min-width: 200px; letter-spacing: 0.01em; }
 .dish-price-wrapper { display: flex; flex-direction: column; align-items: flex-end; margin-left: 1rem; }
 .dish-price { font-size: 1.2rem; color: var(--accent3); font-weight: 700; }
 .dish-price-note { font-size: 0.75rem; color: var(--muted); margin-top: 0.2rem; font-style: italic; text-align: right; }
@@ -477,8 +481,8 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:
 /* 导航按钮样式 */
 .nav-btn { display: inline-block; margin-top: 1rem; padding: 0.8rem 1.5rem; background: linear-gradient(135deg, #4CAF50, #8BC34A); color: white; border-radius: 25px; font-weight: 600; font-size: 0.95rem; text-decoration: none; transition: all 0.3s; box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3); }
 .nav-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4); background: linear-gradient(135deg, #43A047, #7CB342); }
-.nav-btn span { display: none; }
-.nav-btn span[data-lang="zh-CN"] { display: inline; }
+.nav-btn span[data-lang] { display: none !important; }
+.nav-btn span[data-lang="zh-CN"] { display: inline !important; }
 /* 响应式优化 */
 @media (max-width: 768px) {
     .restaurant-header { height: 320px; position: relative; }
@@ -4155,6 +4159,7 @@ function applyFilters() {
 .staff-input {
     width: 100%;
     padding: 15px;
+    padding-right: 40px;
     border: 2px solid #ddd;
     border-radius: 10px;
     font-size: 1rem;
@@ -4164,6 +4169,26 @@ function applyFilters() {
     border-color: #667eea;
     outline: none;
 }
+.staff-input-clear {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    background: #ff6b6b;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+.staff-input-clear:hover { opacity: 1; }
 .staff-autocomplete {
     position: absolute;
     top: 100%;
@@ -4475,36 +4500,33 @@ function applyFilters() {
     <div class="staff-modal-content">
         <div class="staff-modal-header">
             <h2>
-                <span data-lang="zh-CN">我的订单</span>
-                <span data-lang="zh-TW">我的訂單</span>
-                <span data-lang="en">My Order</span>
-                <span data-lang="es">Mi Pedido</span>
-                <span data-lang="ko">내 주문</span>
-                <span data-lang="ja">私の注文</span>
-                <span data-lang="nl">Mijn Bestelling</span>
+                <span data-lang="zh-CN">向服务员展示</span>
+                <span data-lang="zh-TW">向服務員展示</span>
+                <span data-lang="en">Show to Staff</span>
+                <span data-lang="es">Mostrar al Personal</span>
+                <span data-lang="ko">직원에게 보여주기</span>
+                <span data-lang="ja">スタッフに見せる</span>
+                <span data-lang="nl">Toon aan Personeel</span>
             </h2>
             <button class="close-staff-modal" id="closeStaffModal">×</button>
         </div>
         <div class="staff-modal-body">
             <div class="staff-order-list" id="staffOrderList"></div>
-            <div class="staff-order-total">
-                <span id="staffTotalLabel">Totaal</span>
-                <span id="staffOrderTotal"></span>
-            </div>
         </div>
         <div class="staff-modal-footer">
             <div class="staff-message-area">
                 <label class="staff-message-label">
-                    <span data-lang="zh-CN">输入想说的话（自动补全菜品）：</span>
-                    <span data-lang="zh-TW">輸入想說的話（自動補全菜品）：</span>
-                    <span data-lang="en">Type your message (auto-complete dishes):</span>
-                    <span data-lang="es">Escribe tu mensaje (autocompletar platos):</span>
-                    <span data-lang="ko">메시지 입력 (요리 자동 완성):</span>
-                    <span data-lang="ja">メッセージ入力（料理自動補完）：</span>
-                    <span data-lang="nl">Typ uw bericht (auto-complete gerechten):</span>
+                    <span data-lang="zh-CN">备注（如：不吃蒜、微辣等）：</span>
+                    <span data-lang="zh-TW">備註（如：不吃蒜、微辣等）：</span>
+                    <span data-lang="en">Notes (e.g. no garlic, mild spicy):</span>
+                    <span data-lang="es">Notas (ej. sin ajo, poco picante):</span>
+                    <span data-lang="ko">요청사항 (예: 마늘 안 먹음, 덜 매운):</span>
+                    <span data-lang="ja">備考（例：ニンニクなし、辛さ控えめ）：</span>
+                    <span data-lang="nl">Opmerkingen (bijv. geen garlic, mild pittig):</span>
                 </label>
                 <div class="staff-input-wrapper">
-                    <input class="staff-input" id="staffInput" type="text" autocomplete="off">
+                    <input class="staff-input" id="staffInput" type="text" autocomplete="off" placeholder="不吃蒜、微辣、先上甜点...">
+                    <button class="staff-input-clear" id="staffInputClear">×</button>
                     <div class="staff-autocomplete" id="staffAutocomplete"></div>
                 </div>
                 <div class="staff-translation-area">
@@ -4518,61 +4540,24 @@ function applyFilters() {
                         <span data-lang="nl">Vertaling (Restaurant Taal):</span>
                     </div>
                     <div class="staff-translation-text" id="staffTranslationText"></div>
-                    <div class="staff-original-area">
-                        <div class="staff-original-label">
-                            <span data-lang="zh-CN">原文意思（您的语言）：</span>
-                            <span data-lang="zh-TW">原文意思（您的語言）：</span>
-                            <span data-lang="en">Original Meaning (Your Language):</span>
-                            <span data-lang="es">Significado Original (Tu Idioma):</span>
-                            <span data-lang="ko">원문 의미 (당신의 언어):</span>
-                            <span data-lang="ja">原文の意味（あなたの言語）：</span>
-                            <span data-lang="nl">Originele Betekenis (Uw Taal):</span>
-                        </div>
-                        <div class="staff-original-text" id="staffOriginalText"></div>
-                    </div>
                 </div>
                 <div class="staff-actions">
-                    <button class="clear-message-btn" id="clearMessageBtn">
-                        <span data-lang="zh-CN">🗑️ 清空</span>
-                        <span data-lang="zh-TW">🗑️ 清空</span>
-                        <span data-lang="en">🗑️ Clear</span>
-                        <span data-lang="es">🗑️ Limpiar</span>
-                        <span data-lang="ko">🗑️ 지우기</span>
-                        <span data-lang="ja">🗑️ クリア</span>
-                        <span data-lang="nl">🗑️ Wissen</span>
-                    </button>
-                    <button class="regenerate-btn" id="regenerateBtn">
-                        <span data-lang="zh-CN">🔄 重新生成</span>
-                        <span data-lang="zh-TW">🔄 重新生成</span>
-                        <span data-lang="en">🔄 Regenerate</span>
-                        <span data-lang="es">🔄 Regenerar</span>
-                        <span data-lang="ko">🔄 재생성</span>
-                        <span data-lang="ja">🔄 再生成</span>
-                        <span data-lang="nl">🔄 Regenereren</span>
-                    </button>
                     <button class="staff-voice-btn" id="staffVoiceBtn">
-                        <span data-lang="zh-CN">🔊 朗读</span>
-                        <span data-lang="zh-TW">🔊 讀出</span>
-                        <span data-lang="en">🔊 Speak</span>
-                        <span data-lang="es">🔊 Hablar</span>
-                        <span data-lang="ko">🔊 말하기</span>
-                        <span data-lang="ja">🔊 読む</span>
-                        <span data-lang="nl">🔊 Spreken</span>
-                    </button>
-                    <button class="copy-message-btn" id="copyMessageBtn">
-                        <span data-lang="zh-CN">📋 复制</span>
-                        <span data-lang="zh-TW">📋 複製</span>
-                        <span data-lang="en">📋 Copy</span>
-                        <span data-lang="es">📋 Copiar</span>
-                        <span data-lang="ko">📋 복사</span>
-                        <span data-lang="ja">📋 コピー</span>
-                        <span data-lang="nl">📋 Kopiëren</span>
+                        <span data-lang="zh-CN">🔊 朗读翻译</span>
+                        <span data-lang="zh-TW">🔊 讀出翻譯</span>
+                        <span data-lang="en">🔊 Speak Translation</span>
+                        <span data-lang="es">🔊 Hablar Traducción</span>
+                        <span data-lang="ko">🔊 번역 말하기</span>
+                        <span data-lang="ja">🔊 翻訳を読む</span>
+                        <span data-lang="nl">🔊 Vertaling Spreken</span>
                     </button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- 评论系统弹窗 -->
 
 <!-- 菜品对比弹窗 -->
 <div class="compare-modal" id="compareModal">
@@ -4712,12 +4697,18 @@ function applyFilters() {
     }
 
     function addToOrder(dishId, dishName, dishPrice, dishCategory) {
+        console.log('addToOrder called:', dishId, dishName);
         if (!orderItems.some(item => item.id === dishId)) {
             orderItems.push({ id: dishId, name: dishName, price: dishPrice, category: dishCategory });
             saveOrder();
+            renderOrderList();
             showToast(getText('added'));
+            console.log('Order items:', orderItems);
         }
     }
+    
+    // 暴露到全局
+    window.addToOrder = addToOrder;
 
     function removeFromOrder(dishId) {
         orderItems = orderItems.filter(item => item.id !== dishId);
@@ -4835,7 +4826,13 @@ function applyFilters() {
                 btn.className = 'add-order-btn';
                 btn.dataset.dishId = dishId;
                 btn.textContent = getText('add-order');
-                btn.onclick = () => addToOrder(dishId, dishName, dishPrice, category);
+                btn.onclick = () => {
+                    if (window.addToOrder) {
+                        window.addToOrder(dishId, dishName, dishPrice, category);
+                    } else {
+                        console.error('addToOrder not found');
+                    }
+                };
                 card.style.position = 'relative';
                 card.appendChild(btn);
             }
@@ -5584,19 +5581,14 @@ function applyFilters() {
     const showStaffBtn = document.getElementById('showStaffBtn');
     const staffModal = document.getElementById('staffModal');
     const closeStaffModal = document.getElementById('closeStaffModal');
-    const copyMessageBtn = document.getElementById('copyMessageBtn');
     const staffVoiceBtn = document.getElementById('staffVoiceBtn');
-    const clearMessageBtn = document.getElementById('clearMessageBtn');
-    const regenerateBtn = document.getElementById('regenerateBtn');
+    const staffInputClear = document.getElementById('staffInputClear');
     const staffInput = document.getElementById('staffInput');
     const staffAutocomplete = document.getElementById('staffAutocomplete');
     const staffTranslationText = document.getElementById('staffTranslationText');
-    const staffOriginalText = document.getElementById('staffOriginalText');
     
-    let messageText = ''; // 存储用户输入的文字（餐厅当地语言）
+    let messageText = ''; // 存储翻译后的文字（餐厅当地语言）
     let inputText = ''; // 存储用户输入的文字（当前语言）
-    let originalText = ''; // 存储原文意思（当前语言）
-    let hasUserContent = false; // 用户是否已自定义内容
     
     showStaffBtn.addEventListener('click', function() {
         if (orderItems.length === 0) {
@@ -5621,78 +5613,38 @@ function applyFilters() {
         if (e.target === staffModal) closeStaffModalFn();
     });
     
-    // 自动补全功能（显示餐厅当地语言菜品名称）
+    // 输入备注时实时翻译
+    let translateTimeout = null;
     staffInput.addEventListener('input', function() {
-        const value = this.value.toLowerCase();
         inputText = this.value;
         
-        if (value.length === 0) {
-            staffAutocomplete.classList.remove('active');
-            // 清空后保持空白，不自动生成内容
-            if (hasUserContent) {
-                staffTranslationText.textContent = messageText || '';
-                staffOriginalText.textContent = originalText || '';
-            }
+        // 清空时隐藏翻译区域
+        if (this.value.trim().length === 0) {
+            staffTranslationText.textContent = '';
+            messageText = '';
             return;
         }
         
-        // 从订单中查找匹配的菜品（用餐厅当地语言名称）
-        const restaurantLang = getRestaurantLang();
-        const matches = orderItems.filter(item => {
-            const langSpan = document.querySelector(`.dish-card[data-id="${item.id}"] .dish-name span[data-lang="${restaurantLang}"]`);
-            const nameLocal = langSpan ? langSpan.textContent.toLowerCase() : '';
-            const langSpanUser = document.querySelector(`.dish-card[data-id="${item.id}"] .dish-name span[data-lang="${currentLang}"]`);
-            const nameUser = langSpanUser ? langSpanUser.textContent.toLowerCase() : '';
-            return nameLocal.includes(value) || nameUser.includes(value);
-        });
-        
-        if (matches.length > 0) {
-            staffAutocomplete.innerHTML = matches.map(item => {
-                const langSpanLocal = document.querySelector(`.dish-card[data-id="${item.id}"] .dish-name span[data-lang="${restaurantLang}"]`);
-                const nameLocal = langSpanLocal ? langSpanLocal.textContent : item.name;
-                const langSpanUser = document.querySelector(`.dish-card[data-id="${item.id}"] .dish-name span[data-lang="${currentLang}"]`);
-                const nameUser = langSpanUser ? langSpanUser.textContent : item.name;
-                return `<div class="staff-autocomplete-item" data-name-local="${nameLocal}" data-name-user="${nameUser}">${nameUser} → ${nameLocal}</div>`;
-            }).join('');
-            staffAutocomplete.classList.add('active');
-        } else {
-            staffAutocomplete.classList.remove('active');
-        }
-        
-        // 实时更新翻译
-        updateTranslation();
-    });
-    
-    // 点击补全项（添加餐厅当地语言菜品名称）
-    staffAutocomplete.addEventListener('click', function(e) {
-        if (e.target.classList.contains('staff-autocomplete-item')) {
-            const nameLocal = e.target.getAttribute('data-name-local');
-            const nameUser = e.target.getAttribute('data-name-user');
-            messageText += nameLocal + ', ';
-            inputText += nameUser + ', ';
-            staffInput.value = inputText;
-            staffAutocomplete.classList.remove('active');
-            updateTranslation();
-        }
-    });
-    
-    // 添加普通文字（实时翻译）
-    staffInput.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') {
+        // 延迟翻译（避免频繁调用API）
+        if (translateTimeout) clearTimeout(translateTimeout);
+        translateTimeout = setTimeout(() => {
             const value = this.value.trim();
             if (value) {
-                // 使用MyMemory翻译API（翻译到餐厅当地语言）
                 const restaurantLang = getRestaurantLang();
-                showToast('正在翻译...');
                 translateText(value, currentLang, restaurantLang).then(translated => {
-                    messageText += translated + ' ';
-                    originalText += value + ' ';
-                    this.value = '';
-                    updateTranslation();
-                    showToast('翻译完成');
+                    messageText = translated;
+                    staffTranslationText.textContent = translated;
                 });
             }
-        }
+        }, 500);
+    });
+    
+    // 清空按钮
+    staffInputClear.addEventListener('click', function() {
+        staffInput.value = '';
+        staffTranslationText.textContent = '';
+        inputText = '';
+        messageText = '';
     });
     
     // MyMemory翻译API（免费，无需API Key）
@@ -5728,139 +5680,16 @@ function applyFilters() {
         }
     }
     
-    // 实时更新翻译显示
+    // 实时更新翻译显示（简化版：只用于备注翻译）
     function updateTranslation() {
-        const restaurantLang = getRestaurantLang();
-        
-        // 如果用户已自定义内容，保持空白
-        if (hasUserContent && !messageText) {
-            staffTranslationText.textContent = '';
-            staffOriginalText.textContent = '';
-            return;
-        }
-        
-        // 如果没有输入且用户未自定义，显示默认问候语
-        if (!messageText && !hasUserContent) {
-            // 根据餐厅语言显示问候语（餐厅当地语言）
-            const greetings = {
-                'nl': 'Hallo, ik wil bestellen: ',  // 荷兰语
-                'it': 'Ciao, voglio ordinare: ',    // 意大利语
-                'es': 'Hola, quiero ordenar: ',     // 西班牙语
-                'en': 'Hello, I want to order: '    // 英语
-            };
-            messageText = greetings[restaurantLang] || greetings['en'];
-            
-            // 根据用户语言显示问候语（用户语言）
-            const greetingsUser = {
-                'zh-CN': '你好，我想点：',
-                'zh-TW': '您好，我想點：',
-                'en': 'Hello, I want to order:',
-                'es': 'Hola, quiero ordenar:',
-                'ko': '안녕하세요, 주문하고 싶습니다:',
-                'ja': 'こんにちは、注文したいです:',
-                'nl': 'Hallo, ik wil bestellen:'
-            };
-            originalText = greetingsUser[currentLang] || greetingsUser['en'];
-            
-            // 添加所有菜品（餐厅当地语言）
-            orderItems.forEach(item => {
-                const langSpan = document.querySelector(`.dish-card[data-id="${item.id}"] .dish-name span[data-lang="${restaurantLang}"]`);
-                const nameLocal = langSpan ? langSpan.textContent : item.name;
-                messageText += nameLocal + ', ';
-                
-                // 添加菜品（用户语言）
-                const langSpanUser = document.querySelector(`.dish-card[data-id="${item.id}"] .dish-name span[data-lang="${currentLang}"]`);
-                const nameUser = langSpanUser ? langSpanUser.textContent : item.name;
-                originalText += nameUser + ', ';
-            });
-            
-            // 添加结束语（餐厅当地语言）
-            const thanks = {
-                'nl': 'Dank u!',
-                'it': 'Grazie!',
-                'es': '¡Gracias!',
-                'en': 'Thank you!'
-            };
-            messageText += thanks[restaurantLang] || thanks['en'];
-            
-            // 添加结束语（用户语言）
-            const thanksUser = {
-                'zh-CN': '谢谢！',
-                'zh-TW': '謝謝！',
-                'en': 'Thank you!',
-                'es': '¡Gracias!',
-                'ko': '감사합니다!',
-                'ja': 'ありがとうございます！',
-                'nl': 'Dank u!'
-            };
-            originalText += thanksUser[currentLang] || thanksUser['en'];
-        }
-        
-        staffTranslationText.textContent = messageText;
-        staffOriginalText.textContent = originalText;
+        // 翻译内容通过 input 事件实时更新，此函数保留为空
     }
-    
-    // 复制翻译
-    copyMessageBtn.addEventListener('click', function() {
-        navigator.clipboard.writeText(messageText).then(() => {
-            showToast('已复制到剪贴板');
-        });
-    });
-    
-    // 清空翻译
-    clearMessageBtn.addEventListener('click', function() {
-        messageText = '';
-        inputText = '';
-        originalText = '';
-        hasUserContent = true; // 用户主动清空，算自定义，下次打开保持空白
-        staffInput.value = '';
-        staffTranslationText.textContent = '';
-        staffOriginalText.textContent = '';
-        showToast('已清空');
-    });
-    
-    // 重新生成（只生成菜品列表，不加问候语）
-    regenerateBtn.addEventListener('click', function() {
-        const restaurantLang = getRestaurantLang();
-        messageText = '';
-        originalText = '';
-        hasUserContent = true; // 用户主动重新生成，算自定义
-        
-        // 只添加菜品（餐厅当地语言）
-        orderItems.forEach(item => {
-            const langSpan = document.querySelector(`.dish-card[data-id="${item.id}"] .dish-name span[data-lang="${restaurantLang}"]`);
-            const nameLocal = langSpan ? langSpan.textContent : item.name;
-            messageText += nameLocal + ', ';
-            
-            // 添加菜品（用户语言）
-            const langSpanUser = document.querySelector(`.dish-card[data-id="${item.id}"] .dish-name span[data-lang="${currentLang}"]`);
-            const nameUser = langSpanUser ? langSpanUser.textContent : item.name;
-            originalText += nameUser + ', ';
-        });
-        
-        staffTranslationText.textContent = messageText;
-        staffOriginalText.textContent = originalText;
-        showToast('已重新生成');
-    });
     
     // 朗读翻译（餐厅当地语言）
     staffVoiceBtn.addEventListener('click', function() {
-        // 如果没有翻译内容，朗读用户当前输入的内容
-        let textToSpeak = messageText;
-        
-        if (!textToSpeak) {
-            // 如果用户正在输入，翻译并朗读
-            const currentInput = staffInput.value.trim();
-            if (currentInput) {
-                const restaurantLang = getRestaurantLang();
-                translateText(currentInput, currentLang, restaurantLang).then(translated => {
-                    speakText(translated, restaurantLang);
-                });
-                return;
-            } else {
-                showToast('请先输入内容');
-                return;
-            }
+        if (!messageText) {
+            showToast('请先输入备注内容');
+            return;
         }
         
         const restaurantLang = getRestaurantLang();
@@ -5872,7 +5701,7 @@ function applyFilters() {
         };
         
         // 使用浏览器原生TTS（餐厅当地语言）
-        speakText(textToSpeak, langCodeMap[restaurantLang] || 'es-ES');
+        speakText(messageText, langCodeMap[restaurantLang] || 'es-ES');
     });
     
     // 浏览器原生TTS函数
@@ -5969,10 +5798,9 @@ function applyFilters() {
         // 重置输入和翻译
         messageText = '';
         inputText = '';
-        originalText = '';
         staffInput.value = '';
         staffAutocomplete.classList.remove('active');
-        updateTranslation(); // 初始化翻译（显示默认问候语+所有菜品+原文意思）
+        staffTranslationText.textContent = '';
         
         // 获取餐厅当地语言（在map函数外部定义，避免作用域问题）
         const restaurantLang = getRestaurantLang();
@@ -5982,81 +5810,12 @@ function applyFilters() {
             const langSpan = document.querySelector(`.dish-card[data-id="${item.id}"] .dish-name span[data-lang="${restaurantLang}"]`);
             const displayName = langSpan ? langSpan.textContent : item.name;
             
-            // 从菜品卡片获取原始EUR价格
-            const dishCard = document.querySelector(`.dish-card[data-id="${item.id}"]`);
-            const priceEl = dishCard?.querySelector('.dish-price');
-            let originalPrice = priceEl?.getAttribute('data-original-price');
-            
-            // 如果data-original-price不存在，从HTML中获取原始价格
-            if (!originalPrice) {
-                // 从HTML源码中查找原始EUR价格
-                const priceHtml = priceEl?.innerHTML || '';
-                const htmlMatch = priceHtml.match(/EUR\s*([\d,]+)/);
-                if (htmlMatch) {
-                    originalPrice = `EUR ${htmlMatch[1]}`;
-                } else {
-                    originalPrice = item.price;
-                }
-            }
-            
-            // 显示原始EUR价格（餐厅货币）- 使用欧元符号
-            const priceMatch = originalPrice.match(/EUR\s*([\d,]+)/);
-            let displayPrice = originalPrice;
-            if (priceMatch) {
-                displayPrice = `€${priceMatch[1]}`;
-            } else {
-                // 如果没有EUR格式，尝试提取数字并添加€符号
-                const numMatch = originalPrice.match(/([\d,]+)/);
-                if (numMatch) {
-                    displayPrice = `€${numMatch[1]}`;
-                }
-            }
-            
             return `
                 <div class="staff-order-item">
                     <span class="staff-order-item-name">${displayName}</span>
-                    <span class="staff-order-item-price">${displayPrice}</span>
                 </div>
             `;
         }).join('');
-        
-        // 设置"总计"文字为餐厅当地语言
-        const totalLabels = {
-            'nl': 'Totaal',      // 荷兰语
-            'it': 'Totale',      // 意大利语
-            'es': 'Total',       // 西班牙语
-            'en': 'Total'        // 英语
-        };
-        document.getElementById('staffTotalLabel').textContent = totalLabels[restaurantLang] || 'Total';
-        
-        // 更新总价 - 显示原始EUR价格（使用欧元符号）
-        let totalEUR = 0;
-        orderItems.forEach(item => {
-            const dishCard = document.querySelector(`.dish-card[data-id="${item.id}"]`);
-            const priceEl = dishCard?.querySelector('.dish-price');
-            let originalPrice = priceEl?.getAttribute('data-original-price');
-            
-            if (!originalPrice) {
-                const priceHtml = priceEl?.innerHTML || '';
-                const htmlMatch = priceHtml.match(/EUR\s*([\d,]+)/);
-                if (htmlMatch) {
-                    originalPrice = `EUR ${htmlMatch[1]}`;
-                } else {
-                    originalPrice = item.price;
-                }
-            }
-            
-            const priceMatch = originalPrice.match(/EUR\s*([\d,]+)/);
-            if (priceMatch) {
-                totalEUR += parseFloat(priceMatch[1].replace(',', '.'));
-            } else {
-                const numMatch = originalPrice.match(/([\d,]+)/);
-                if (numMatch) {
-                    totalEUR += parseFloat(numMatch[1].replace(',', '.'));
-                }
-            }
-        });
-        document.getElementById('staffOrderTotal').textContent = `€${totalEUR.toFixed(2).replace('.', ',')}`;
         
         // 应用当前选择的语言到服务员展示页面
         switchLanguage(currentLang);
@@ -6078,14 +5837,9 @@ function applyFilters() {
     
     function closeStaffModalFn() {
         staffModal.classList.remove('active');
-        // 关闭弹窗时，如果用户清空了内容，下次打开会重新显示默认文本
-        // 如果用户填了内容，下次打开保持空白（hasUserContent = true）
-        // 重置状态
+        // 关闭弹窗时重置状态
         messageText = '';
         inputText = '';
-        originalText = '';
-        // 只有用户没有自定义内容时，下次打开才显示默认文本
-        // hasUserContent保持不变，下次打开时根据这个值决定是否显示默认文本
     }
     
     function showToast(message) {
